@@ -7,554 +7,901 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --charcoal:#1C1C1E;--ch2:#252527;--ch3:#2E2E30;
-  --lime:#C8F135;--white:#F7F7F5;
-  --border:rgba(255,255,255,0.07);--bg:#111112;
-}
-body{background:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;color:var(--white);min-height:100vh;}
-
-.nav{height:54px;background:var(--charcoal);display:flex;align-items:center;padding:0 20px;gap:20px;border-bottom:0.5px solid var(--border);position:sticky;top:0;z-index:100;}
-.nav-logo{display:flex;align-items:center;gap:9px;cursor:pointer;}
-.nav-wm{font-size:17px;font-weight:800;letter-spacing:-0.03em;color:var(--white);}
-.nav-wm span{color:var(--lime);}
-.nav-links{display:flex;gap:18px;}
-.nav-link{font-size:12px;color:rgba(255,255,255,0.4);cursor:pointer;transition:color .15s;}
-.nav-link:hover{color:var(--white);}
-.nav-cta{margin-left:auto;background:var(--lime);color:var(--charcoal);font-size:11px;font-weight:700;padding:7px 15px;border-radius:7px;cursor:pointer;border:none;font-family:'Plus Jakarta Sans',sans-serif;}
-
+:root{--ch:#1C1C1E;--ch2:#252527;--ch3:#2E2E30;--lime:#C8F135;--wh:#F7F7F5;--bd:rgba(255,255,255,0.07);--bg:#111112;}
+body{background:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;color:var(--wh);min-height:100vh;}
 .view{display:none;}.view.active{display:block;}
 
-.hero{background:var(--charcoal);padding:44px 20px 36px;text-align:center;border-bottom:0.5px solid var(--border);}
-.hero-tag{display:inline-flex;align-items:center;background:rgba(200,241,53,0.1);border:0.5px solid rgba(200,241,53,0.25);color:var(--lime);font-size:11px;font-weight:600;padding:4px 12px;border-radius:99px;margin-bottom:16px;letter-spacing:.04em;text-transform:uppercase;}
-.hero-title{font-size:28px;font-weight:800;color:var(--white);line-height:1.2;letter-spacing:-0.03em;margin-bottom:10px;}
+/* NAV */
+.nav{height:54px;background:var(--ch);display:flex;align-items:center;padding:0 20px;gap:20px;border-bottom:0.5px solid var(--bd);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:9px;cursor:pointer;}
+.nav-wm{font-size:17px;font-weight:800;letter-spacing:-0.03em;color:var(--wh);}
+.nav-wm span{color:var(--lime);}
+.nav-cta{margin-left:auto;background:var(--lime);color:var(--ch);font-size:11px;font-weight:700;padding:7px 15px;border-radius:7px;cursor:pointer;border:none;font-family:inherit;}
+
+/* HERO */
+.hero{background:var(--ch);padding:44px 20px 36px;text-align:center;border-bottom:0.5px solid var(--bd);}
+.hero-tag{display:inline-flex;background:rgba(200,241,53,0.1);border:0.5px solid rgba(200,241,53,0.25);color:var(--lime);font-size:11px;font-weight:600;padding:4px 12px;border-radius:99px;margin-bottom:16px;letter-spacing:.04em;text-transform:uppercase;}
+.hero-title{font-size:28px;font-weight:800;color:var(--wh);line-height:1.2;letter-spacing:-0.03em;margin-bottom:10px;}
 .hero-title span{color:var(--lime);}
 .hero-sub{font-size:13px;color:rgba(255,255,255,0.42);max-width:360px;margin:0 auto 24px;line-height:1.65;}
-.search-wrap{display:flex;align-items:center;background:var(--ch3);border:0.5px solid rgba(255,255,255,0.1);border-radius:10px;padding:0 14px;max-width:340px;margin:0 auto;transition:border-color .15s;}
-.search-wrap:focus-within{border-color:var(--lime);}
-.search-icon{color:var(--lime);font-size:13px;margin-right:8px;}
-.search-wrap input{background:transparent;border:none;outline:none;color:var(--white);font-size:13px;padding:11px 0;flex:1;font-family:'Plus Jakarta Sans',sans-serif;}
+.search-wrap{display:flex;align-items:center;background:var(--ch3);border:0.5px solid rgba(255,255,255,0.1);border-radius:10px;padding:0 14px;max-width:340px;margin:0 auto;}
+.search-wrap input{background:transparent;border:none;outline:none;color:var(--wh);font-size:13px;padding:11px 0;flex:1;font-family:inherit;}
 .search-wrap input::placeholder{color:rgba(255,255,255,0.22);}
 
-.section{padding:24px 20px;}
+/* LAYOUT */
+.sec{padding:24px 20px;}
 .sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
-.sec-title{font-size:13px;font-weight:700;color:var(--white);letter-spacing:-0.01em;}
+.sec-title{font-size:13px;font-weight:700;color:var(--wh);}
 .sec-note{font-size:10px;color:rgba(255,255,255,0.22);font-family:'DM Mono',monospace;}
-.divider{height:0.5px;background:var(--border);margin:0 20px;}
+.divider{height:0.5px;background:var(--bd);margin:0 20px;}
+.d-label{font-size:10px;font-weight:600;color:rgba(255,255,255,0.22);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;padding-top:20px;}
 
-/* TILE GRID — 4 col, wraps to 2 rows of 4 */
+/* TILES */
 .tile-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
 .tile{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;}
 .tile-av{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;font-family:'DM Mono',monospace;border:1.5px solid transparent;transition:border-color .15s,transform .15s;}
 .tile:hover .tile-av{border-color:var(--lime);transform:scale(1.06);}
-.tile-name{font-size:10px;color:rgba(255,255,255,0.5);text-align:center;line-height:1.3;font-weight:500;}
-.tile-tag{font-size:9px;color:var(--lime);font-weight:600;text-align:center;}
+.tile-name{font-size:10px;color:rgba(255,255,255,0.5);text-align:center;line-height:1.3;}
+.tile-tag{font-size:9px;color:var(--lime);font-weight:600;}
 
-/* MONO TYPE BADGE on tile */
-
-
-/* CARDS */
-.card{background:var(--ch2);border:0.5px solid var(--border);border-radius:12px;padding:14px 16px;cursor:pointer;transition:border-color .15s;margin-bottom:8px;}
-.card:last-child{margin-bottom:0;}
+/* BASIC CARDS */
+.card{background:var(--ch2);border:0.5px solid var(--bd);border-radius:12px;padding:14px 16px;cursor:pointer;transition:border-color .15s;margin-bottom:8px;}
 .card:hover{border-color:rgba(200,241,53,0.35);}
-.card-feat{border-color:rgba(200,241,53,0.2);}
-.card-bar{height:2px;background:var(--lime);border-radius:0;margin:-14px -16px 12px;}
 .card-row{display:flex;align-items:center;gap:10px;}
 .card-num{font-size:11px;font-weight:600;color:var(--lime);min-width:20px;font-family:'DM Mono',monospace;}
-.card-title{font-size:13px;font-weight:600;color:var(--white);flex:1;letter-spacing:-0.01em;}
+.card-title{font-size:13px;font-weight:600;color:var(--wh);flex:1;letter-spacing:-0.01em;}
 .card-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;background:rgba(200,241,53,0.1);color:var(--lime);border:0.5px solid rgba(200,241,53,0.2);white-space:nowrap;}
 .card-arr{font-size:14px;color:rgba(255,255,255,0.2);}
 .card-sub{font-size:11px;color:rgba(255,255,255,0.28);margin-top:5px;padding-left:30px;line-height:1.4;}
+.feat-bar{height:2px;background:var(--lime);margin:-14px -16px 12px;}
 
-/* AFFILIATE ROW */
-.aff-card{background:var(--ch2);border:0.5px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:8px;transition:border-color .15s;}
-.aff-card:hover{border-color:rgba(200,241,53,0.3);}
-.aff-card.feat{border-color:rgba(200,241,53,0.2);}
-.aff-card.feat .card-bar{display:block;}
-.aff-row{display:flex;align-items:center;gap:10px;}
-.aff-icon{width:38px;height:38px;border-radius:9px;background:rgba(200,241,53,0.07);border:0.5px solid rgba(200,241,53,0.14);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
-.aff-info{flex:1;}
-.aff-name{font-size:13px;font-weight:600;color:var(--white);letter-spacing:-0.01em;}
-.aff-meta{font-size:11px;color:rgba(255,255,255,0.3);margin-top:1px;}
-.aff-right{text-align:right;flex-shrink:0;}
-.aff-btn{background:var(--lime);color:var(--charcoal);font-size:10px;font-weight:700;padding:5px 11px;border-radius:6px;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap;}
-.aff-comm{font-size:9px;color:rgba(255,255,255,0.22);margin-top:3px;text-align:right;}
+/* CREATOR HEADER */
+.cr-hdr{background:var(--ch);padding:22px 20px;border-bottom:0.5px solid var(--bd);}
+.cr-hdr-top{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.cr-av{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;font-family:'DM Mono',monospace;flex-shrink:0;}
+.cr-name{font-size:18px;font-weight:800;color:var(--wh);letter-spacing:-0.02em;margin-bottom:3px;}
+.cr-desc{font-size:12px;color:rgba(255,255,255,0.38);line-height:1.5;}
+.cr-tag{margin-top:6px;display:inline-flex;background:rgba(200,241,53,0.08);border:0.5px solid rgba(200,241,53,0.18);color:var(--lime);font-size:10px;font-weight:600;padding:3px 9px;border-radius:99px;}
+.stat-pills{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.pill{background:rgba(255,255,255,0.04);border:0.5px solid var(--bd);border-radius:8px;padding:10px 12px;text-align:center;}
+.pill-val{font-size:16px;font-weight:700;color:var(--lime);font-family:'DM Mono',monospace;}
+.pill-lbl{font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px;}
 
-/* RANK BAR */
-.rank-wrap{margin-top:10px;padding-left:48px;}
+/* BACK / NAV BARS */
+.back-bar{display:flex;align-items:center;gap:10px;padding:13px 20px;background:var(--ch);border-bottom:0.5px solid var(--bd);cursor:pointer;}
+.back-arr{font-size:14px;color:var(--lime);}
+.back-lbl{font-size:12px;color:rgba(255,255,255,0.4);}
+
+/* REVIEW CARDS */
+.rev-card{background:var(--ch2);border:0.5px solid var(--bd);border-radius:12px;padding:16px;margin-bottom:10px;cursor:pointer;transition:border-color .15s;}
+.rev-card:hover{border-color:rgba(200,241,53,0.4);}
+.rev-card.feat{border-color:rgba(200,241,53,0.25);}
+.rev-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.rev-num{font-size:11px;font-weight:600;color:var(--lime);font-family:'DM Mono',monospace;min-width:22px;}
+.rev-icon{font-size:20px;flex-shrink:0;}
+.rev-info{flex:1;}
+.rev-title{font-size:14px;font-weight:700;color:var(--wh);letter-spacing:-0.01em;margin-bottom:2px;}
+.rev-sub{font-size:11px;color:rgba(255,255,255,0.35);line-height:1.4;}
+.rev-badge{font-size:10px;font-weight:600;padding:3px 9px;border-radius:99px;background:rgba(200,241,53,0.1);color:var(--lime);border:0.5px solid rgba(200,241,53,0.2);}
+.rev-arr{font-size:16px;color:rgba(255,255,255,0.2);}
+
+/* RANK BARS */
+.rank-wrap{padding-left:46px;}
 .rank-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
 .rank-pos{font-size:10px;font-weight:600;color:rgba(255,255,255,0.2);width:14px;font-family:'DM Mono',monospace;}
 .rank-name{font-size:11px;color:rgba(255,255,255,0.5);flex:1;}
 .rank-track{width:80px;height:4px;background:rgba(255,255,255,0.05);border-radius:99px;overflow:hidden;flex-shrink:0;}
 .rank-fill{height:100%;border-radius:99px;}
-.rank-val{font-size:10px;color:rgba(255,255,255,0.35);width:52px;text-align:right;font-family:'DM Mono',monospace;flex-shrink:0;}
+.rank-val{font-size:10px;color:rgba(255,255,255,0.35);width:60px;text-align:right;font-family:'DM Mono',monospace;flex-shrink:0;}
 
-/* CREATOR HEADER */
-.cr-hdr{background:var(--charcoal);padding:22px 20px;border-bottom:0.5px solid var(--border);}
-.cr-hdr-top{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
-.cr-av{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;font-family:'DM Mono',monospace;flex-shrink:0;}
-.cr-name{font-size:18px;font-weight:800;color:var(--white);letter-spacing:-0.02em;margin-bottom:3px;}
-.cr-desc{font-size:12px;color:rgba(255,255,255,0.38);line-height:1.5;}
-.cr-tag{margin-top:6px;display:inline-flex;align-items:center;gap:5px;background:rgba(200,241,53,0.08);border:0.5px solid rgba(200,241,53,0.18);color:var(--lime);font-size:10px;font-weight:600;padding:3px 9px;border-radius:99px;}
-.stat-pills{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-.pill{background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:8px;padding:10px 12px;text-align:center;}
-.pill-val{font-size:16px;font-weight:700;color:var(--lime);font-family:'DM Mono',monospace;}
-.pill-lbl{font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px;}
+/* AFF CARDS */
+.aff-card{background:var(--ch2);border:0.5px solid var(--bd);border-radius:12px;padding:14px 16px;margin-bottom:8px;transition:border-color .15s;}
+.aff-card:hover{border-color:rgba(200,241,53,0.3);}
+.aff-row{display:flex;align-items:center;gap:10px;}
+.aff-icon{width:38px;height:38px;border-radius:9px;background:rgba(200,241,53,0.07);border:0.5px solid rgba(200,241,53,0.14);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.aff-info{flex:1;}
+.aff-name{font-size:13px;font-weight:600;color:var(--wh);}
+.aff-meta{font-size:11px;color:rgba(255,255,255,0.3);margin-top:1px;}
+.aff-right{text-align:right;flex-shrink:0;}
+.aff-btn{background:var(--lime);color:var(--ch);font-size:10px;font-weight:700;padding:5px 11px;border-radius:6px;border:none;cursor:pointer;font-family:inherit;}
+.aff-comm{font-size:9px;color:rgba(255,255,255,0.22);margin-top:3px;}
 
-.back-bar{display:flex;align-items:center;gap:10px;padding:13px 20px;background:var(--charcoal);border-bottom:0.5px solid var(--border);cursor:pointer;}
-.back-arr{font-size:14px;color:var(--lime);}
-.back-lbl{font-size:12px;color:rgba(255,255,255,0.4);}
+/* DETAIL PAGE COMPONENTS */
+.idea-hero{background:var(--ch2);padding:22px 20px;border-bottom:0.5px solid var(--bd);}
+.idea-eyebrow{font-size:10px;font-weight:600;color:var(--lime);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
+.idea-big-title{font-size:24px;font-weight:800;color:var(--wh);letter-spacing:-0.03em;line-height:1.2;margin-bottom:10px;}
+.idea-big-desc{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.65;margin-bottom:14px;}
+.badge-row{display:flex;gap:7px;flex-wrap:wrap;}
+.badge{font-size:10px;font-weight:600;padding:3px 10px;border-radius:99px;background:rgba(200,241,53,0.1);color:var(--lime);border:0.5px solid rgba(200,241,53,0.2);}
+
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:18px 20px 0;}
+.stat-box{background:var(--ch2);border:0.5px solid var(--bd);border-radius:10px;padding:12px;text-align:center;}
+.stat-val{font-size:18px;font-weight:800;color:var(--lime);font-family:'DM Mono',monospace;letter-spacing:-0.02em;}
+.stat-lbl{font-size:10px;color:rgba(255,255,255,0.3);margin-top:3px;line-height:1.3;}
+
+.insight-card{background:var(--ch2);border:0.5px solid var(--bd);border-radius:10px;padding:14px;margin-bottom:8px;}
+.ins-row{display:flex;gap:10px;align-items:flex-start;}
+.ins-icon{width:32px;height:32px;border-radius:7px;background:rgba(200,241,53,0.08);border:0.5px solid rgba(200,241,53,0.15);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.ins-text{font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6;}
+.ins-text strong{color:var(--wh);font-weight:600;}
+
+.step-list{background:var(--ch2);border:0.5px solid var(--bd);border-radius:10px;overflow:hidden;}
+.step-item{display:flex;gap:14px;padding:14px 16px;border-bottom:0.5px solid var(--bd);}
+.step-item:last-child{border-bottom:none;}
+.step-left{display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;}
+.step-num{width:26px;height:26px;border-radius:50%;background:var(--lime);color:var(--ch);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;}
+.step-line{width:1px;background:rgba(200,241,53,0.15);flex:1;min-height:16px;}
+.step-item:last-child .step-line{display:none;}
+.step-right{flex:1;padding-top:3px;}
+.step-title{font-size:13px;font-weight:700;color:var(--wh);margin-bottom:4px;}
+.step-desc{font-size:12px;color:rgba(255,255,255,0.38);line-height:1.55;}
+.step-tip{display:inline-flex;gap:5px;background:rgba(200,241,53,0.06);border:0.5px solid rgba(200,241,53,0.15);border-radius:6px;padding:5px 9px;margin-top:8px;font-size:11px;color:rgba(200,241,53,0.8);}
+
+.avoid-wrap{background:rgba(240,149,149,0.05);border:0.5px solid rgba(240,149,149,0.15);border-radius:10px;overflow:hidden;}
+.avoid-item{display:flex;gap:10px;padding:12px 14px;border-bottom:0.5px solid rgba(240,149,149,0.1);align-items:flex-start;}
+.avoid-item:last-child{border-bottom:none;}
+.avoid-dot{width:6px;height:6px;border-radius:50%;background:#F09595;flex-shrink:0;margin-top:4px;}
+.avoid-text{font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5;}
+.avoid-text strong{color:#F09595;font-weight:600;}
+
+.scale-card{background:var(--ch2);border:0.5px solid var(--bd);border-radius:10px;padding:14px;margin-bottom:8px;}
+.scale-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.scale-phase{font-size:11px;font-weight:700;color:var(--lime);font-family:'DM Mono',monospace;min-width:64px;}
+.scale-track{flex:1;height:4px;background:rgba(255,255,255,0.05);border-radius:99px;overflow:hidden;}
+.scale-fill{height:100%;border-radius:99px;background:var(--lime);}
+.scale-income{font-size:11px;font-weight:600;color:var(--wh);font-family:'DM Mono',monospace;min-width:72px;text-align:right;}
+.scale-desc{font-size:11px;color:rgba(255,255,255,0.3);padding-left:74px;line-height:1.4;}
 
 /* GUIDE LOCK */
 .guide-lock{background:var(--ch2);border:0.5px solid rgba(200,241,53,0.2);border-radius:12px;padding:15px;margin-bottom:8px;}
 .lock-hdr{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.lock-icon{font-size:16px;flex-shrink:0;}
-.lock-title{font-size:13px;font-weight:700;color:var(--white);flex:1;}
+.lock-icon{font-size:16px;}
+.lock-title{font-size:13px;font-weight:700;color:var(--wh);flex:1;}
 .lock-price{font-size:14px;font-weight:700;color:var(--lime);font-family:'DM Mono',monospace;}
 .lock-preview{background:rgba(200,241,53,0.04);border:0.5px dashed rgba(200,241,53,0.15);border-radius:8px;padding:10px 12px;margin-bottom:12px;}
 .lock-preview-text{font-size:11px;color:rgba(255,255,255,0.18);line-height:1.6;filter:blur(3px);user-select:none;}
 .lock-items{margin-bottom:12px;}
 .lock-item{font-size:11px;color:rgba(255,255,255,0.38);margin-bottom:5px;padding-left:16px;position:relative;line-height:1.5;}
 .lock-item::before{content:"✓";position:absolute;left:0;color:var(--lime);font-weight:700;}
-.lock-btn{width:100%;background:var(--lime);color:var(--charcoal);font-size:12px;font-weight:700;padding:11px;border-radius:8px;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;}
-.lock-btn:hover{background:#d4f545;}
-
-/* IDEA EXPAND */
-.idea-card{background:var(--ch2);border:0.5px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:8px;cursor:pointer;transition:border-color .15s;}
-.idea-card:hover{border-color:rgba(200,241,53,0.35);}
-.idea-card.active{border-color:var(--lime);background:#1a2208;}
-.idea-card.feat{border-color:rgba(200,241,53,0.2);}
-.idea-top-bar{height:2px;background:var(--lime);border-radius:0;margin:-14px -16px 12px;}
-.idea-detail{padding:10px 0 0 30px;display:none;}
-.idea-card.active .idea-detail{display:block;}
-.idea-arr{font-size:13px;color:rgba(255,255,255,0.2);transition:transform .15s;}
-.idea-card.active .idea-arr{transform:rotate(90deg);color:var(--lime);}
-.detail-label{font-size:10px;font-weight:600;color:rgba(255,255,255,0.22);letter-spacing:.1em;text-transform:uppercase;margin:10px 0 7px;}
-.detail-label:first-child{margin-top:0;}
-.ins-row{display:flex;gap:8px;margin-bottom:5px;}
-.ins-dot{width:5px;height:5px;border-radius:50%;background:var(--lime);flex-shrink:0;margin-top:5px;}
-.ins-text{font-size:12px;color:rgba(255,255,255,0.45);line-height:1.5;}
-.step-row{display:flex;gap:9px;margin-bottom:7px;}
-.step-n{font-size:10px;font-weight:700;color:var(--charcoal);background:var(--lime);width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'DM Mono',monospace;margin-top:2px;}
-.step-t{font-size:12px;color:rgba(255,255,255,0.45);line-height:1.5;}
-
-/* TOOL BARS */
-.tool-card{background:var(--ch2);border:0.5px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:8px;cursor:pointer;transition:border-color .15s;}
-.tool-card:hover{border-color:rgba(200,241,53,0.35);}
-.tool-row{display:flex;align-items:center;gap:10px;}
-.tool-icon{width:38px;height:38px;border-radius:9px;background:rgba(200,241,53,0.07);border:0.5px solid rgba(200,241,53,0.14);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
-.tool-info{flex:1;}
-.tool-title{font-size:13px;font-weight:600;color:var(--white);}
-.tool-meta{font-size:11px;color:rgba(255,255,255,0.28);margin-top:2px;}
-.tool-winner{text-align:right;flex-shrink:0;}
-.tool-win-name{font-size:11px;font-weight:700;color:var(--lime);font-family:'DM Mono',monospace;}
-.tool-win-lbl{font-size:9px;color:rgba(255,255,255,0.22);margin-top:1px;}
+.lock-btn{width:100%;background:var(--lime);color:var(--ch);font-size:12px;font-weight:700;padding:11px;border-radius:8px;border:none;cursor:pointer;font-family:inherit;}
 
 /* PRO BANNER */
-.pro-banner{background:var(--charcoal);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);padding:18px 20px;display:flex;align-items:center;gap:14px;}
+.pro-banner{background:var(--ch);border-top:0.5px solid var(--bd);border-bottom:0.5px solid var(--bd);padding:18px 20px;display:flex;align-items:center;gap:14px;}
 .pro-icon{width:36px;height:36px;border-radius:8px;background:rgba(200,241,53,0.1);border:0.5px solid rgba(200,241,53,0.2);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
 .pro-text{flex:1;}
-.pro-title{font-size:13px;font-weight:700;color:var(--white);margin-bottom:2px;}
+.pro-title{font-size:13px;font-weight:700;color:var(--wh);margin-bottom:2px;}
 .pro-sub{font-size:11px;color:rgba(255,255,255,0.3);line-height:1.4;}
-.pro-btn{background:var(--lime);color:var(--charcoal);font-size:11px;font-weight:700;padding:8px 14px;border-radius:7px;cursor:pointer;white-space:nowrap;border:none;font-family:'Plus Jakarta Sans',sans-serif;flex-shrink:0;}
+.pro-btn{background:var(--lime);color:var(--ch);font-size:11px;font-weight:700;padding:8px 14px;border-radius:7px;cursor:pointer;white-space:nowrap;border:none;font-family:inherit;flex-shrink:0;}
 
-.footer{background:var(--charcoal);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;border-top:0.5px solid var(--border);}
+.footer{background:var(--ch);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;border-top:0.5px solid var(--bd);}
 .footer-logo{font-size:13px;font-weight:800;color:var(--lime);}
 .footer-links{display:flex;gap:14px;}
 .footer-link{font-size:11px;color:rgba(255,255,255,0.2);}
+
+/* IDEA LIST CARDS */
+.ilc{background:var(--ch2);border:0.5px solid var(--bd);border-radius:12px;padding:16px;margin-bottom:8px;cursor:pointer;transition:border-color .15s,background .15s;}
+.ilc:hover{border-color:rgba(200,241,53,0.4);background:#1a2208;}
+.ilc.feat{border-color:rgba(200,241,53,0.25);}
+.ilc-bar{height:2px;background:var(--lime);margin:-16px -16px 14px;}
+.ilc-row{display:flex;align-items:center;gap:12px;}
+.ilc-num{font-size:11px;font-weight:600;color:var(--lime);font-family:'DM Mono',monospace;min-width:22px;}
+.ilc-icon{font-size:20px;flex-shrink:0;}
+.ilc-info{flex:1;}
+.ilc-title{font-size:14px;font-weight:700;color:var(--wh);letter-spacing:-0.01em;margin-bottom:3px;}
+.ilc-sub{font-size:11px;color:rgba(255,255,255,0.35);line-height:1.4;}
+.ilc-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;}
+.ilc-badge{font-size:10px;font-weight:600;padding:3px 9px;border-radius:99px;background:rgba(200,241,53,0.1);color:var(--lime);border:0.5px solid rgba(200,241,53,0.2);white-space:nowrap;}
+.ilc-arr{font-size:16px;color:rgba(255,255,255,0.2);}
 </style>
 </head>
 <body>
 
-<!-- ═══ HOME ═══ -->
+<script>
+const SVG_LOGO = `<svg width="26" height="26" viewBox="0 0 58 58" fill="none"><path d="M29 5 L36 21 L29 29 L13 23 Z" fill="#C8F135"/><path d="M53 29 L37 22 L29 29 L35 45 Z" fill="#C8F135" opacity="0.72"/><path d="M29 53 L22 37 L29 29 L45 35 Z" fill="#C8F135" opacity="0.46"/><path d="M5 29 L21 36 L29 29 L23 13 Z" fill="#C8F135" opacity="0.22"/><circle cx="29" cy="29" r="5" fill="#C8F135"/><circle cx="29" cy="29" r="2.5" fill="#1C1C1E"/></svg>`;
+
+function nav(back){ return `<nav class="nav"><div class="nav-logo" onclick="${back||"go('home')"}">${SVG_LOGO}<span class="nav-wm">Creator<span>Lens</span></span></div><button class="nav-cta">Pro Access</button></nav>`; }
+function footer(){ return `<div class="footer"><span class="footer-logo">CreatorLens</span><div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Affiliate disclosure</span></div></div>`; }
+function backBar(dest,label){ return `<div class="back-bar" onclick="go('${dest}')"><span class="back-arr">←</span><span class="back-lbl">${label}</span></div>`; }
+
+/* ─── CREATOR DATA ─── */
+const creators = {
+  pf: {
+    name:'Project Farm', initials:'PF', tag:'🔍 Product testing',
+    bg:'#252527', color:'#C8F135', border:'rgba(200,241,53,0.3)',
+    subs:'4.5M', videos:'300+', extra:'No sponsors',
+    desc:'Todd tests products head-to-head with real data. Funded by Patreon so he declines all sponsorships — the most unbiased reviews on YouTube.',
+    reviews:[
+      { id:'pf-oil', num:'01', icon:'💧', title:'Penetrating oils tested', badge:'12 products', sub:'Kroil, PB Blaster, WD-40 — ranked by actual torque removed from rusted bolt',
+        method:'Todd bolts a rusted nut to an iron plate, applies each penetrating oil, waits a set time, then measures the torque required to break it free with a calibrated torque wrench.',
+        rankings:[['Kroil','97'],['PB Blaster','81'],['Liquid Wrench','74'],['WD-40','58'],['3-In-One','52']],
+        winner:'Kroil', winnerNote:'Significantly outperformed every other product — 40% better than the runner-up in real torque tests.',
+        aff:[{icon:'💧',name:'Kroil penetrating oil',meta:"#1 in Todd's testing — worth the premium price",comm:'~4% commission'},
+             {icon:'💧',name:'PB Blaster',meta:'Best budget option — strong runner-up in every test',comm:'~4% commission'}],
+        verdict:'Kroil is worth the price premium. WD-40 is surprisingly mediocre as a penetrating oil despite its popularity.',
+      },
+      { id:'pf-glue', num:'02', icon:'🔧', title:'Super glues compared', badge:'8 products', sub:'Gorilla, Loctite, Starbond — tested by break strength on identical bonds',
+        method:'Todd bonds identical wood blocks with each glue, lets them cure for 24 hours, then applies increasing weight to a calibrated break test rig until the joint fails.',
+        rankings:[['Starbond EM-150','96'],['Loctite Super Glue','88'],['Gorilla Super Glue','82'],['Amazon Basics','61'],['Elmer\'s','44']],
+        winner:'Starbond EM-150', winnerNote:'A CA glue used by woodworkers — dramatically outperformed name brands at a similar price point.',
+        aff:[{icon:'🔧',name:'Starbond EM-150 CA glue',meta:"Todd's #1 — professional quality CA glue",comm:'~4% commission'},
+             {icon:'🔧',name:'Loctite Super Glue',meta:'Best mainstream option — reliable and widely available',comm:'~4% commission'}],
+        verdict:"Starbond EM-150 is the clear winner. Gorilla performs well but Starbond is just as strong at the same price.",
+      },
+      { id:'pf-oil2', num:'03', icon:'🛢️', title:'Motor oils tested', badge:'10 products', sub:'Amsoil, Pennzoil, Mobil 1, Castrol — film strength and cold start tested',
+        method:'Todd uses a Falex machine to measure oil film strength under pressure, plus cold-pour viscosity tests at 0°F to simulate winter cold starts.',
+        rankings:[['Amsoil Signature','96'],['Pennzoil Platinum','90'],['Mobil 1 Full Synthetic','88'],['Castrol Edge','84'],['Valvoline Advanced','76']],
+        winner:'Amsoil Signature Series', winnerNote:'Consistently topped film strength and cold flow tests. Worth the premium for high-performance engines.',
+        aff:[{icon:'🛢️',name:'Amsoil Signature Series 5W-30',meta:"Todd's top pick — best film strength tested",comm:'~6% commission'},
+             {icon:'🛢️',name:'Pennzoil Platinum Full Synthetic',meta:"Runner-up — outstanding cold-start performance",comm:'~4% commission'}],
+        verdict:'Synthetic oil is worth it across the board. Amsoil wins on film strength but Pennzoil Platinum is nearly as good at lower cost.',
+      },
+      { id:'pf-tape', num:'04', icon:'🦆', title:'Duct tape strength', badge:'9 products', sub:'Pull strength, heat resistance, and water exposure ranked',
+        method:'Todd tests adhesion strength on painted metal using a calibrated pull scale, then soaks samples in water for 24 hours and exposes them to 150°F heat to test durability.',
+        rankings:[['Gorilla Tape','95'],['T-Rex Tape','92'],['3M Multi-Use Tape','84'],['Duck Brand','71'],['Store brand','48']],
+        winner:'Gorilla Tape', winnerNote:'Significantly stronger than the original Duck brand tape. The double-thick design lives up to its claims.',
+        aff:[{icon:'🦆',name:'Gorilla Tape',meta:"Todd's #1 — actually lives up to its strength claims",comm:'~4% commission'},
+             {icon:'🦆',name:'T-Rex Tape',meta:'Runner-up — excellent all-weather performance',comm:'~4% commission'}],
+        verdict:'Gorilla Tape is genuinely stronger. The cheap store brands barely work in comparison.',
+      },
+      { id:'pf-wiper', num:'05', icon:'🚗', title:'Wiper blades compared', badge:'7 products', sub:'Clear wipe, streak-free performance, durability tested',
+        method:'Todd installs each blade on the same vehicle windshield, applies a controlled water mist, and rates wipe clarity, chattering, and streak-free performance on a standardized scale.',
+        rankings:[['Bosch ICON','96'],['Rain-X Latitude','91'],['Michelin Endurance','85'],['PIAA Super Silicone','82'],['Anco 31-Series','61']],
+        winner:'Bosch ICON', winnerNote:"Best streak-free performance and quietest of all blades tested. Todd uses these on his own vehicles.",
+        aff:[{icon:'🚗',name:'Bosch ICON wiper blades',meta:"Todd's personal choice — consistently #1 in his tests",comm:'~4% commission'},
+             {icon:'🚗',name:'Rain-X Latitude',meta:'Strong runner-up — excellent in heavy rain',comm:'~4% commission'}],
+        verdict:"Bosch ICON is worth the extra $5. The improvement in streak-free wiping is immediate and noticeable.",
+      },
+      { id:'pf-chainsaw', num:'06', icon:'🪚', title:'Chainsaw bar oil compared', badge:'7 products', sub:'Slinging rate, viscosity, and bar wear tested',
+        method:'Todd measures oil slinging rate using a test rig, viscosity with a viscometer, and bar wear by running identical bars for equal cut times and measuring groove depth.',
+        rankings:[['Husqvarna Bar & Chain','94'],['Oregon Bar & Chain','89'],['Stihl ForestPlus','86'],['Generic',  '62'],['Vegetable oil','58']],
+        winner:'Husqvarna Bar & Chain Oil', winnerNote:'Best balance of viscosity, slinging rate, and bar protection in testing.',
+        aff:[{icon:'🪚',name:'Husqvarna Bar & Chain Oil',meta:"Todd's #1 for bar protection and low slinging",comm:'~4% commission'},
+             {icon:'🪚',name:'Oregon Bar & Chain Oil',meta:'Strong runner-up — widely available at big-box stores',comm:'~4% commission'}],
+        verdict:"Proper bar oil dramatically outperforms used motor oil or vegetable oil as a substitute.",
+      },
+    ],
+  },
+
+  ttc: {
+    name:'Torque Test Channel', initials:'TTC', tag:'⚙️ Tool testing',
+    bg:'#1e2a1e', color:'#C8F135', border:'rgba(200,241,53,0.3)',
+    subs:'1.2M', videos:'500+', extra:'275+ tools ranked',
+    desc:'Scientific data-driven tool testing. Every tool goes on their custom dynamometer — real torque curves, not manufacturer claims.',
+    categories:[
+      { id:'ttc-impact', num:'01', icon:'🔧', title:'Impact drivers', badge:'18+ brands', sub:'Measured on a custom dyno — torque curves, speed, and fastening tests',
+        method:'TTC attaches each impact driver to their custom dynamometer and measures peak torque, working torque over 5 seconds, and fastening torque on a standardized bolt. All results are shown as a live dyno curve.',
+        rankings:[['Milwaukee M18 Fuel 2953','1,847 in-lb'],['DeWalt DCF887','1,601 in-lb'],['Makita XDT16','1,438 in-lb'],['Ryobi PCL225','1,104 in-lb'],['Ridgid R86039B','1,088 in-lb']],
+        winner:'Milwaukee M18 Fuel', winnerNote:'Consistently tops the charts. Significantly outperforms everything in the same voltage class.',
+        aff:[{icon:'🔧',name:'Milwaukee M18 Fuel 2953-20',meta:'TTC #1 impact driver — dominates every metric',comm:'~3% commission'},
+             {icon:'🔧',name:'DeWalt DCF887B',meta:'Runner-up — excellent value and widely available',comm:'~3% commission'}],
+        verdict:"Milwaukee M18 Fuel is in a class of its own. DeWalt is the best value pick for most users.",
+      },
+      { id:'ttc-wrench', num:'02', icon:'🔩', title:'Impact wrenches', badge:'12+ brands', sub:'Nut-busting torque and sustained output measured on TTC\'s dyno',
+        method:'TTC measures nut-busting torque (breakaway from a fully torqued fastener), working torque sustained over time, and max torque on their dyno. Results include full torque curves.',
+        rankings:[['Ingersoll Rand 2235TiMAX','1,210 ft-lb'],['Milwaukee M18 Fuel 2767','1,010 ft-lb'],['DeWalt DCF900','840 ft-lb'],['Snap-on CT9075','820 ft-lb'],['Ryobi PCL270B','530 ft-lb']],
+        winner:'Ingersoll Rand 2235TiMAX', winnerNote:'The benchmark air impact wrench — nothing cordless beats its nut-busting torque.',
+        aff:[{icon:'🔩',name:'Ingersoll Rand 2235TiMAX',meta:"TTC's top wrench — the gold standard in nut-busting",comm:'~3% commission'},
+             {icon:'🔩',name:'Milwaukee M18 Fuel 2767',meta:'Best cordless option — beats most air tools',comm:'~3% commission'}],
+        verdict:"Ingersoll Rand leads on raw power. Milwaukee is the best cordless option by a significant margin.",
+      },
+      { id:'ttc-drill', num:'03', icon:'🔨', title:'Cordless drills', badge:'14+ brands', sub:'Chuck torque, speed, and battery runtime measured',
+        method:'TTC measures maximum chuck torque on a calibrated rig, no-load RPM, and battery runtime under consistent load until voltage cutoff.',
+        rankings:[['Milwaukee M18 Fuel 2804','750 in-lb'],['DeWalt DCD800','680 in-lb'],['Makita XPH12','640 in-lb'],['Bosch GSB18V-535','610 in-lb'],['Ridgid R86116','555 in-lb']],
+        winner:'Milwaukee M18 Fuel 2804', winnerNote:'Highest torque, fastest speed, and best runtime of any drill in its class.',
+        aff:[{icon:'🔨',name:'Milwaukee M18 Fuel 2804-20',meta:"TTC's top drill — best all-around performance",comm:'~3% commission'},
+             {icon:'🔨',name:'DeWalt DCD800B',meta:'Excellent runner-up — lighter than Milwaukee',comm:'~3% commission'}],
+        verdict:"Milwaukee leads on every metric. DeWalt is a strong alternative for users who prefer a lighter drill.",
+      },
+      { id:'ttc-socket', num:'04', icon:'🔧', title:'Wrenches & sockets', badge:'22+ brands', sub:'Break strength, ratchet quality, 6-point vs 12-point tested on automated machine',
+        method:'TTC uses an automated torque machine to apply increasing torque to each wrench/socket until failure, measuring break strength. Ratchet quality is measured by mechanism engagement and slip torque.',
+        rankings:[['GearWrench 81550P','Exceptional'],['Proto J1250G','Exceptional'],['Snap-on SOEX10','Exceptional'],['Craftsman 311PC','Good'],['Pittsburgh (HF)','Adequate']],
+        winner:'GearWrench & Proto', winnerNote:"Both brands deliver near-professional quality at a fraction of Snap-on prices — TTC's best value picks.",
+        aff:[{icon:'🔧',name:'GearWrench 81550P ratchet set',meta:"TTC's best value wrench — pro quality, fair price",comm:'~4% commission'},
+             {icon:'🔧',name:'GearWrench 6-point socket set',meta:'Stronger than 12-point under high torque',comm:'~4% commission'}],
+        verdict:"6-point sockets are stronger for stubborn fasteners. GearWrench delivers professional quality at half the Snap-on price.",
+      },
+      { id:'ttc-grinder', num:'05', icon:'⚡', title:'Angle grinders', badge:'10+ brands', sub:'No-load RPM, under-load RPM, and disc performance tested',
+        method:'TTC measures no-load RPM, loaded RPM under a standardized cutting task, and time-to-cut on 1/4" steel plate. Motor heat after sustained use is also measured.',
+        rankings:[['Milwaukee M18 Fuel 2780','8,500 RPM'],['DeWalt DCG413','8,000 RPM'],['Makita XAG04Z','8,500 RPM'],['Bosch GWS18V-45','7,500 RPM'],['Ryobi PCL525B','6,200 RPM']],
+        winner:'Milwaukee & Makita tied', winnerNote:'Both deliver identical no-load RPM but Milwaukee holds speed under load better.',
+        aff:[{icon:'⚡',name:'Milwaukee M18 Fuel 2780-20',meta:"TTC top grinder — best under-load performance",comm:'~3% commission'},
+             {icon:'⚡',name:'Makita XAG04Z',meta:'Dead heat with Milwaukee — great for Makita users',comm:'~3% commission'}],
+        verdict:"Milwaukee edges Makita under load. Both are dramatically better than Ryobi and Ridgid in this category.",
+      },
+      { id:'ttc-battery', num:'06', icon:'🔋', title:'Batteries & chargers', badge:'10+ brands', sub:'Capacity, charge speed, and heat performance tested',
+        method:'TTC fully charges each battery, drains it under a calibrated load to measure actual Wh capacity, then times a full recharge from empty. Battery temperature during use is also monitored.',
+        rankings:[['Milwaukee M18 12Ah','Actual 210Wh'],['DeWalt 20V 10Ah','Actual 190Wh'],['Makita 18V 6Ah','Actual 102Wh'],['Ryobi 18V 4Ah','Actual 65Wh'],['Ridgid 18V 4Ah','Actual 63Wh']],
+        winner:'Milwaukee M18 12Ah', winnerNote:'Highest actual capacity tested — Milwaukee batteries consistently deliver on their rated specs.',
+        aff:[{icon:'🔋',name:'Milwaukee M18 12Ah battery',meta:"TTC verified — highest actual Wh of any tested",comm:'~3% commission'},
+             {icon:'🔋',name:'DeWalt 20V Max 10Ah battery',meta:'Strong runner-up — excellent for DeWalt ecosystem users',comm:'~3% commission'}],
+        verdict:"Milwaukee batteries consistently deliver on their spec ratings. Budget batteries from lesser brands rarely do.",
+      },
+    ],
+  },
+
+  gr: {
+    name:'Gordon Ramsay', initials:'GR', tag:'🍳 Cooking & technique',
+    bg:'#2a1010', color:'#F09595', border:'rgba(240,149,149,0.3)',
+    subs:'24M', videos:'1,200+', extra:'3 Michelin stars',
+    desc:"Michelin-starred chef turned YouTube phenomenon. Gordon's channel covers everything from 5-minute breakfasts to his signature Beef Wellington.",
+    recipes:[
+      { id:'gr-eggs', num:'01', icon:'🥚', title:'Perfect scrambled eggs', badge:'Foundation technique', sub:'The low-and-slow method that changed how the world makes eggs',
+        desc:"Gordon's scrambled egg technique is his most-watched and most-referenced YouTube video. The method is counterintuitive — low heat, constant stirring, on-off heat cycles — but produces the creamiest eggs you've ever tasted.",
+        technique:["Use a cold pan and cold butter. Never start with a hot pan — it causes rubbery, overcooked curds.","Move on and off low heat constantly. 30 seconds on, pull off, stir, repeat. This prevents overcooking.","Pull off heat 30 seconds before they look done. Residual heat finishes the cooking — don't wait until they look ready.","Add crème fraîche at the end for creaminess and to immediately stop the cooking.","Season only at the end — salt added early draws out moisture and causes watery eggs."],
+        gear:[{icon:'🍳',name:'Stainless steel saucepan 2qt',meta:"Gordon's preferred vessel for scrambled eggs — even heat distribution",comm:'~5% commission'},
+              {icon:'🧈',name:'European-style butter (Kerrygold)',meta:'Higher fat content = richer, creamier results',comm:'~4% commission'}],
+        guide:{title:'Gordon Ramsay technique guide',price:'$12',preview:'Knife skills fundamentals · Perfect steak technique · Sauce foundations · Seasoning philosophy · The 10 tools Gordon uses daily...',
+        items:['Perfect scrambled eggs — the full low-and-slow method','Knife skills: the 3-finger grip and rocking technique','The perfect steak — searing, basting, resting explained','Sauce foundations: how to build a pan sauce from any protein','Seasoning philosophy — when to salt and why it matters','The 10 tools Gordon uses in every kitchen — with exact models']}
+      },
+      { id:'gr-wellington', num:'02', icon:'🥩', title:'Beef Wellington', badge:"Gordon's signature", sub:"His most iconic dish — tender beef wrapped in mushroom duxelles and puff pastry",
+        desc:"Beef Wellington is Gordon's most requested dish and the one he's most associated with. It looks impossibly complex but breaks down into manageable steps that any serious home cook can master.",
+        technique:["Sear the beef on all sides in a very hot pan — just 1–2 minutes per side. You're building a crust, not cooking it through.","The duxelles (mushroom paste) must be completely dry — cook it until every drop of moisture has evaporated or it will make the pastry soggy.","Wrap in prosciutto first, then chill for 30 minutes before wrapping in pastry — the cold maintains shape in the oven.","Score the pastry with a sharp knife before baking for a professional finish.","Rest for at least 10 minutes after baking — cutting too early lets all the juice escape."],
+        gear:[{icon:'🌡️',name:'Thermapen instant-read thermometer',meta:"Non-negotiable for Beef Wellington — 125°F for medium-rare",comm:'~5% commission'},
+              {icon:'🔪',name:'Wüsthof Classic chef\'s knife',meta:"Gordon's recommended knife for the duxelles and slicing",comm:'~6% commission'}],
+        guide:{title:'Gordon Ramsay technique guide',price:'$12',preview:'Same guide as above — all Gordon\'s techniques in one place',
+        items:['Step-by-step Beef Wellington with timing guide','Duxelles technique — getting completely dry mushroom paste','Pastry wrapping and scoring — professional presentation','Temperature guide for beef doneness in puff pastry','Make-ahead timeline — what can be prepped 2 days in advance','Wine pairing guide for Beef Wellington']}
+      },
+      { id:'gr-steak', num:'03', icon:'🥩', title:'Perfect pan-seared steak', badge:'Essential technique', sub:'Butter basting, herb infusion, resting — done right',
+        desc:"Gordon's steak technique is the gold standard for home cooks. The combination of high-heat searing, butter basting with aromatics, and proper resting produces restaurant-quality results every time.",
+        technique:["Bring steak to room temperature for 30–45 minutes before cooking — cold steak from the fridge cooks unevenly.","Season generously with salt and pepper on all surfaces, including the sides.","Use a smoking-hot cast iron or stainless pan — if it's not hot enough, you'll steam the steak instead of searing it.","Add butter, crushed garlic, and rosemary after the initial sear. Tilt the pan and baste continuously for 1–2 minutes.","Rest for half the cooking time — a 6-minute steak rests for 3 minutes. Non-negotiable."],
+        gear:[{icon:'🔥',name:'Lodge 12-inch cast iron skillet',meta:"The perfect steak pan — retains heat better than anything else",comm:'~5% commission'},
+              {icon:'🧈',name:'Plugrá European-style butter',meta:'Higher fat content gives the baste a richer flavor',comm:'~4% commission'}],
+        guide:{title:'Gordon Ramsay technique guide',price:'$12',preview:'Full steak doneness guide · Cast iron seasoning · Butter basting technique · Pan sauce recipe...',
+        items:["Gordon's full steak doneness guide — from rare to well-done with times",'Cast iron seasoning and maintenance guide','Butter basting technique — the step-by-step','Pan sauce from the steak fond — turn drippings into a restaurant sauce','The 5 best steaks for home cooking — ranked by value and flavor','How to rest meat properly — the science explained']}
+      },
+      { id:'gr-pasta', num:'04', icon:'🍝', title:'Spaghetti carbonara', badge:'Italian classic', sub:'The authentic version — no cream, just eggs and pecorino',
+        desc:"Real carbonara has no cream. Gordon's version stays authentic: guanciale (or pancetta), eggs, pecorino romano, and black pepper. The technique for achieving a creamy sauce without scrambling the eggs is what home cooks consistently struggle with.",
+        technique:["Use guanciale if you can find it — pancetta is the substitute. Bacon changes the flavor completely.","Reserve pasta water before draining — the starchy water is what creates the creamy consistency.","Remove the pan from heat before adding egg mixture — residual heat is all you need, direct heat scrambles eggs.","The egg-to-cheese ratio matters: 2 whole eggs and 2 yolks per 100g of pasta, plus 50g pecorino.","Toss constantly while adding pasta water a tablespoon at a time until you get the right consistency."],
+        gear:[{icon:'🍝',name:'Barilla spaghetti (bronze-cut)',meta:'Rough surface holds sauce better than smooth pasta',comm:'~4% commission'},
+              {icon:'🧀',name:'Locatelli Pecorino Romano',meta:"Authentic carbonara uses pecorino, not parmesan",comm:'~4% commission'}],
+        guide:{title:'Gordon Ramsay technique guide',price:'$12',preview:'Authentic carbonara method · Pasta cooking ratios · Italian pantry staples...',
+        items:['The authentic carbonara method — no cream, no shortcuts','Pasta cooking ratios — water, salt, and timing','Italian pantry staples Gordon always keeps stocked','4 classic Italian sauces every home cook should master','How to make fresh pasta by hand','Knife skills for Italian cooking — brunoise, chiffonade, julienne']}
+      },
+      { id:'gr-butter', num:'05', icon:'🍞', title:'Roast chicken technique', badge:'The fundamental roast', sub:"Gordon's method for the juiciest roast chicken — butter under the skin",
+        desc:"Gordon's roast chicken is often cited as the first recipe home cooks should master. It teaches temperature control, resting, and seasoning fundamentals that apply to every roast.",
+        technique:["Dry brine the night before — salt the chicken uncovered in the fridge overnight. This seasons deeply and dries the skin for maximum crispiness.","Butter under the skin is non-negotiable — it bastes the breast meat from the inside as it melts.","Start at high heat (425°F) for 20 minutes to crisp the skin, then reduce to 375°F for the remainder.","The internal temperature of the thigh joint should reach 165°F — use a probe thermometer.","Rest for 10–15 minutes before carving — the juices redistribute through the meat."],
+        gear:[{icon:'🌡️',name:'Thermapen MK4 thermometer',meta:"Gordon's most-recommended kitchen tool — instant readings",comm:'~5% commission'},
+              {icon:'🍗',name:'Roasting pan with rack',meta:'Elevates the bird so hot air circulates underneath',comm:'~5% commission'}],
+        guide:{title:'Gordon Ramsay technique guide',price:'$12',preview:'Dry brining guide · Butter compound variations · Roasting timetables · Gravy from the drippings...',
+        items:['Dry brining guide — how long, how much salt, what it does','Butter compound variations — herb, lemon, truffle','Roasting timetables for chicken by weight','Gravy from the drippings — a 5-minute sauce from any roast','Carving a roast chicken — the correct technique','Whole roast cooking guide: chicken, lamb, beef, pork']}
+      },
+    ],
+  },
+
+  bwb: {
+    name:'Binging with Babish', initials:'BwB', tag:'🍿 Film & TV food',
+    bg:'#2a1010', color:'#F09595', border:'rgba(240,149,149,0.3)',
+    subs:'10M', videos:'500+', extra:'NYT Bestselling cookbook',
+    desc:"Andrew Rea recreates iconic food from film and TV, then makes it better. From the Krabby Patty to The Bear's Italian Beef — every recreation includes a real recipe you can cook at home.",
+    recreations:[
+      { id:'bwb-krabby', num:'01', icon:'🍔', title:"Krabby Patty (SpongeBob)", badge:'Most viewed episode', sub:'The most-watched video on the channel — a real recipe from a cartoon burger',
+        desc:"The Krabby Patty was Babish's most viral video and still one of his most-watched. He reverse-engineered what a cartoon burger might actually taste like, then made it better with a smash-burger technique.",
+        technique:["Smash the beef patty thin on a hot griddle — more crust surface area means more flavor.","The 'special sauce' is a thousand island variant: mayo, ketchup, relish, mustard, and a touch of hot sauce.","Use American cheese for maximum meltability — it's the right cheese for a diner-style burger.","Steamed bun is key — place it face-down on the grill after the cheese melts to steam and soften.","Double stack for the full effect — two thin smashed patties with cheese between them."],
+        gear:[{icon:'🍔',name:'Lodge cast iron griddle',meta:"Babish's preferred surface for smash burgers",comm:'~5% commission'},
+              {icon:'🔪',name:'Flexible metal spatula',meta:'Essential for the smash — thin, stiff, and wide',comm:'~4% commission'}],
+        guide:{title:'Babish home cooking guide',price:'$9',preview:'Carbon steel seasoning · Smash burger technique · Knife skills foundations · How to recreate any dish...',
+        items:['Smash burger technique — the full method from Babish','Carbon steel pan seasoning and maintenance','Knife skills: the foundations Babish teaches in Basics','Stock, sauce, and fat — the building blocks of flavor','How to recreate any dish from a recipe or a screenshot','The 5 pans every serious home cook needs']}
+      },
+      { id:'bwb-beef', num:'02', icon:'🥩', title:"Italian beef (The Bear)", badge:'TV recreation', sub:"The sandwich from The Bear — slow-braised, dipped, with giardiniera",
+        desc:"The Bear's Italian Beef was one of the most requested recreations after the show's release. Babish nailed the authentic Chicago method: slow-braised beef, au jus for dipping, and hot giardiniera.",
+        technique:["The beef needs to braise low and slow for 4–5 hours — internal temp should reach 200°F for proper shredding.","The au jus is made from the braising liquid reduced with beef stock and aromatics — it's what you dip the sandwich in.","Slice or pull the beef, then dip the entire assembled sandwich in the warm au jus for 10–15 seconds before serving.","Hot giardiniera is non-negotiable for an authentic Chicago beef — the oil from the giardiniera adds flavor to every bite.","Use a French roll that holds up to dipping — a roll that falls apart defeats the purpose."],
+        gear:[{icon:'🍲',name:'Lodge 6qt dutch oven',meta:"Babish's most-used vessel for braising — even, retained heat",comm:'~5% commission'},
+              {icon:'🌶️',name:'Marconi hot giardiniera',meta:'The authentic Chicago brand — found in Italian delis',comm:'~4% commission'}],
+        guide:{title:'Babish home cooking guide',price:'$9',preview:'Same comprehensive guide — all Babish techniques in one place',
+        items:['Italian beef full braising recipe with timing','Braising fundamentals — liquid ratios, temperature, timing','Dutch oven buying guide — Lodge vs Le Creuset vs Staub','Au jus technique — reducing braising liquid into a dipping sauce','Chicago giardiniera recipe — make your own from scratch','10 iconic TV and film foods worth recreating at home']}
+      },
+      { id:'bwb-ratatouille', num:'03', icon:'🫛', title:"Ratatouille (Pixar)", badge:'Technique showcase', sub:"Confit byaldi — the actual French technique behind the Pixar dish",
+        desc:"The dish from the film is actually Confit Byaldi — a version created by chef Michel Guérard. Babish's recreation showed that the elaborate sliced-vegetable version is achievable at home and genuinely one of the most beautiful dishes you can make.",
+        technique:["Paper-thin vegetable slices are essential — use a mandoline for even thickness (1/16th inch).","The sauce base (pipérade) is made from sautéed tomatoes, peppers, onions, and garlic — it provides the flavor foundation.","Layer the sliced vegetables in an overlapping spiral pattern on top of the pipérade.","Cover with parchment and bake at 275°F for 2 hours — low and slow prevents the vegetables from drying out.","The dish should be pressed overnight in the fridge before serving for professional presentation."],
+        gear:[{icon:'🔪',name:'OXO mandoline slicer',meta:'Non-negotiable for paper-thin vegetable slices',comm:'~5% commission'},
+              {icon:'🍳',name:'Oven-safe casserole dish (round)',meta:'The right shape for the authentic presentation',comm:'~5% commission'}],
+        guide:{title:'Babish home cooking guide',price:'$9',preview:'Mandoline safety and technique · Vegetable cookery fundamentals · French braising methods...',
+        items:['Confit byaldi full recipe with step-by-step photos','Mandoline safety and technique — how to avoid the #1 kitchen injury','Vegetable cookery fundamentals — sweating, sautéing, caramelizing','French braising techniques adapted for home ovens','10 beautiful dishes that are easier than they look','How to plate food like a restaurant chef']}
+      },
+      { id:'bwb-carbonara', num:'04', icon:'🍝', title:"Prison Sauce (Goodfellas)", badge:'Fan favourite', sub:"The Goodfellas razor-blade garlic technique — is it real?",
+        desc:"Babish's Goodfellas episode became one of his most iconic — he actually used a razor blade to slice garlic paper-thin as shown in the film. The resulting sauce genuinely tastes different from normally-sliced garlic.",
+        technique:["Razor-thin garlic slices are not just for show — they melt into the oil completely and create a more diffuse, gentle garlic flavor than chopped garlic.","The sauce is built in the pan from the garlic oil — add crushed San Marzano tomatoes and simmer for 45 minutes.","Season every layer: the garlic oil, the tomatoes, and again at the end.","Fresh basil goes in only at the end — heat destroys the volatile compounds that give basil its flavor.","The pasta should finish cooking in the sauce, absorbing the flavor and releasing starch to thicken the sauce."],
+        gear:[{icon:'🍅',name:"San Marzano DOP crushed tomatoes",meta:"Babish's preferred tomato for Italian red sauces",comm:'~4% commission'},
+              {icon:'🍳',name:'Stainless sauté pan 12-inch',meta:'For building authentic Italian sauces — stainless shows fond better than non-stick',comm:'~5% commission'}],
+        guide:{title:'Babish home cooking guide',price:'$9',preview:'Italian red sauce foundations · Garlic technique variations · Pasta finishing in sauce...',
+        items:['Italian red sauce foundations — the 4-ingredient base every cook needs','Garlic technique: sliced vs minced vs whole vs roasted — when to use each','Pasta finishing technique — cooking pasta in the sauce, not just topping it','How to build a basic Italian pantry — 12 essentials','4 classic Italian red sauces every home cook should master','Fresh pasta vs dried pasta — when each is appropriate']}
+      },
+      { id:'bwb-babka', num:'05', icon:'🍞', title:"Chocolate babka (Seinfeld)", badge:'Bread baking', sub:"The lesser babka episode — is chocolate actually inferior to cinnamon?",
+        desc:"The Seinfeld babka episode made Babish's recreation inevitable. His version made the case that chocolate babka is every bit as good as cinnamon — possibly better. This episode also became a masterclass in enriched bread baking.",
+        technique:["Babka is an enriched dough — the butter, eggs, and sugar are what make it soft, rich, and utterly different from a lean bread dough.","The lamination of the filling matters — roll tight, cut lengthwise, twist the two halves around each other for the visible swirl.","A syrup glaze immediately after baking is non-negotiable — it gives babka its signature sheen and adds another layer of sweetness.","Babka benefits from an overnight cold proof in the fridge — the slow fermentation develops better flavor.","The chocolate filling should be thick enough to hold its shape when rolled — too thin and it disappears into the dough."],
+        gear:[{icon:'🍫',name:'Valrhona cocoa powder',meta:"Babish's preferred cocoa for the chocolate filling — deeper flavor",comm:'~4% commission'},
+              {icon:'🍞',name:'9x5 loaf pan (USA Pan brand)',meta:'Non-stick and perfectly sized for a babka loaf',comm:'~5% commission'}],
+        guide:{title:'Babish home cooking guide',price:'$9',preview:'Enriched bread fundamentals · Lamination technique · Glaze and finishing guide...',
+        items:['Enriched bread fundamentals — how butter and eggs change bread dough','Babka lamination technique — rolling, filling, and twisting for a visible swirl','Bread proofing guide — how to tell when dough is ready at every stage','Glaze and finishing for enriched breads','Chocolate vs cinnamon filling — recipes for both','How to store and reheat babka for maximum freshness']}
+      },
+    ],
+  },
+
+  ltt: {
+    name:'Linus Tech Tips', initials:'LTT', tag:'💻 PC & tech reviews',
+    bg:'#0f1a2a', color:'#85B7EB', border:'rgba(133,183,235,0.3)',
+    subs:'16M', videos:'6,000+', extra:'6,000+ videos',
+    desc:"The world's most prolific tech review channel. Real benchmarks, practical buyer's guides, and the LTT screwdriver. No fluff.",
+    categories:[
+      { id:'ltt-gpu', num:'01', icon:'🎮', title:'GPUs ranked', badge:'10 tested', sub:'Best graphics cards at every price point — benchmark tested',
+        rankings:[['RTX 4060 Ti','94/100'],['RX 7600 XT','81/100'],['Arc B580','74/100'],['RX 7600','68/100'],['RTX 3060','61/100']],
+        winner:'RTX 4060 Ti', winnerNote:'Best rasterization and ray tracing at the $350–400 price point. Excellent DLSS 3 support.',
+        aff:[{icon:'🎮',name:'RTX 4060 Ti (ASUS Dual OC)',meta:"LTT's top pick under $400 — excellent 1080p/1440p gaming",comm:'~2.5%'},
+             {icon:'🎮',name:'RX 7600 XT',meta:'Best AMD option — great for non-ray-traced games',comm:'~2.5%'}],
+        guide:{title:'Build your first PC guide',price:'$14',preview:'Part picker checklist · $500/$800/$1,200 builds · Cable management · Benchmarking guide...',
+        items:['Part picker checklist — what to buy and in what order','Budget builds: $500 / $800 / $1,200 tiers with exact parts','Cable management and airflow — LTT\'s tips for clean builds','How to benchmark your build after assembly','GPU upgrade path planning for the next 3 years','Common first PC build mistakes and how to avoid them']}
+      },
+      { id:'ltt-monitor', num:'02', icon:'🖥️', title:'Gaming monitors ranked', badge:'8 tested', sub:'1440p and 4K panels — response time, color, and input lag tested',
+        rankings:[['LG 27GP850-B','93/100'],['Asus ROG Swift PG279QM','91/100'],['Samsung Odyssey G7','89/100'],['Dell S2722DGM','78/100'],['MSI G274QPF-E2','74/100']],
+        winner:'LG 27GP850-B', winnerNote:'Best all-around 1440p gaming monitor — excellent response time, great color, reasonable price.',
+        aff:[{icon:'🖥️',name:'LG 27GP850-B 1440p 165Hz',meta:"LTT's top pick — best value 1440p gaming monitor",comm:'~3%'},
+             {icon:'🖥️',name:'ASUS ROG Swift PG279QM',meta:'Best premium option — 240Hz with IPS panel',comm:'~3%'}],
+        guide:{title:'Build your first PC guide',price:'$14',preview:'Same comprehensive build guide — monitor selection section included',
+        items:['Monitor buying guide — resolution, refresh rate, panel type explained','1440p vs 4K for gaming — which makes sense at what GPU tier','Response time vs refresh rate — what actually matters for gaming','Color calibration guide — how to get accurate colors from any monitor','The best monitor settings for gaming vs productivity','When to buy a 4K monitor: the GPU requirement explained']}
+      },
+      { id:'ltt-keyboard', num:'03', icon:'⌨️', title:'Mechanical keyboards ranked', badge:'12 tested', sub:'Switch feel, build quality, and typing experience — by price tier',
+        rankings:[['Keychron Q1 Pro','94/100'],['HHKB Professional Hybrid','92/100'],['Logitech MX Mechanical','85/100'],['Corsair K70 Pro','80/100'],['Razer BlackWidow V4','72/100']],
+        winner:'Keychron Q1 Pro', winnerNote:'Best typing feel, exceptional build quality, and wireless — at a price that makes premium boards feel overpriced.',
+        aff:[{icon:'⌨️',name:'Keychron Q1 Pro',meta:"LTT's top pick — best typing experience under $200",comm:'~4%'},
+             {icon:'⌨️',name:'Logitech MX Mechanical',meta:'Best for office use — quiet, wireless, well-built',comm:'~4%'}],
+        guide:{title:'Build your first PC guide',price:'$14',preview:'Keyboard switch guide · Desk setup optimization · Monitor arm buying guide...',
+        items:['Keyboard switch guide — linear vs tactile vs clicky explained','How to lube switches at home — the difference it makes','Desk setup optimization — ergonomics, cable management, lighting','Monitor arm buying guide — VESA compatibility and weight limits','The best desk accessories that LTT actually uses','Budget vs premium peripherals: where to spend and where to save']}
+      },
+      { id:'ltt-nas', num:'04', icon:'💾', title:'NAS drives & home servers', badge:'LTT deep dives', sub:'Home media servers, Plex, and network storage — the LTT guide',
+        rankings:[['Synology DS923+','Best overall NAS'],['TrueNAS Scale','Best self-build'],['Seagate IronWolf','Best NAS HDD'],['WD Red Plus','Runner-up HDD'],['Samsung 870 Evo','Best NAS SSD']],
+        winner:'Synology DS923+', winnerNote:"LTT's go-to NAS recommendation for home users — excellent software ecosystem and dead simple to set up.",
+        aff:[{icon:'💾',name:'Synology DS923+ 4-bay NAS',meta:"LTT's top home NAS — best software and reliability",comm:'~3%'},
+             {icon:'💾',name:'Seagate IronWolf 4TB (2-pack)',meta:'NAS-optimized drives — built for 24/7 operation',comm:'~3%'}],
+        guide:{title:'Build your first PC guide',price:'$14',preview:'NAS setup guide · Plex configuration · RAID explained · Remote access setup...',
+        items:['NAS buying guide — how many bays, what drives, which brands','Plex media server setup from scratch — complete walkthrough','RAID explained simply: RAID 0, 1, 5, and 6 — which to use','Remote access to your NAS from anywhere — Tailscale and VPNs','Backup strategy: the 3-2-1 rule for home data','Power usage calculator — how much does a NAS actually cost to run?']}
+      },
+      { id:'ltt-screwdriver', num:'05', icon:'🔩', title:'LTT screwdriver', badge:'LTT original', sub:"Their own tool — the world's best tech screwdriver, according to LTT",
+        rankings:[['LTT Screwdriver','Exceptional'],['iFixit Pro Tech','Excellent'],['Wiha 26190','Excellent'],['Klein Tools 32614','Good'],['Generic Amazon','Adequate']],
+        winner:'LTT Screwdriver', winnerNote:"Their own product — and genuinely excellent. The ratcheting mechanism and magnetic bit storage make it the best tech screwdriver we've tested.",
+        aff:[{icon:'🔩',name:'LTT Screwdriver',meta:'Their own product — direct affiliate, excellent quality',comm:'Direct'},
+             {icon:'🔩',name:'iFixit Pro Tech Toolkit',meta:'Best alternative — comprehensive kit for repair work',comm:'~4%'}],
+        guide:{title:'Build your first PC guide',price:'$14',preview:'Comprehensive tool guide for PC building · Complete parts checklist...',
+        items:['The only tools you need to build a PC','Step-by-step PC build walkthrough with photos at every stage','Anti-static precautions — what matters and what doesn\'t','Troubleshooting a new build that won\'t POST','BIOS setup after a new build — the essential settings to check','How to upgrade an existing PC vs building new: the decision framework']}
+      },
+    ],
+  },
+
+  mkbhd: {
+    name:'Marques Brownlee', initials:'MK', tag:'📱 Tech reviews',
+    bg:'#0a1520', color:'#85B7EB', border:'rgba(133,183,235,0.3)',
+    subs:'19M', videos:'1,500+', extra:'Since 2009',
+    desc:"The gold standard in consumer tech reviews. Marques tests phones, headphones, cameras, and EVs with production quality that sets the benchmark for the entire genre.",
+    reviews:[
+      { id:'mk-phones', num:'01', icon:'📱', title:'Best smartphones of 2025', badge:'14 phones tested', sub:'Camera, performance, software, and battery — comprehensive ranking',
+        rankings:[['iPhone 16 Pro','95/100'],['Galaxy S25 Ultra','88/100'],['Pixel 9 Pro','82/100'],['OnePlus 13','78/100'],['Galaxy S25','75/100']],
+        winner:'iPhone 16 Pro', winnerNote:'Best camera system, best processor, and best long-term software support. Sets the benchmark for 2025.',
+        aff:[{icon:'📱',name:'iPhone 16 Pro',meta:"MKBHD's #1 pick — best overall smartphone of 2025",comm:'~2%'},
+             {icon:'📱',name:'Samsung Galaxy S25 Ultra',meta:'Best Android phone — AI features and S Pen differentiate it',comm:'~2%'}],
+      },
+      { id:'mk-headphones', num:'02', icon:'🎧', title:'Best wireless headphones', badge:'10 tested', sub:'Noise cancellation, sound quality, and comfort ranked',
+        rankings:[['Sony WH-1000XM6','94/100'],['Apple AirPods Max','88/100'],['Bose QuietComfort 45','82/100'],['Samsung Galaxy Buds 3 Pro','76/100'],['Jabra Evolve2 85','74/100']],
+        winner:'Sony WH-1000XM6', winnerNote:'Best noise cancellation tested. Excellent sound quality with deep Sony app customization.',
+        aff:[{icon:'🎧',name:'Sony WH-1000XM6',meta:"MKBHD's top headphone pick — best ANC on the market",comm:'~4%'},
+             {icon:'🎧',name:'Apple AirPods Max (USB-C)',meta:'Best for Apple ecosystem — seamless device switching',comm:'~3%'}],
+      },
+      { id:'mk-camera', num:'03', icon:'📸', title:'Best mirrorless cameras 2025', badge:'8 tested', sub:'For YouTube, photography, and content creation',
+        rankings:[['Sony A7C II','93/100'],['Fujifilm X-T5','90/100'],['Canon EOS R8','85/100'],['Nikon Z5 II','82/100'],['Sony ZV-E10 II','78/100']],
+        winner:'Sony A7C II', winnerNote:'Best all-in-one mirrorless for content creators — excellent AF, great video, and compact form factor.',
+        aff:[{icon:'📸',name:'Sony A7C II body',meta:"MKBHD's pick for content creators — best all-around mirrorless",comm:'~3%'},
+             {icon:'📸',name:'Sigma FP mirrorless',meta:"MKBHD's b-roll camera of choice — ultra compact full frame",comm:'~3%'}],
+      },
+      { id:'mk-ev', num:'04', icon:'🚗', title:'Best EVs reviewed', badge:'6 EVs tested', sub:'Range, software, charging speed, and value compared',
+        rankings:[['Tesla Model 3 (2024)','89/100'],['Rivian R1S','87/100'],['Hyundai IONIQ 6','85/100'],['BMW i4 M50','83/100'],['Chevy Equinox EV','77/100']],
+        winner:'Tesla Model 3 (2024 refresh)', winnerNote:'Best combination of range, charging network, and software. The Supercharger network remains a decisive advantage.',
+        aff:[{icon:'🚗',name:'EV charging station (Level 2)',meta:'Home charger essential for any EV — ChargePoint or Grizzl-E',comm:'~4%'},
+             {icon:'🚗',name:'Tesla Wall Connector',meta:'For Tesla owners — fastest home charging option',comm:'~3%'}],
+      },
+      { id:'mk-laptop', num:'05', icon:'💻', title:'Best laptops 2025', badge:'10 tested', sub:'For creative work, student use, and general productivity',
+        rankings:[['MacBook Pro 16" M4 Pro','95/100'],['Dell XPS 15 (2025)','87/100'],['ASUS Zenbook 14 OLED','84/100'],['LG Gram 16','80/100'],['HP Spectre x360 14','78/100']],
+        winner:'MacBook Pro 16" M4 Pro', winnerNote:'Best performance-per-watt laptop ever tested. The battery life is in a completely different category from Windows laptops.',
+        aff:[{icon:'💻',name:'MacBook Pro 16" M4 Pro',meta:"MKBHD's top pick — battery life and performance unmatched",comm:'~2%'},
+             {icon:'💻',name:'Dell XPS 15 (2025)',meta:'Best Windows laptop — excellent OLED display',comm:'~3%'}],
+      },
+    ],
+  },
+
+  pt: {
+    name:'Primitive Technology', initials:'PT', tag:'🪓 Primitive skills',
+    bg:'#1a2010', color:'#97C459', border:'rgba(151,196,89,0.3)',
+    subs:'11M', videos:'80+', extra:'1.19B total views',
+    desc:"John Plant builds shelters, tools, and pottery using only materials from the Australian wilderness — no modern tools, no narration, just pure primitive technology. The most meditative channel on YouTube.",
+    techniques:[
+      { id:'pt-fire', num:'01', icon:'🔥', title:'Fire-making: bow drill', badge:'Foundation skill', sub:'Starting fire from friction — the bow drill method used by John',
+        desc:"John Plant's bow drill fire-making video is one of the most-watched primitive technology demonstrations on YouTube. The bow drill is the fastest friction fire method and requires only a spindle, fireboard, bow, and handhold — all carvable from scratch.",
+        steps:["Finding the right wood is 80% of success. Both the spindle and fireboard must be bone-dry and matched in hardness — try willow, cottonwood, cedar, or basswood. Too hard and you can't create friction; too soft and it crumbles.","The spindle socket (handhold) must be very hard — use a piece of stone, dense hardwood, or a shell. Any friction at the top steals energy from the bottom where you need it.","Carve a notch in the fireboard that is 1/8th of the way into the depression — this is where the ember collects. Too large and you lose heat; too small and the ember can't form.","Bow string tension is critical — too loose and it slips, too tight and it's hard to draw. The string should be tight enough to grip the spindle with one wrap.","Speed builds heat, pressure creates the coal. Fast, even strokes while applying firm downward pressure — when you see sustained smoke, give it 10 more fast strokes before checking."],
+        gear:[{icon:'🔥',name:'Light My Fire Swedish FireSteel',meta:"The modern backup to bow drill — works when everything is wet",comm:'~6%'},
+              {icon:'📚',name:'Primitive Technology book (John Plant)',meta:"John's official book — 50 projects with step-by-step instructions",comm:'~4%'}],
+        guide:{title:'Bushcraft starter guide',price:'$9',preview:'7 core skills every beginner needs · Essential kit list · Fire-starting methods ranked · Shelter building fundamentals...',
+        items:['The 7 core bushcraft skills every beginner needs','Essential kit list — axe, knife, tarp, fire kit, filter','Fire-starting methods ranked: bow drill, flint and steel, ferro rod','Shelter building fundamentals — lean-to, tarp, debris hut','Foraging basics — what to look for, what to avoid','Weekend bushcraft plan — what to do your first time out']}
+      },
+      { id:'pt-hut', num:'02', icon:'🏚️', title:'Tiled roof hut', badge:'Most popular video', sub:"One of the most-viewed primitive building videos on YouTube — 66 days of work",
+        desc:"The Tiled Roof Hut is John's most famous project and took 66 days of work. He built roof tiles from clay, constructed wattle-and-daub walls, and installed an underfloor heating system (ondol). The result is genuinely habitable shelter built entirely from wilderness materials.",
+        steps:["Site selection determines everything — find ground that drains well, is near water, and has clay and straight timber available within walking distance.","The floor plan was small and practical: approximately 3x4 meters — large enough to sleep in comfortably but small enough to heat efficiently.","Wattle-and-daub wall construction: weave branches between vertical posts (wattle), then apply clay mixed with grass fibers (daub) on both sides until it forms a solid wall.","Roof tiles are formed from clay over a curved mold, dried in the sun, then fired in a kiln to harden them — each tile took significant time to produce.","The ondol (underfloor heating) channels hot air from an external fire under a raised clay floor — the most sophisticated element of the construction."],
+        gear:[{icon:'🪓',name:'Gransfors Bruks small forest axe',meta:"The gold standard bushcraft axe for shelter building",comm:'~5%'},
+              {icon:'🔪',name:'Mora Companion bushcraft knife',meta:'Best value bushcraft knife — Scandinavian grind, excellent steel',comm:'~5%'}],
+        guide:{title:'Bushcraft starter guide',price:'$9',preview:'Same comprehensive guide — shelter section covers debris hut, lean-to, tarp rigging, and primitive construction basics',
+        items:['Shelter hierarchy — from tarp to debris hut to primitive construction','Tarp rigging: 8 configurations for different weather and terrain','Debris hut construction — the best primitive emergency shelter','Reading terrain for shelter site selection — drainage, wind, resources','Natural cordage making — plants that work and the basic braiding method','How to make clay pottery from scratch — the coil method']}
+      },
+      { id:'pt-pottery', num:'03', icon:'🏺', title:'Clay pottery & kiln', badge:'Craft technique', sub:"Making clay pots and firing them to 1000°C using only natural materials",
+        desc:"John's pottery episodes demonstrate the entire process from clay extraction to fired vessels — including building a kiln that can achieve pottery-grade temperatures using only wood fuel and natural materials. These are genuinely functional vessels.",
+        steps:["Find clay near river banks or in areas where topsoil has eroded — test it by rolling a thin coil between your palms. If it cracks immediately, there's not enough plasticity; if it's perfectly smooth, it may be too fatty and need sand added.","Wedge the clay thoroughly to remove air bubbles — press, fold, rotate, repeat for 5–10 minutes. Air bubbles cause pots to explode in the kiln.","Coil construction: roll ropes of clay and stack them in circles, smoothing the joins on both sides with a wooden tool or fingers. Build up slowly and let each section firm slightly before adding more.","Dry the pot completely before firing — this takes days in the sun. Any remaining moisture becomes steam in the kiln and shatters the pot.","Build a top-loaded kiln from clay and fire slowly — start with a small fire and increase heat gradually over 2–3 hours before reaching peak temperature."],
+        gear:[{icon:'🏺',name:'Pottery tool set (wire, loop, rib)',meta:'For home pottery work — the same basic tools used for millennia',comm:'~5%'},
+              {icon:'📚',name:'Primitive Technology book',meta:'Covers the pottery and kiln episodes in detail with step-by-step instructions',comm:'~4%'}],
+        guide:{title:'Bushcraft starter guide',price:'$9',preview:'Same guide — includes foraging, fire, shelter, water, and primitive tools sections',
+        items:['Clay identification and processing — finding and preparing wild clay','Coil pottery technique — building functional vessels by hand','Primitive kiln construction — achieving firing temperatures with wood','Stone tool making basics — flint knapping and ground stone','Natural fiber and cordage — plants, processing, and braiding','Food preservation in the wild — drying, smoking, clay-cooking']}
+      },
+      { id:'pt-tools', num:'04', icon:'🪨', title:'Stone tools & axes', badge:'Tool making', sub:"Shaping stone axes, chisels, and scrapers using primitive techniques",
+        desc:"John demonstrates ground stone axe making — a technique that requires patience but produces genuinely functional tools from materials available in almost any wilderness. His stone axes are capable of felling trees.",
+        steps:["Select hard, fine-grained stone for tools — basalt, granite, quartzite, or chert. Avoid stone with visible cracks or grain lines that could cause splitting under use.","Shape by pecking: use a harder hammerstone to peck the surface of the tool stone. Thousands of small impacts gradually remove material without shattering the piece.","Grind to final shape on a wet sandstone surface — this smooths the edge and removes small stress points that could cause chipping in use.","Hafting: split a green wood handle, wedge the stone into the split, and bind tightly with natural cordage soaked in water. As it dries, it contracts and grips the stone tighter.","An edge retouched by pressing a deer antler or bone against it (pressure flaking) can be made sharp enough to shave with — this is the finishing step for cutting tools."],
+        gear:[{icon:'🪨',name:'Flint knapping pressure flaker tool',meta:'Modern equivalent for practicing stone tool techniques',comm:'~5%'},
+              {icon:'🔨',name:'Gransfors Bruks hand hatchet',meta:'If you want a functional modern equivalent — superb quality',comm:'~5%'}],
+        guide:{title:'Bushcraft starter guide',price:'$9',preview:'Includes primitive tools, cordage, fire, shelter, water, and more — the complete beginner guide',
+        items:['Stone tool identification — what rocks work and what to avoid','Ground stone technique — pecking and grinding for functional tools','Flint knapping basics — percussion and pressure flaking','Natural cordage from plants — dogbane, stinging nettle, inner bark','Primitive trap making — basic snares and deadfalls','Reading a wilderness landscape for all the resources you need']}
+      },
+      { id:'pt-charcoal', num:'05', icon:'⚫', title:'Making charcoal', badge:'Advanced technique', sub:'Retort charcoal making — for higher-temperature work including metalworking',
+        desc:"One of John's more advanced projects — making charcoal for higher-temperature applications including primitive metalworking. Charcoal burns significantly hotter than wood and is required for smelting iron and working metals.",
+        steps:["Build a retort: a clay pot with a small hole in the lid. Fill it with dry wood cut into small pieces and completely seal the pot except for the small vent hole.","Surround the retort with a wood fire and maintain high heat for 2–3 hours — the vent hole will emit combustible gases. When these gases stop burning, the charcoal is ready.","Allow the retort to cool completely before opening — exposing hot charcoal to air causes it to ignite and burn up.","Test the charcoal by crushing a piece — good charcoal breaks cleanly and is uniformly black throughout. Under-cooked charcoal has a brown center.","Store in a sealed container to keep moisture out — charcoal that absorbs moisture won't reach the temperatures needed for metalworking."],
+        gear:[{icon:'⚫',name:'Hardwood lump charcoal (Royal Oak)',meta:'Modern equivalent for grilling — burns hotter and cleaner than briquettes',comm:'~4%'},
+              {icon:'🔥',name:'Bellows or air blower',meta:'For achieving metalworking temperatures with charcoal',comm:'~4%'}],
+        guide:{title:'Bushcraft starter guide',price:'$9',preview:'Comprehensive guide covering all primitive technology fundamentals — from fire to metalworking intro',
+        items:['Charcoal making — retort method and pit method compared','Introduction to primitive metalworking — iron smelting basics','Clay working for technical applications — kilns and tuyeres','Building a primitive forge bellows from bark and leather','The progression of primitive technology: stone → clay → charcoal → metal','Advanced shelter: how John builds on his previous structures']}
+      },
+    ],
+  },
+};
+</script>
+
+<!-- ════════════════════════ HOME ════════════════════════ -->
 <div id="home" class="view active">
 <nav class="nav">
-  <div class="nav-logo" onclick="go('home')">
-    <svg width="26" height="26" viewBox="0 0 58 58" fill="none"><path d="M29 5 L36 21 L29 29 L13 23 Z" fill="#C8F135"/><path d="M53 29 L37 22 L29 29 L35 45 Z" fill="#C8F135" opacity="0.72"/><path d="M29 53 L22 37 L29 29 L45 35 Z" fill="#C8F135" opacity="0.46"/><path d="M5 29 L21 36 L29 29 L23 13 Z" fill="#C8F135" opacity="0.22"/><circle cx="29" cy="29" r="5" fill="#C8F135"/><circle cx="29" cy="29" r="2.5" fill="#1C1C1E"/></svg>
-    <span class="nav-wm">Creator<span>Lens</span></span>
-  </div>
-  <div class="nav-links"><span class="nav-link">Creators</span><span class="nav-link">Guides</span><span class="nav-link">Reviews</span></div>
+  <div class="nav-logo" onclick="go('home')">${SVG_LOGO}<span class="nav-wm">Creator<span>Lens</span></span></div>
   <button class="nav-cta">Pro Access</button>
 </nav>
-
 <div class="hero">
   <div class="hero-tag">Content intelligence</div>
   <div class="hero-title">The best of every creator,<br><span>organized for you.</span></div>
   <div class="hero-sub">Business ideas, product reviews, tool data, recipes and tech — distilled from the world's top YouTube creators.</div>
-  <div class="search-wrap"><span class="search-icon">&#9906;</span><input type="text" placeholder="Search creators, products, ideas..."></div>
+  <div class="search-wrap"><span style="color:var(--lime);font-size:13px;margin-right:8px;">⊙</span><input type="text" placeholder="Search creators, products, ideas..."></div>
 </div>
-
-<div class="section">
+<div class="sec">
   <div class="sec-hdr"><span class="sec-title">All creators</span><span class="sec-note">8 channels</span></div>
   <div class="tile-grid">
-
-    <div class="tile" onclick="go('ck')">
-      <div class="tile-av" style="background:#1C1C1E;color:#C8F135;">CK</div>
-      <div class="tile-name">Chris Koerner</div>
-      <div class="tile-tag">Business</div>
-
-    </div>
-
-    <div class="tile" onclick="go('pf')">
-      <div class="tile-av" style="background:#252527;color:#C8F135;">PF</div>
-      <div class="tile-name">Project Farm</div>
-      <div class="tile-tag">Reviews</div>
-
-    </div>
-
-    <div class="tile" onclick="go('ttc')">
-      <div class="tile-av" style="background:#1e2a1e;color:#C8F135;">TTC</div>
-      <div class="tile-name">Torque Test</div>
-      <div class="tile-tag">Tools</div>
-
-    </div>
-
-    <div class="tile" onclick="go('ltt')">
-      <div class="tile-av" style="background:#0f1a2a;color:#85B7EB;">LTT</div>
-      <div class="tile-name">Linus Tech Tips</div>
-      <div class="tile-tag">Tech</div>
-
-    </div>
-
-    <div class="tile" onclick="go('mkbhd')">
-      <div class="tile-av" style="background:#0a1520;color:#85B7EB;">MK</div>
-      <div class="tile-name">MKBHD</div>
-      <div class="tile-tag">Tech</div>
-
-    </div>
-
-    <div class="tile" onclick="go('gr')">
-      <div class="tile-av" style="background:#2a1010;color:#F09595;">GR</div>
-      <div class="tile-name">Gordon Ramsay</div>
-      <div class="tile-tag">Cooking</div>
-
-    </div>
-
-    <div class="tile" onclick="go('bwb')">
-      <div class="tile-av" style="background:#2a1010;color:#F09595;">BwB</div>
-      <div class="tile-name">Binging w/ Babish</div>
-      <div class="tile-tag">Cooking</div>
-
-    </div>
-
-    <div class="tile" onclick="go('pt')">
-      <div class="tile-av" style="background:#1a2010;color:#97C459;">PT</div>
-      <div class="tile-name">Primitive Technology</div>
-      <div class="tile-tag">Survival</div>
-
-    </div>
-
+    <div class="tile" onclick="go('ck')"><div class="tile-av" style="background:#1C1C1E;color:#C8F135;">CK</div><div class="tile-name">Chris Koerner</div><div class="tile-tag">Business</div></div>
+    <div class="tile" onclick="go('pf')"><div class="tile-av" style="background:#252527;color:#C8F135;">PF</div><div class="tile-name">Project Farm</div><div class="tile-tag">Reviews</div></div>
+    <div class="tile" onclick="go('ttc')"><div class="tile-av" style="background:#1e2a1e;color:#C8F135;">TTC</div><div class="tile-name">Torque Test</div><div class="tile-tag">Tools</div></div>
+    <div class="tile" onclick="go('ltt')"><div class="tile-av" style="background:#0f1a2a;color:#85B7EB;">LTT</div><div class="tile-name">Linus Tech Tips</div><div class="tile-tag">Tech</div></div>
+    <div class="tile" onclick="go('mkbhd')"><div class="tile-av" style="background:#0a1520;color:#85B7EB;">MK</div><div class="tile-name">MKBHD</div><div class="tile-tag">Tech</div></div>
+    <div class="tile" onclick="go('gr')"><div class="tile-av" style="background:#2a1010;color:#F09595;">GR</div><div class="tile-name">Gordon Ramsay</div><div class="tile-tag">Cooking</div></div>
+    <div class="tile" onclick="go('bwb')"><div class="tile-av" style="background:#2a1010;color:#F09595;">BwB</div><div class="tile-name">Binging w/ Babish</div><div class="tile-tag">Cooking</div></div>
+    <div class="tile" onclick="go('pt')"><div class="tile-av" style="background:#1a2010;color:#97C459;">PT</div><div class="tile-name">Primitive Technology</div><div class="tile-tag">Survival</div></div>
   </div>
 </div>
-
 <div class="divider"></div>
-
-<div class="section">
+<div class="sec">
   <div class="sec-hdr"><span class="sec-title">Trending content</span></div>
-  <div class="card card-feat" onclick="go('ltt')"><div class="card-bar"></div><div class="card-row"><span class="card-num">01</span><span class="card-title">Best GPU under $400 — ranked</span><span class="card-badge">Tech</span><span class="card-arr">›</span></div><div class="card-sub">RTX 4060 Ti vs RX 7600 XT vs Arc B580 — real benchmark data</div></div>
-  <div class="card" onclick="go('gr')"><div class="card-row"><span class="card-num">02</span><span class="card-title">Gordon's essential knife guide</span><span class="card-badge">Cooking</span><span class="card-arr">›</span></div><div class="card-sub">Chef's knife, bread knife, paring knife — what to buy and why</div></div>
-  <div class="card" onclick="go('mkbhd')"><div class="card-row"><span class="card-num">03</span><span class="card-title">Best phones of 2025 — ranked</span><span class="card-badge">Tech</span><span class="card-arr">›</span></div><div class="card-sub">iPhone 16 Pro vs Galaxy S25 Ultra vs Pixel 9 Pro</div></div>
-  <div class="card" onclick="go('pt')"><div class="card-row"><span class="card-num">04</span><span class="card-title">Best bushcraft starter kit</span><span class="card-badge">Survival</span><span class="card-arr">›</span></div><div class="card-sub">Axe, ferro rod, tarp, water filter — curated from PT videos</div></div>
+  <div class="card" style="border-color:rgba(200,241,53,0.2);" onclick="go('ck')"><div class="feat-bar"></div><div class="card-row"><span class="card-num">01</span><span class="card-title">Chris Koerner — 15 business ideas with full breakdowns</span><span class="card-badge">Business</span><span class="card-arr">›</span></div><div class="card-sub">From laundromats to spray drones — all clickable with stats, steps, and guide</div></div>
+  <div class="card" onclick="go('pf')"><div class="card-row"><span class="card-num">02</span><span class="card-title">Project Farm — penetrating oils, motor oils, and more</span><span class="card-badge">Reviews</span><span class="card-arr">›</span></div><div class="card-sub">Real test data, ranked products, and affiliate buy links</div></div>
+  <div class="card" onclick="go('gr')"><div class="card-row"><span class="card-num">03</span><span class="card-title">Gordon Ramsay — technique breakdowns & gear</span><span class="card-badge">Cooking</span><span class="card-arr">›</span></div><div class="card-sub">Scrambled eggs, Beef Wellington, perfect steak, and more</div></div>
+  <div class="card" onclick="go('ttc')"><div class="card-row"><span class="card-num">04</span><span class="card-title">Torque Test Channel — 275+ tools ranked by real data</span><span class="card-badge">Tools</span><span class="card-arr">›</span></div><div class="card-sub">Impact drivers, wrenches, drills — dyno-tested, not manufacturer claims</div></div>
 </div>
-
 <div class="pro-banner">
-  <div class="pro-icon">&#11088;</div>
+  <div class="pro-icon">★</div>
   <div class="pro-text"><div class="pro-title">Unlock full guides — from $9</div><div class="pro-sub">Deep dives, gear lists, and starter frameworks for select creators.</div></div>
   <button class="pro-btn">View guides</button>
 </div>
 <div class="footer"><span class="footer-logo">CreatorLens</span><div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Guides</span><span class="footer-link">Affiliate disclosure</span></div></div>
 </div>
 
+<!-- ════════════════════════ CHRIS KOERNER ════════════════════════ -->
+<div id="ck" class="view"><div id="ck-content"></div></div>
+<div id="idea-detail" class="view"><div id="idea-detail-content"></div></div>
 
-<!-- ═══ CHRIS KOERNER ═══ -->
-<div id="ck" class="view">
-<nav class="nav"><div class="nav-logo" onclick="go('home')"><svg width="26" height="26" viewBox="0 0 58 58" fill="none"><path d="M29 5 L36 21 L29 29 L13 23 Z" fill="#C8F135"/><path d="M53 29 L37 22 L29 29 L35 45 Z" fill="#C8F135" opacity="0.72"/><path d="M29 53 L22 37 L29 29 L45 35 Z" fill="#C8F135" opacity="0.46"/><path d="M5 29 L21 36 L29 29 L23 13 Z" fill="#C8F135" opacity="0.22"/><circle cx="29" cy="29" r="5" fill="#C8F135"/><circle cx="29" cy="29" r="2.5" fill="#1C1C1E"/></svg><span class="nav-wm">Creator<span>Lens</span></span></div><button class="nav-cta">Pro Access</button></nav>
-<div class="back-bar" onclick="go('home')"><span class="back-arr">&#8592;</span><span class="back-lbl">Back to home</span></div>
-<div class="cr-hdr">
-  <div class="cr-hdr-top"><div class="cr-av" style="background:#1C1C1E;color:#C8F135;border:1.5px solid rgba(200,241,53,0.3);">CK</div><div><div class="cr-name">Chris Koerner</div><div class="cr-desc">Finds unique, overlooked business ideas and interviews the owners running them.</div><div class="cr-tag">&#128187; Business &amp; entrepreneurship</div></div></div>
-  <div class="stat-pills"><div class="pill"><div class="pill-val">180K</div><div class="pill-lbl">Subscribers</div></div><div class="pill"><div class="pill-val">400+</div><div class="pill-lbl">Videos</div></div><div class="pill"><div class="pill-val">8</div><div class="pill-lbl">Ideas tracked</div></div></div>
-</div>
-<div class="section">
-  <div class="sec-hdr"><span class="sec-title">Business ideas</span><span class="sec-note">Tap to expand</span></div>
+<!-- ════════════════════════ PROJECT FARM ════════════════════════ -->
+<div id="pf" class="view"><div id="pf-content"></div></div>
+<div id="pf-detail" class="view"><div id="pf-detail-content"></div></div>
 
-  <div class="idea-card feat active" onclick="toggleIdea(this)"><div class="idea-top-bar"></div><div class="card-row"><span class="card-num">01</span><span class="card-title">Laundromat business</span><span class="card-badge">Passive income</span><span class="idea-arr">&#8250;</span></div><div class="card-sub">Self-service coin laundry — low staff, recurring revenue, recession-resistant</div><div class="idea-detail"><div class="detail-label">Key insights</div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Dense rental areas near apartments are the ideal location — renters can't install their own machines</div></div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Absentee ownership is realistic after 6 months — averages 1–2 hours of maintenance per week</div></div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Card-only laundromats earn 20–30% more than coin-only — add readers from day one</div></div><div class="detail-label">How to get started</div><div class="step-row"><div class="step-n">1</div><div class="step-t">Research high-renter-density areas with limited competition within 1 mile</div></div><div class="step-row"><div class="step-n">2</div><div class="step-t">Contact existing laundromat owners directly — many want to sell but aren't publicly listed</div></div><div class="step-row"><div class="step-n">3</div><div class="step-t">Finance via SBA 7(a) loan — laundromats qualify easily with a good location</div></div></div></div>
+<!-- ════════════════════════ TORQUE TEST CHANNEL ════════════════════════ -->
+<div id="ttc" class="view"><div id="ttc-content"></div></div>
+<div id="ttc-detail" class="view"><div id="ttc-detail-content"></div></div>
 
-  <div class="idea-card" onclick="toggleIdea(this)"><div class="card-row"><span class="card-num">02</span><span class="card-title">Vending machine routes</span><span class="card-badge">Low overhead</span><span class="idea-arr">&#8250;</span></div><div class="card-sub">Buy machines, place in offices and gyms, collect cash weekly</div><div class="idea-detail"><div class="detail-label">Key insights</div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Best locations: car dealerships, factories, hospitals — high foot traffic, captive audience</div></div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Healthy snack machines outperform junk food in offices — higher margins, easier placement</div></div><div class="detail-label">How to get started</div><div class="step-row"><div class="step-n">1</div><div class="step-t">Buy 1–2 used machines on Facebook Marketplace ($500–$1,500 each)</div></div><div class="step-row"><div class="step-n">2</div><div class="step-t">Cold-call local businesses — offer commission split or free placement to start</div></div><div class="step-row"><div class="step-n">3</div><div class="step-t">Stock from Costco or Sam's Club — 60–70% gross margin per item</div></div></div></div>
+<!-- ════════════════════════ LINUS TECH TIPS ════════════════════════ -->
+<div id="ltt" class="view"><div id="ltt-content"></div></div>
+<div id="ltt-detail" class="view"><div id="ltt-detail-content"></div></div>
 
-  <div class="idea-card" onclick="toggleIdea(this)"><div class="card-row"><span class="card-num">03</span><span class="card-title">Mobile car detailing</span><span class="card-badge">Service biz</span><span class="idea-arr">&#8250;</span></div><div class="card-sub">You go to the customer — no shop rent, premium pricing, high repeat rate</div><div class="idea-detail"><div class="detail-label">Key insights</div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Startup cost under $1,500 — pressure washer, foam cannon, vacuum, chemicals</div></div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Corporate fleet contracts are the real money — one fleet = 10–50 cars monthly on retainer</div></div><div class="detail-label">How to get started</div><div class="step-row"><div class="step-n">1</div><div class="step-t">Practice on family and friends' cars — build a photo portfolio before charging</div></div><div class="step-row"><div class="step-n">2</div><div class="step-t">List on Yelp, Google Business, and NextDoor — local SEO drives early customers</div></div></div></div>
+<!-- ════════════════════════ MKBHD ════════════════════════ -->
+<div id="mkbhd" class="view"><div id="mkbhd-content"></div></div>
+<div id="mkbhd-detail" class="view"><div id="mkbhd-detail-content"></div></div>
 
-  <div class="idea-card" onclick="toggleIdea(this)"><div class="card-row"><span class="card-num">04</span><span class="card-title">Storage unit arbitrage</span><span class="card-badge">Side hustle</span><span class="idea-arr">&#8250;</span></div><div class="card-sub">Buy abandoned units at auction, resell the contents online</div><div class="idea-detail"><div class="detail-label">Key insights</div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Units sell for $50–$300 at auction — contents can be worth $500–$5,000+</div></div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Consistency beats luck — buy 10 units a month and margins beat random big scores</div></div><div class="detail-label">How to get started</div><div class="step-row"><div class="step-n">1</div><div class="step-t">Register on StorageTreasures.com — the largest auction platform in the US</div></div><div class="step-row"><div class="step-n">2</div><div class="step-t">Attend in person first — watch without bidding to understand real unit values</div></div></div></div>
+<!-- ════════════════════════ GORDON RAMSAY ════════════════════════ -->
+<div id="gr" class="view"><div id="gr-content"></div></div>
+<div id="gr-detail" class="view"><div id="gr-detail-content"></div></div>
 
-  <div class="idea-card" onclick="toggleIdea(this)"><div class="card-row"><span class="card-num">05</span><span class="card-title">Pool cleaning service</span><span class="card-badge">Recurring revenue</span><span class="idea-arr">&#8250;</span></div><div class="card-sub">Weekly maintenance contracts — predictable income, very high retention</div><div class="idea-detail"><div class="detail-label">Key insights</div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">$100–$200/month per pool — 50 pools = $5k–$10k/month as a solo operator</div></div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Arizona, Florida, California, Texas — year-round demand makes these the best markets</div></div><div class="detail-label">How to get started</div><div class="step-row"><div class="step-n">1</div><div class="step-t">Get your state pool service license — typically a 1-day course and small fee</div></div><div class="step-row"><div class="step-n">2</div><div class="step-t">Search Facebook groups for pool routes for sale — many owners list informally</div></div></div></div>
+<!-- ════════════════════════ BINGING WITH BABISH ════════════════════════ -->
+<div id="bwb" class="view"><div id="bwb-content"></div></div>
+<div id="bwb-detail" class="view"><div id="bwb-detail-content"></div></div>
 
-</div>
-<div class="section" style="padding-top:0;">
-  <div class="sec-hdr"><span class="sec-title">Starter guide</span></div>
-  <div class="guide-lock">
-    <div class="lock-hdr"><span class="lock-icon">&#128274;</span><span class="lock-title">Business starter guide — any idea above</span><span class="lock-price">$9</span></div>
-    <div class="lock-preview"><div class="lock-preview-text">Equipment checklist with exact links · Pricing calculator · Cold call script · Top 3 mistakes to avoid · 90-day launch timeline · How to hire your first employee...</div></div>
-    <div class="lock-items">
-      <div class="lock-item">Starter equipment list with exact models and prices</div>
-      <div class="lock-item">Pricing framework — how to charge without underselling</div>
-      <div class="lock-item">Cold outreach script for landing your first 5 customers</div>
-      <div class="lock-item">Top 3 mistakes beginners make and how to avoid them</div>
-      <div class="lock-item">90-day launch timeline — week by week action plan</div>
-      <div class="lock-item">How to scale from solo operator to first hire</div>
-    </div>
-    <button class="lock-btn">Unlock guide — $9</button>
-  </div>
-</div>
-<div class="footer"><span class="footer-logo">CreatorLens</span><div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Affiliate disclosure</span></div></div>
-</div>
+<!-- ════════════════════════ PRIMITIVE TECHNOLOGY ════════════════════════ -->
+<div id="pt" class="view"><div id="pt-content"></div></div>
+<div id="pt-detail" class="view"><div id="pt-detail-content"></div></div>
 
-
-<!-- ═══ MKBHD — AFFILIATE ONLY ═══ -->
-<div id="mkbhd" class="view">
-<nav class="nav"><div class="nav-logo" onclick="go('home')"><svg width="26" height="26" viewBox="0 0 58 58" fill="none"><path d="M29 5 L36 21 L29 29 L13 23 Z" fill="#C8F135"/><path d="M53 29 L37 22 L29 29 L35 45 Z" fill="#C8F135" opacity="0.72"/><path d="M29 53 L22 37 L29 29 L45 35 Z" fill="#C8F135" opacity="0.46"/><path d="M5 29 L21 36 L29 29 L23 13 Z" fill="#C8F135" opacity="0.22"/><circle cx="29" cy="29" r="5" fill="#C8F135"/><circle cx="29" cy="29" r="2.5" fill="#1C1C1E"/></svg><span class="nav-wm">Creator<span>Lens</span></span></div><button class="nav-cta">Pro Access</button></nav>
-<div class="back-bar" onclick="go('home')"><span class="back-arr">&#8592;</span><span class="back-lbl">Back to home</span></div>
-<div class="cr-hdr">
-  <div class="cr-hdr-top"><div class="cr-av" style="background:#0a1520;color:#85B7EB;border:1.5px solid rgba(133,183,235,0.3);">MK</div><div><div class="cr-name">Marques Brownlee</div><div class="cr-desc">The gold standard in tech reviews. Phones, EVs, headphones and everything in between.</div><div class="cr-tag">&#128247; Tech reviews (MKBHD)</div></div></div>
-  <div class="stat-pills"><div class="pill"><div class="pill-val">19M</div><div class="pill-lbl">Subscribers</div></div><div class="pill"><div class="pill-val">1,500+</div><div class="pill-lbl">Videos</div></div><div class="pill"><div class="pill-val">3</div><div class="pill-lbl">Categories</div></div></div>
-</div>
-<div class="section">
-  <div class="sec-hdr"><span class="sec-title">Smartphones ranked</span></div>
-  <div class="aff-card feat"><div class="card-bar"></div>
-    <div class="card-row" style="margin-bottom:10px;"><span class="card-num">&#9776;</span><span class="card-title">Best phones of 2025</span><span class="card-badge">14 tested</span></div>
-    <div class="rank-wrap">
-      <div class="rank-row"><div class="rank-pos">1</div><div class="rank-name">iPhone 16 Pro</div><div class="rank-track"><div class="rank-fill" style="width:95%;background:var(--lime);"></div></div><div class="rank-val">95 / 100</div></div>
-      <div class="rank-row"><div class="rank-pos">2</div><div class="rank-name">Galaxy S25 Ultra</div><div class="rank-track"><div class="rank-fill" style="width:88%;background:rgba(200,241,53,0.5);"></div></div><div class="rank-val">88 / 100</div></div>
-      <div class="rank-row"><div class="rank-pos">3</div><div class="rank-name">Pixel 9 Pro</div><div class="rank-track"><div class="rank-fill" style="width:79%;background:rgba(200,241,53,0.28);"></div></div><div class="rank-val">79 / 100</div></div>
-    </div>
-  </div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128247;</div><div class="aff-info"><div class="aff-name">iPhone 16 Pro — #1 pick</div><div class="aff-meta">MKBHD's top-rated phone of 2025</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~2% commission</div></div></div></div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128247;</div><div class="aff-info"><div class="aff-name">Galaxy S25 Ultra — runner-up</div><div class="aff-meta">Best Android option per MKBHD</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~2% commission</div></div></div></div>
-</div>
-<div class="divider"></div>
-<div class="section">
-  <div class="sec-hdr"><span class="sec-title">Headphones ranked</span></div>
-  <div class="aff-card feat"><div class="card-bar"></div>
-    <div class="card-row" style="margin-bottom:10px;"><span class="card-num">&#9776;</span><span class="card-title">Best wireless headphones</span><span class="card-badge">10 tested</span></div>
-    <div class="rank-wrap">
-      <div class="rank-row"><div class="rank-pos">1</div><div class="rank-name">Sony XM6</div><div class="rank-track"><div class="rank-fill" style="width:92%;background:var(--lime);"></div></div><div class="rank-val">92 / 100</div></div>
-      <div class="rank-row"><div class="rank-pos">2</div><div class="rank-name">AirPods Max</div><div class="rank-track"><div class="rank-fill" style="width:85%;background:rgba(200,241,53,0.5);"></div></div><div class="rank-val">85 / 100</div></div>
-      <div class="rank-row"><div class="rank-pos">3</div><div class="rank-name">Bose QC45</div><div class="rank-track"><div class="rank-fill" style="width:76%;background:rgba(200,241,53,0.28);"></div></div><div class="rank-val">76 / 100</div></div>
-    </div>
-  </div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#127911;</div><div class="aff-info"><div class="aff-name">Sony WH-1000XM6</div><div class="aff-meta">Best noise cancelling per MKBHD</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~4% commission</div></div></div></div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#127911;</div><div class="aff-info"><div class="aff-name">AirPods Max</div><div class="aff-meta">Best for Apple ecosystem users</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~2% commission</div></div></div></div>
-</div>
-<div class="divider"></div>
-<div class="section">
-  <div class="sec-hdr"><span class="sec-title">Creator gear</span></div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128248;</div><div class="aff-info"><div class="aff-name">Sigma FP camera</div><div class="aff-meta">MKBHD's b-roll camera of choice</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~3% commission</div></div></div></div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128247;</div><div class="aff-info"><div class="aff-name">Peak Design phone case</div><div class="aff-meta">MKBHD-endorsed — MagSafe ecosystem</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~6% commission</div></div></div></div>
-</div>
-<div class="footer"><span class="footer-logo">CreatorLens</span><div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Affiliate disclosure</span></div></div>
-</div>
-
-
-<!-- ═══ LTT ═══ -->
-<div id="ltt" class="view">
-<nav class="nav"><div class="nav-logo" onclick="go('home')"><svg width="26" height="26" viewBox="0 0 58 58" fill="none"><path d="M29 5 L36 21 L29 29 L13 23 Z" fill="#C8F135"/><path d="M53 29 L37 22 L29 29 L35 45 Z" fill="#C8F135" opacity="0.72"/><path d="M29 53 L22 37 L29 29 L45 35 Z" fill="#C8F135" opacity="0.46"/><path d="M5 29 L21 36 L29 29 L23 13 Z" fill="#C8F135" opacity="0.22"/><circle cx="29" cy="29" r="5" fill="#C8F135"/><circle cx="29" cy="29" r="2.5" fill="#1C1C1E"/></svg><span class="nav-wm">Creator<span>Lens</span></span></div><button class="nav-cta">Pro Access</button></nav>
-<div class="back-bar" onclick="go('home')"><span class="back-arr">&#8592;</span><span class="back-lbl">Back to home</span></div>
-<div class="cr-hdr">
-  <div class="cr-hdr-top"><div class="cr-av" style="background:#0f1a2a;color:#85B7EB;border:1.5px solid rgba(133,183,235,0.3);">LTT</div><div><div class="cr-name">Linus Tech Tips</div><div class="cr-desc">The definitive PC and tech review channel. Benchmarks, builds, and buyer's guides.</div><div class="cr-tag">&#128187; PC / Tech reviews</div></div></div>
-  <div class="stat-pills"><div class="pill"><div class="pill-val">16M</div><div class="pill-lbl">Subscribers</div></div><div class="pill"><div class="pill-val">6,000+</div><div class="pill-lbl">Videos</div></div><div class="pill"><div class="pill-val">3</div><div class="pill-lbl">Categories</div></div></div>
-</div>
-<div class="section">
-  <div class="sec-hdr"><span class="sec-title">GPU rankings</span></div>
-  <div class="aff-card feat"><div class="card-bar"></div>
-    <div class="card-row" style="margin-bottom:10px;"><span class="card-num">&#9776;</span><span class="card-title">GPUs under $400 ranked</span><span class="card-badge">10 tested</span></div>
-    <div class="rank-wrap">
-      <div class="rank-row"><div class="rank-pos">1</div><div class="rank-name">RTX 4060 Ti</div><div class="rank-track"><div class="rank-fill" style="width:94%;background:var(--lime);"></div></div><div class="rank-val">94 / 100</div></div>
-      <div class="rank-row"><div class="rank-pos">2</div><div class="rank-name">RX 7600 XT</div><div class="rank-track"><div class="rank-fill" style="width:81%;background:rgba(200,241,53,0.5);"></div></div><div class="rank-val">81 / 100</div></div>
-      <div class="rank-row"><div class="rank-pos">3</div><div class="rank-name">Arc B580</div><div class="rank-track"><div class="rank-fill" style="width:74%;background:rgba(200,241,53,0.28);"></div></div><div class="rank-val">74 / 100</div></div>
-    </div>
-  </div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#127918;</div><div class="aff-info"><div class="aff-name">RTX 4060 Ti — editor's pick</div><div class="aff-meta">Best value GPU under $400</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~2.5% commission</div></div></div></div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128187;</div><div class="aff-info"><div class="aff-name">LTT screwdriver</div><div class="aff-meta">Their own precision screwdriver — hugely popular</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">Direct affiliate</div></div></div></div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128225;</div><div class="aff-info"><div class="aff-name">NAS drives (Seagate / WD)</div><div class="aff-meta">Home server picks from their NAS videos</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~3% commission</div></div></div></div>
-</div>
-<div class="section" style="padding-top:0;">
-  <div class="sec-hdr"><span class="sec-title">Starter guide</span></div>
-  <div class="guide-lock">
-    <div class="lock-hdr"><span class="lock-icon">&#128274;</span><span class="lock-title">Build your first PC — complete guide</span><span class="lock-price">$14</span></div>
-    <div class="lock-preview"><div class="lock-preview-text">Part picker checklist · Budget tier builds · Cable management tips · Benchmark guide · Upgrade path planning for 3 years...</div></div>
-    <div class="lock-items">
-      <div class="lock-item">Part picker checklist — what to buy and in what order</div>
-      <div class="lock-item">Budget builds: $500 / $800 / $1,200 tiers with exact parts</div>
-      <div class="lock-item">Cable management and airflow tips from LTT</div>
-      <div class="lock-item">How to benchmark your build after assembly</div>
-      <div class="lock-item">Upgrade path planning for the next 3 years</div>
-    </div>
-    <button class="lock-btn">Unlock guide — $14</button>
-  </div>
-</div>
-<div class="footer"><span class="footer-logo">CreatorLens</span><div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Affiliate disclosure</span></div></div>
-</div>
-
-
-<!-- ═══ GORDON RAMSAY ═══ -->
-<div id="gr" class="view">
-<nav class="nav"><div class="nav-logo" onclick="go('home')"><svg width="26" height="26" viewBox="0 0 58 58" fill="none"><path d="M29 5 L36 21 L29 29 L13 23 Z" fill="#C8F135"/><path d="M53 29 L37 22 L29 29 L35 45 Z" fill="#C8F135" opacity="0.72"/><path d="M29 53 L22 37 L29 29 L45 35 Z" fill="#C8F135" opacity="0.46"/><path d="M5 29 L21 36 L29 29 L23 13 Z" fill="#C8F135" opacity="0.22"/><circle cx="29" cy="29" r="5" fill="#C8F135"/><circle cx="29" cy="29" r="2.5" fill="#1C1C1E"/></svg><span class="nav-wm">Creator<span>Lens</span></span></div><button class="nav-cta">Pro Access</button></nav>
-<div class="back-bar" onclick="go('home')"><span class="back-arr">&#8592;</span><span class="back-lbl">Back to home</span></div>
-<div class="cr-hdr">
-  <div class="cr-hdr-top"><div class="cr-av" style="background:#2a1010;color:#F09595;border:1.5px solid rgba(240,149,149,0.3);">GR</div><div><div class="cr-name">Gordon Ramsay</div><div class="cr-desc">Michelin-starred chef turned YouTube phenomenon. Techniques, recipes, and kitchen wisdom.</div><div class="cr-tag">&#127859; Cooking / Food</div></div></div>
-  <div class="stat-pills"><div class="pill"><div class="pill-val">24M</div><div class="pill-lbl">Subscribers</div></div><div class="pill"><div class="pill-val">1,200+</div><div class="pill-lbl">Videos</div></div><div class="pill"><div class="pill-val">4</div><div class="pill-lbl">Affiliates</div></div></div>
-</div>
-<div class="section">
-  <div class="sec-hdr"><span class="sec-title">Essential kitchen gear</span></div>
-  <div class="aff-card feat"><div class="card-bar"></div><div class="aff-row"><div class="aff-icon">&#128298;</div><div class="aff-info"><div class="aff-name">Wüsthof Classic chef's knife</div><div class="aff-meta">Gordon's most-recommended knife — 8" blade</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~6% commission</div></div></div></div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#127859;</div><div class="aff-info"><div class="aff-name">HexClad hybrid pan set</div><div class="aff-meta">Gordon's personally endorsed cookware brand</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~8% commission</div></div></div></div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#129380;</div><div class="aff-info"><div class="aff-name">MasterClass subscription</div><div class="aff-meta">Gordon's cooking MasterClass — highest commission</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~25% commission</div></div></div></div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128218;</div><div class="aff-info"><div class="aff-name">Gordon Ramsay cookbooks</div><div class="aff-meta">Ultimate Cookery Course, Home Cooking, and more</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~4% commission</div></div></div></div>
-</div>
-<div class="section" style="padding-top:0;">
-  <div class="guide-lock">
-    <div class="lock-hdr"><span class="lock-icon">&#128274;</span><span class="lock-title">Essential home chef toolkit</span><span class="lock-price">$12</span></div>
-    <div class="lock-preview"><div class="lock-preview-text">The 10 tools Gordon uses every time · Budget vs premium cookware · Knife sharpening guide · Pantry staples list · Restaurant-quality techniques at home...</div></div>
-    <div class="lock-items">
-      <div class="lock-item">The 10 tools Gordon uses in every kitchen</div>
-      <div class="lock-item">Budget vs. premium cookware — when it actually matters</div>
-      <div class="lock-item">Knife sharpening and maintenance guide</div>
-      <div class="lock-item">Pantry staples every home cook should have</div>
-      <div class="lock-item">How to cook restaurant-quality food at home</div>
-    </div>
-    <button class="lock-btn">Unlock guide — $12</button>
-  </div>
-</div>
-<div class="footer"><span class="footer-logo">CreatorLens</span><div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Affiliate disclosure</span></div></div>
-</div>
-
-
-<!-- ═══ PROJECT FARM ═══ -->
-<div id="pf" class="view">
-<nav class="nav"><div class="nav-logo" onclick="go('home')"><svg width="26" height="26" viewBox="0 0 58 58" fill="none"><path d="M29 5 L36 21 L29 29 L13 23 Z" fill="#C8F135"/><path d="M53 29 L37 22 L29 29 L35 45 Z" fill="#C8F135" opacity="0.72"/><path d="M29 53 L22 37 L29 29 L45 35 Z" fill="#C8F135" opacity="0.46"/><path d="M5 29 L21 36 L29 29 L23 13 Z" fill="#C8F135" opacity="0.22"/><circle cx="29" cy="29" r="5" fill="#C8F135"/><circle cx="29" cy="29" r="2.5" fill="#1C1C1E"/></svg><span class="nav-wm">Creator<span>Lens</span></span></div><button class="nav-cta">Pro Access</button></nav>
-<div class="back-bar" onclick="go('home')"><span class="back-arr">&#8592;</span><span class="back-lbl">Back to home</span></div>
-<div class="cr-hdr">
-  <div class="cr-hdr-top"><div class="cr-av" style="background:#252527;color:#C8F135;border:1.5px solid rgba(200,241,53,0.3);">PF</div><div><div class="cr-name">Project Farm</div><div class="cr-desc">Head-to-head product tests. Real data, no brand bias, no sponsorships.</div><div class="cr-tag">&#128269; Consumer product reviews</div></div></div>
-  <div class="stat-pills"><div class="pill"><div class="pill-val">4.5M</div><div class="pill-lbl">Subscribers</div></div><div class="pill"><div class="pill-val">300+</div><div class="pill-lbl">Videos</div></div><div class="pill"><div class="pill-val">5</div><div class="pill-lbl">Reviews tracked</div></div></div>
-</div>
-<div class="section">
-  <div class="sec-hdr"><span class="sec-title">Product rankings</span></div>
-  <div class="aff-card feat"><div class="card-bar"></div>
-    <div class="card-row" style="margin-bottom:10px;"><span class="card-num">&#9776;</span><span class="card-title">Penetrating oils ranked</span><span class="card-badge">12 tested</span></div>
-    <div class="rank-wrap">
-      <div class="rank-row"><div class="rank-pos">1</div><div class="rank-name">Kroil</div><div class="rank-track"><div class="rank-fill" style="width:96%;background:var(--lime);"></div></div><div class="rank-val">96 / 100</div></div>
-      <div class="rank-row"><div class="rank-pos">2</div><div class="rank-name">PB Blaster</div><div class="rank-track"><div class="rank-fill" style="width:80%;background:rgba(200,241,53,0.5);"></div></div><div class="rank-val">80 / 100</div></div>
-      <div class="rank-row"><div class="rank-pos">3</div><div class="rank-name">WD-40</div><div class="rank-track"><div class="rank-fill" style="width:61%;background:rgba(200,241,53,0.28);"></div></div><div class="rank-val">61 / 100</div></div>
-    </div>
-  </div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128167;</div><div class="aff-info"><div class="aff-name">Kroil — #1 penetrating oil</div><div class="aff-meta">Top-ranked across multiple Project Farm tests</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~4% commission</div></div></div></div>
-  <div class="card"><div class="card-row"><span class="card-num">02</span><span class="card-title">Super glues compared</span><span class="card-badge">8 products</span><span class="card-arr">›</span></div><div class="card-sub">Gorilla, Loctite, Starbond — real break-strength data</div></div>
-  <div class="card"><div class="card-row"><span class="card-num">03</span><span class="card-title">Motor oils tested</span><span class="card-badge">10 products</span><span class="card-arr">›</span></div><div class="card-sub">Cold start, high temp, and film strength compared</div></div>
-  <div class="card"><div class="card-row"><span class="card-num">04</span><span class="card-title">Duct tape strength</span><span class="card-badge">9 products</span><span class="card-arr">›</span></div><div class="card-sub">Pull strength, heat resistance, water exposure ranked</div></div>
-</div>
-<div class="footer"><span class="footer-logo">CreatorLens</span><div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Affiliate disclosure</span></div></div>
-</div>
-
-
-<!-- ═══ TTC ═══ -->
-<div id="ttc" class="view">
-<nav class="nav"><div class="nav-logo" onclick="go('home')"><svg width="26" height="26" viewBox="0 0 58 58" fill="none"><path d="M29 5 L36 21 L29 29 L13 23 Z" fill="#C8F135"/><path d="M53 29 L37 22 L29 29 L35 45 Z" fill="#C8F135" opacity="0.72"/><path d="M29 53 L22 37 L29 29 L45 35 Z" fill="#C8F135" opacity="0.46"/><path d="M5 29 L21 36 L29 29 L23 13 Z" fill="#C8F135" opacity="0.22"/><circle cx="29" cy="29" r="5" fill="#C8F135"/><circle cx="29" cy="29" r="2.5" fill="#1C1C1E"/></svg><span class="nav-wm">Creator<span>Lens</span></span></div><button class="nav-cta">Pro Access</button></nav>
-<div class="back-bar" onclick="go('home')"><span class="back-arr">&#8592;</span><span class="back-lbl">Back to home</span></div>
-<div class="cr-hdr">
-  <div class="cr-hdr-top"><div class="cr-av" style="background:#1e2a1e;color:#C8F135;border:1.5px solid rgba(200,241,53,0.3);">TTC</div><div><div class="cr-name">Torque Test Channel</div><div class="cr-desc">Scientific, data-driven tool testing. Real numbers, not manufacturer specs.</div><div class="cr-tag">&#9881; Power tools &amp; hand tools</div></div></div>
-  <div class="stat-pills"><div class="pill"><div class="pill-val">1.2M</div><div class="pill-lbl">Subscribers</div></div><div class="pill"><div class="pill-val">500+</div><div class="pill-lbl">Videos</div></div><div class="pill"><div class="pill-val">6</div><div class="pill-lbl">Categories</div></div></div>
-</div>
-<div class="section">
-  <div class="sec-hdr"><span class="sec-title">Tool rankings</span></div>
-  <div class="tool-card"><div class="tool-row"><div class="tool-icon">&#128295;</div><div class="tool-info"><div class="tool-title">Impact drivers — 18 brands</div><div class="tool-meta">Torque, speed, fastening &amp; breakaway</div></div><div class="tool-winner"><div class="tool-win-name">Milwaukee</div><div class="tool-win-lbl">top pick</div></div></div>
-    <div class="rank-wrap">
-      <div class="rank-row"><div class="rank-pos">1</div><div class="rank-name">Milwaukee</div><div class="rank-track"><div class="rank-fill" style="width:94%;background:var(--lime);"></div></div><div class="rank-val">1,847 in-lb</div></div>
-      <div class="rank-row"><div class="rank-pos">2</div><div class="rank-name">DeWalt</div><div class="rank-track"><div class="rank-fill" style="width:80%;background:rgba(200,241,53,0.5);"></div></div><div class="rank-val">1,601 in-lb</div></div>
-      <div class="rank-row"><div class="rank-pos">3</div><div class="rank-name">Makita</div><div class="rank-track"><div class="rank-fill" style="width:72%;background:rgba(200,241,53,0.28);"></div></div><div class="rank-val">1,438 in-lb</div></div>
-    </div>
-  </div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128295;</div><div class="aff-info"><div class="aff-name">Milwaukee M18 Fuel impact driver</div><div class="aff-meta">TTC's #1 ranked impact driver</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~3% commission</div></div></div></div>
-  <div class="tool-card"><div class="tool-row"><div class="tool-icon">&#128296;</div><div class="tool-info"><div class="tool-title">Impact wrenches — 12 brands</div><div class="tool-meta">Nut-busting torque &amp; sustained output</div></div><div class="tool-winner"><div class="tool-win-name">Ingersoll Rand</div><div class="tool-win-lbl">top pick</div></div></div></div>
-  <div class="tool-card"><div class="tool-row"><div class="tool-icon">&#9874;</div><div class="tool-info"><div class="tool-title">Wrenches &amp; sockets — 22 brands</div><div class="tool-meta">Break strength, 6 vs 12 point</div></div><div class="tool-winner"><div class="tool-win-name">Gearwrench</div><div class="tool-win-lbl">top pick</div></div></div></div>
-</div>
-<div class="footer"><span class="footer-logo">CreatorLens</span><div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Affiliate disclosure</span></div></div>
-</div>
-
-
-<!-- ═══ BINGING WITH BABISH ═══ -->
-<div id="bwb" class="view">
-<nav class="nav"><div class="nav-logo" onclick="go('home')"><svg width="26" height="26" viewBox="0 0 58 58" fill="none"><path d="M29 5 L36 21 L29 29 L13 23 Z" fill="#C8F135"/><path d="M53 29 L37 22 L29 29 L35 45 Z" fill="#C8F135" opacity="0.72"/><path d="M29 53 L22 37 L29 29 L45 35 Z" fill="#C8F135" opacity="0.46"/><path d="M5 29 L21 36 L29 29 L23 13 Z" fill="#C8F135" opacity="0.22"/><circle cx="29" cy="29" r="5" fill="#C8F135"/><circle cx="29" cy="29" r="2.5" fill="#1C1C1E"/></svg><span class="nav-wm">Creator<span>Lens</span></span></div><button class="nav-cta">Pro Access</button></nav>
-<div class="back-bar" onclick="go('home')"><span class="back-arr">&#8592;</span><span class="back-lbl">Back to home</span></div>
-<div class="cr-hdr">
-  <div class="cr-hdr-top"><div class="cr-av" style="background:#2a1010;color:#F09595;border:1.5px solid rgba(240,149,149,0.3);">BwB</div><div><div class="cr-name">Binging with Babish</div><div class="cr-desc">Recreating iconic food from film and TV. Elevated techniques and premium cookware.</div><div class="cr-tag">&#127869; Cooking / Food</div></div></div>
-  <div class="stat-pills"><div class="pill"><div class="pill-val">10M</div><div class="pill-lbl">Subscribers</div></div><div class="pill"><div class="pill-val">500+</div><div class="pill-lbl">Videos</div></div><div class="pill"><div class="pill-val">4</div><div class="pill-lbl">Affiliates</div></div></div>
-</div>
-<div class="section">
-  <div class="sec-hdr"><span class="sec-title">Top cookware picks</span></div>
-  <div class="aff-card feat"><div class="card-bar"></div><div class="aff-row"><div class="aff-icon">&#127859;</div><div class="aff-info"><div class="aff-name">Matfer Bourgeat carbon steel pan</div><div class="aff-meta">Babish's most-recommended pan for searing</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~6% commission</div></div></div></div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#129380;</div><div class="aff-info"><div class="aff-name">Lodge cast iron dutch oven</div><div class="aff-meta">Used in his braising and bread episodes</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~5% commission</div></div></div></div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128298;</div><div class="aff-info"><div class="aff-name">Global G-2 chef's knife</div><div class="aff-meta">Babish's daily driver — Japanese steel, lightweight</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~5% commission</div></div></div></div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128218;</div><div class="aff-info"><div class="aff-name">Basics with Babish cookbook</div><div class="aff-meta">His official cookbook — great recurring affiliate item</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~4% commission</div></div></div></div>
-</div>
-<div class="section" style="padding-top:0;">
-  <div class="guide-lock">
-    <div class="lock-hdr"><span class="lock-icon">&#128274;</span><span class="lock-title">Recreate restaurant dishes at home</span><span class="lock-price">$9</span></div>
-    <div class="lock-preview"><div class="lock-preview-text">The 5 pans every home cook needs · Carbon steel seasoning guide · Knife skills foundations · Stock, sauce, and fat basics · How to recreate any dish from a photo...</div></div>
-    <div class="lock-items">
-      <div class="lock-item">The 5 pans every serious home cook needs</div>
-      <div class="lock-item">How to season and maintain carbon steel cookware</div>
-      <div class="lock-item">Knife skills: the foundations Babish teaches</div>
-      <div class="lock-item">Stock, sauce, and fat — the building blocks of flavor</div>
-      <div class="lock-item">How to recreate any dish from a recipe or a screenshot</div>
-    </div>
-    <button class="lock-btn">Unlock guide — $9</button>
-  </div>
-</div>
-<div class="footer"><span class="footer-logo">CreatorLens</span><div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Affiliate disclosure</span></div></div>
-</div>
-
-
-<!-- ═══ PRIMITIVE TECHNOLOGY ═══ -->
-<div id="pt" class="view">
-<nav class="nav"><div class="nav-logo" onclick="go('home')"><svg width="26" height="26" viewBox="0 0 58 58" fill="none"><path d="M29 5 L36 21 L29 29 L13 23 Z" fill="#C8F135"/><path d="M53 29 L37 22 L29 29 L35 45 Z" fill="#C8F135" opacity="0.72"/><path d="M29 53 L22 37 L29 29 L45 35 Z" fill="#C8F135" opacity="0.46"/><path d="M5 29 L21 36 L29 29 L23 13 Z" fill="#C8F135" opacity="0.22"/><circle cx="29" cy="29" r="5" fill="#C8F135"/><circle cx="29" cy="29" r="2.5" fill="#1C1C1E"/></svg><span class="nav-wm">Creator<span>Lens</span></span></div><button class="nav-cta">Pro Access</button></nav>
-<div class="back-bar" onclick="go('home')"><span class="back-arr">&#8592;</span><span class="back-lbl">Back to home</span></div>
-<div class="cr-hdr">
-  <div class="cr-hdr-top"><div class="cr-av" style="background:#1a2010;color:#97C459;border:1.5px solid rgba(151,196,89,0.3);">PT</div><div><div class="cr-name">Primitive Technology</div><div class="cr-desc">Building shelters, tools, and fire from nothing. Pure bushcraft — no narration, no gimmicks.</div><div class="cr-tag">&#129683; Survival / Bushcraft</div></div></div>
-  <div class="stat-pills"><div class="pill"><div class="pill-val">11M</div><div class="pill-lbl">Subscribers</div></div><div class="pill"><div class="pill-val">80+</div><div class="pill-lbl">Videos</div></div><div class="pill"><div class="pill-val">4</div><div class="pill-lbl">Affiliates</div></div></div>
-</div>
-<div class="section">
-  <div class="sec-hdr"><span class="sec-title">Survival gear — affiliate picks</span></div>
-  <div class="aff-card feat"><div class="card-bar"></div><div class="aff-row"><div class="aff-icon">&#129683;</div><div class="aff-info"><div class="aff-name">Gransfors Bruks small forest axe</div><div class="aff-meta">The gold standard bushcraft axe — Swedish steel</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~5% commission</div></div></div></div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128293;</div><div class="aff-info"><div class="aff-name">Light My Fire ferro rod</div><div class="aff-meta">Reliable fire-starting in all conditions</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~6% commission</div></div></div></div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#127956;</div><div class="aff-info"><div class="aff-name">DD Hammocks tarp 3x3</div><div class="aff-meta">Versatile shelter tarp used by bushcrafters worldwide</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~7% commission</div></div></div></div>
-  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128167;</div><div class="aff-info"><div class="aff-name">Sawyer Squeeze water filter</div><div class="aff-meta">Lightweight, reliable filtration for wilderness water</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~5% commission</div></div></div></div>
-</div>
-<div class="section" style="padding-top:0;">
-  <div class="guide-lock">
-    <div class="lock-hdr"><span class="lock-icon">&#128274;</span><span class="lock-title">Get started with bushcraft</span><span class="lock-price">$9</span></div>
-    <div class="lock-preview"><div class="lock-preview-text">7 core skills every beginner needs · Essential kit list · Reading the land · Primitive fire-starting step by step · Weekend bushcraft starter plan...</div></div>
-    <div class="lock-items">
-      <div class="lock-item">The 7 core bushcraft skills every beginner needs</div>
-      <div class="lock-item">Essential kit list — axe, knife, tarp, fire kit, filter</div>
-      <div class="lock-item">Finding and reading land for shelter and resources</div>
-      <div class="lock-item">Primitive fire-starting from scratch — step by step</div>
-      <div class="lock-item">Weekend bushcraft plan — what to do your first time out</div>
-    </div>
-    <button class="lock-btn">Unlock guide — $9</button>
-  </div>
-</div>
-<div class="footer"><span class="footer-logo">CreatorLens</span><div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Affiliate disclosure</span></div></div>
-</div>
 
 <script>
+/* ── CK DATA (same as v6) ── */
+const ideas=[{id:'laundromat',num:'01',icon:'🧺',title:'Laundromat business',badge:'Passive income',sub:'Self-service coin laundry — low staff, 40% net margins, recession-resistant',desc:'Self-service coin laundry is one of the most overlooked passive income businesses in America. Low staff requirements, recession-resistant demand, and predictable recurring revenue make it a compelling first business.',badges:['Passive income','Absentee ownership','Recession-resistant','SBA-financeable'],stats:[['$50K+','Startup cost'],['40%','Net margin'],['1–2 hrs','Weekly upkeep']],insights:[{icon:'🏘️',text:'<strong>Location is everything.</strong> Dense rental neighborhoods near apartments are the ideal target — renters physically cannot install their own machines, making them a permanent captive customer base.'},{icon:'💳',text:'<strong>Card-only machines earn 20–30% more</strong> than coin-only. Tyler Purcell runs 4 laundromats netting $1.1M on $3M revenue — card readers are the single biggest revenue lever.'},{icon:'🚀',text:'<strong>Buy used before buying new.</strong> Retiring laundromat owners often sell machines at 40–60% of new price. Find them through industry Facebook groups and local brokers.'},{icon:'📉',text:'<strong>The business is recession-proof.</strong> During downturns, laundromat usage actually increases as people downsize from homes with in-unit laundry.'},{icon:'🧑',text:'<strong>Absentee ownership is realistic after 6 months.</strong> With remote monitoring apps and a part-time attendant, most owners spend under 2 hours per week on operations.'}],steps:[{title:'Research your target area',desc:'Look for high renter-density zip codes with limited competition within 1 mile.',tip:'Aim for areas where 60%+ of residents are renters'},{title:'Find existing owners looking to sell',desc:'Most sales never get publicly listed. Cold-call existing owners and search BizBuySell.',tip:'Buying an existing business is faster and safer than building from scratch'},{title:'Get a plumber and electrician assessment',desc:'Before any offer, have licensed professionals assess the space. Hidden utility issues are the #1 way new owners overspend.'},{title:'Finance through an SBA 7(a) loan',desc:'Laundromats are SBA-friendly — real equipment as collateral, predictable cash flow. Finance up to 90% with 10% down.',tip:'Talk to a local community bank — they approve SBA loans faster than big banks'},{title:'Add card readers and a loyalty app',desc:'Apps like Cents or LaundroLab handle payments, loyalty rewards, and remote monitoring.',tip:'Card-only laundromats earn 20–30% more than coin-only'},{title:'Add wash-and-fold as a revenue booster',desc:'A drop-off service can add 30–50% more revenue. Charge $1.50–$2.50 per pound.'}],avoids:[{title:'Skipping the utility assessment',desc:'Water pressure, drain capacity, and electrical panel size determine what machines you can run. Fix these after signing and costs spiral.'},{title:'Buying new machines first',desc:'Used commercial machines from retiring owners cost half as much and are just as reliable.'},{title:'Short lease terms',desc:'A short lease (under 5 years) is a dealbreaker — you need time to recoup your investment. Always negotiate 10 years.'}],scale:[{phase:'Month 1–6',pct:25,income:'$2–4K/mo',desc:'Learning operations, building customer base, ironing out maintenance'},{phase:'Month 6–12',pct:50,income:'$4–7K/mo',desc:'Card readers installed, wash-and-fold added, absentee ownership begins'},{phase:'Year 2+',pct:80,income:'$8–15K/mo',desc:'Second location acquired using cash flow from first'}],guide:{title:'Full laundromat starter guide',price:'$9',preview:'Machine brand comparison · SBA loan checklist · Lease negotiation script · Card reader comparison · 90-day launch timeline...',items:['Machine brand comparison — Speed Queen vs Dexter vs Huebsch','SBA 7(a) loan application checklist — exactly what banks want','Lease negotiation script — what to ask for and what to walk away from','Card reader comparison — Cents vs LaundroLab vs PayRange','90-day launch timeline — week by week action plan','Wash-and-fold pricing calculator — by pound, by bag, by subscription']}},{id:'vending',num:'02',icon:'🥤',title:'Vending machine routes',badge:'Low overhead',sub:'Buy machines, place in offices and gyms, collect cash weekly',desc:'A vending machine route is one of the most straightforward cash-flow businesses you can build.',badges:['Low overhead','Cash flow','Scalable','No employees'],stats:[['$1.5K','Per machine'],['60–70%','Gross margin'],['5 machines','To start']],insights:[{icon:'🏭',text:'<strong>Best locations are captive audiences:</strong> car dealerships, auto shops, factories, hospitals — high foot traffic with no nearby alternatives.'},{icon:'🥗',text:'<strong>Healthy snack machines outperform in offices.</strong> Higher margins and easier to get placement approval from building managers.'},{icon:'💳',text:'<strong>Card readers are non-negotiable.</strong> Cash-only machines lose 30–40% of potential sales. A $50 card reader pays for itself in weeks.'}],steps:[{title:'Buy 1–2 used machines to start',desc:'Facebook Marketplace has machines for $500–$1,500. Buy used before committing to new.'},{title:'Cold-call local businesses for placement',desc:'Offer commission split or free placement. Most business owners say yes immediately.'},{title:'Stock from wholesale suppliers',desc:'Costco and Sam\'s Club wholesale gives you 60–70% gross margin per item.',tip:"Track which items sell fastest — your top 5 SKUs drive 70% of revenue"},{title:'Add card readers to every machine',desc:'PayRange and Cantaloupe both make retrofit readers for under $50.'},{title:'Build to 5 machines before quitting your job',desc:'Five machines at good locations generates $1,500–$3,000/month.'}],avoids:[{title:'Choosing bad locations',desc:'A machine in a slow location is dead weight. Audit foot traffic before committing.'},{title:'Overpaying at auction',desc:'Know your max price before entering any bidding situation.'}],scale:[{phase:'Month 1–3',pct:20,income:'$500–1K/mo',desc:'Learning which locations and products work'},{phase:'Month 3–9',pct:45,income:'$2–4K/mo',desc:'5–10 machines, routes optimized, card readers on all'},{phase:'Year 2+',pct:75,income:'$5–10K/mo',desc:'20–40 machines, mostly passive income'}],guide:{title:'Vending machine starter guide',price:'$9',preview:'Location scoring template · Machine comparison · Card reader guide · Wholesale supplier list...',items:['Location scoring template — evaluate any potential site','Machine brand comparison — best new and used under $2K','Card reader setup — PayRange vs Cantaloupe vs Nayax','Wholesale supplier list by product category','Route optimization map — minimize drive time','From 5 to 50 machines in 18 months']}},{id:'detailing',num:'03',icon:'🚗',title:'Mobile car detailing',badge:'Service biz',sub:'No shop rent, premium pricing, high repeat rate',desc:'Mobile car detailing eliminates the single biggest cost of traditional detailing: the shop.',badges:['Service biz','Low startup','High repeat','No rent'],stats:[['$1.5K','Startup cost'],['$350','Per full detail'],['3/day','Max solo']],insights:[{icon:'🏢',text:'<strong>Corporate fleet contracts are the real money.</strong> One fleet = 10–50 cars on monthly retainer — predictable, recurring revenue.'},{icon:'💰',text:'<strong>No shop rent is the unfair advantage.</strong> Traditional shops carry $3–8K/month in overhead. Mobile operators have near-zero fixed costs.'}],steps:[{title:'Buy a starter equipment kit',desc:'Pressure washer, foam cannon, polisher, vacuum, chemicals. Total: $800–$1,500 from Amazon.'},{title:'Practice on family and friends\' cars',desc:'Do 5–10 free details to build a before/after photo portfolio.'},{title:'List on Yelp, Google Business, and Nextdoor',desc:'Local SEO is free and drives the most consistent early customers.',tip:"A 5-star Google review from your first paying customer is worth $500 in advertising"},{title:'Cold-pitch businesses for fleet contracts',desc:'Car dealerships, rental companies, real estate agents all need regular detailing.'},{title:'Offer a referral incentive',desc:'$20 off their next detail for every referral they send you.'}],avoids:[{title:'Underpricing to win customers',desc:'Starting cheap trains customers to expect cheap. Price at market rate from day one.'},{title:'Skipping insurance',desc:'General liability insurance costs $50–$80/month. A scratched car without coverage ends your business.'}],scale:[{phase:'Month 1–3',pct:25,income:'$2–3K/mo',desc:'Building portfolio, getting first Google reviews'},{phase:'Month 3–9',pct:55,income:'$4–6K/mo',desc:'Regular customers, first fleet contract, word-of-mouth'},{phase:'Year 2+',pct:80,income:'$8–15K/mo',desc:'1–2 employees, multiple fleet contracts'}],guide:{title:'Mobile detailing starter guide',price:'$9',preview:'Equipment list · Pricing sheet template · Fleet contract pitch · Chemical guide · Google Business optimization...',items:['Complete equipment list with Amazon links and prices','Pricing sheet template — basic, full detail, fleet tiers','Fleet contract pitch script — word-for-word cold outreach','Chemical Guys starter pack — what you actually need','Google Business optimization — rank #1 in your city','90-day ramp plan: from first customer to $5K/month']}},{id:'spraydrone',num:'04',icon:'🚁',title:'Agricultural spray drone business',badge:'High growth',sub:'Spray crops for farmers — 70%+ net margins, massive untapped demand',desc:'Agricultural spray drones are replacing traditional crop dusters. Farmers need this service but operators are extremely scarce.',badges:['High growth','70%+ margins','Untapped','First-mover'],stats:[['70%+','Net margin'],['$500+','Per acre'],['Huge','Unmet demand']],insights:[{icon:'🌾',text:'<strong>Farmers desperately need this service</strong> but almost nobody is offering it yet. Traditional crop dusters are expensive and booked months out.'},{icon:'💸',text:'<strong>The barrier to entry is low.</strong> A DJI Agras T40 costs $15–25K. One large farm contract can pay the drone off in a single season.'},{icon:'🤝',text:'<strong>Farmers talk to each other constantly.</strong> Being first in your county means being the provider every farmer recommends.'}],steps:[{title:'Get your FAA Part 107 license',desc:'Required for commercial drone operation. Study course 2–4 weeks, test costs $175.',tip:'Fly Guys and Pilot Institute both offer great Part 107 prep courses for under $50'},{title:'Research agricultural spray drones',desc:'DJI Agras T40 and T50 are the industry standard. Most dealers offer demo flights.'},{title:'Get your pesticide applicator license',desc:'Required in most states. Check your state Department of Agriculture for requirements.'},{title:'Cold-call large farms in your area',desc:'Find farm contacts through your county Farm Bureau or Google Maps.',tip:'One successful demonstration converts to a full-season contract almost every time'},{title:'Join agricultural Facebook groups',desc:'Farmers are community-oriented. One county Farm Bureau meeting puts you in front of dozens of customers.'}],avoids:[{title:'Starting without the right licenses',desc:'Operating without a Part 107 or pesticide license exposes you to heavy fines.'},{title:'Underestimating chemical handling',desc:'Agricultural chemicals require proper safety equipment, storage, and disposal protocols.'}],scale:[{phase:'Month 1–3',pct:20,income:'Learning phase',desc:'Getting licensed, doing demos, landing first season contract'},{phase:'Season 1',pct:50,income:'$30–80K',desc:'One or two farms under contract, covering drone cost'},{phase:'Season 2+',pct:85,income:'$100K+',desc:'Multiple farm contracts, second drone, possible employee'}],guide:{title:'Spray drone starter guide',price:'$14',preview:'Part 107 study guide · Pesticide license by state · DJI Agras buying guide · Farm pitch script...',items:['Part 107 study guide — fastest path to passing','State pesticide applicator license requirements by state','DJI Agras T40 vs T50 buying guide','Farm cold outreach script — what to say and demonstrate','Season pricing calculator — per acre, per season, per contract','How to get your first $50K season contract in 60 days']}},{id:'newsletter',num:'05',icon:'📧',title:'Local city newsletter',badge:'Media biz',sub:'Weekly email covering local news — monetized through local business ads',desc:"A local newsletter is one of the easiest $200K businesses you can build with zero startup capital.",badges:['Zero startup','High margins','Scalable','Email-owned'],stats:[['$200K','Year 2 potential'],['$0','Startup cost'],['17 months','Jas\'s timeline']],insights:[{icon:'✉️',text:'<strong>Jas built a $200K/year business</strong> with the Winnipeg Digest in 17 months — serving a city of 800,000 people.'},{icon:'🏪',text:'<strong>Local businesses are starved for local advertising.</strong> A trusted newsletter with 5,000+ subscribers commands $500–$2,000 per ad placement.'},{icon:'📊',text:'<strong>beehiiv is the platform of choice.</strong> Built-in monetization tools, referral programs, and analytics that make growing dramatically easier.'}],steps:[{title:'Sign up for beehiiv and choose your name',desc:'"[City] Digest" or "[City] Weekly" are proven naming formulas.',tip:"beehiiv's free tier is plenty to get to 1,000 subscribers"},{title:'Post in local Facebook groups',desc:'Groups like "[City] Community" and neighborhood groups are where your first 500 subscribers come from.'},{title:'Publish consistently for 8 weeks before monetizing',desc:'Consistency builds trust. Publish every week at the same time for 2 months before approaching advertisers.'},{title:'Reach 1,000 subscribers before approaching advertisers',desc:'A 4-digit count gives you credibility. At 1,000 subscribers, a $500 sponsorship is a completely reasonable ask.'},{title:'Cold email local businesses',desc:'Offer a free first placement to prove results. One happy advertiser tells five others.',tip:'A pizza restaurant that gets 10 new customers becomes a $1,000/year advertiser'}],avoids:[{title:'Monetizing too early',desc:'Approaching advertisers before you have a real audience destroys credibility.'},{title:'Inconsistent publishing',desc:'Missing even one week trains your audience that you\'re not reliable. Consistency is the entire product.'}],scale:[{phase:'Month 1–2',pct:10,income:'$0',desc:'Building audience, publishing consistently'},{phase:'Month 3–6',pct:35,income:'$500–2K/mo',desc:'First advertisers, 1,000–3,000 subscribers'},{phase:'Month 6–18',pct:75,income:'$5–15K/mo',desc:'5,000+ subscribers, multiple recurring advertisers'}],guide:{title:'Local newsletter starter guide',price:'$9',preview:'beehiiv setup walkthrough · First 500 subscribers playbook · Advertiser pitch deck · Pricing guide...',items:['beehiiv setup walkthrough — from zero to first email in 30 minutes','First 500 subscribers playbook — the exact Facebook group strategy','Advertiser pitch deck template — what to show local businesses','Pricing guide by subscriber count — what to charge at every stage','Content calendar template — what to write about every week','How Jas added 1,000 subs/month consistently']}},{id:'directory',num:'06',icon:'📂',title:'Niche directory website',badge:'Passive income',sub:'Build a searchable database of businesses in a niche — charge for listings',desc:'Niche directory websites are the most slept-on business model on the internet. Boring scales, boring pays the bills.',badges:['Passive income','Zero startup','SEO-driven','Evergreen'],stats:[['$0','Startup cost'],['$99–299','Per listing/yr'],['Near zero','Ongoing costs']],insights:[{icon:'📋',text:'<strong>Boring directories quietly print money.</strong> Organize information that already exists into one clean, searchable place that currently exists poorly online.'},{icon:'🔍',text:'<strong>SEO is the growth engine.</strong> A well-structured directory ranks in Google for hundreds of long-tail searches with zero ad spend.'},{icon:'💵',text:'<strong>Three monetization layers stack on the same site:</strong> paid listings, lead generation fees, and sponsored placements.'}],steps:[{title:'Pick a niche with lots of small businesses',desc:'HVAC contractors, wedding photographers, dog trainers — any niche where businesses actively want customers.'},{title:'Scrape Google Maps for initial data',desc:'Tools like Outscraper pull thousands of listings for a few dollars.',tip:'Start with one city, prove the model, then expand geographically'},{title:'Build the directory in WordPress',desc:'WordPress with a directory plugin like GeoDirectory gets you live in a weekend.'},{title:'Offer free basic listings first',desc:'Free listings build your content and SEO. Then upsell premium placements.'},{title:'Cold email businesses to claim their free listing',desc:'"I\'ve added your business to [DirectoryName.com] — claim your free listing." Nearly every business claims it.'}],avoids:[{title:'Waiting for perfection before launching',desc:'Launch with 50 listings and iterate. Waiting means your competitor launches first.'},{title:'Picking niches with no buyer intent',desc:'The niche needs businesses that actively want customers.'}],scale:[{phase:'Month 1–3',pct:15,income:'$0–500/mo',desc:'Building the database, getting first free listings claimed'},{phase:'Month 3–12',pct:40,income:'$500–3K/mo',desc:'Traffic growing, first premium listings sold'},{phase:'Year 2+',pct:70,income:'$3–10K/mo',desc:'Multiple cities or niches, mostly passive'}],guide:{title:'Niche directory starter guide',price:'$9',preview:'Niche selection framework · Scraping walkthrough · WordPress setup · Outreach templates...',items:['Niche selection framework — evaluate any directory idea','Google Maps scraping walkthrough — tools and step-by-step','WordPress + GeoDirectory setup — live in a weekend','Cold email templates — free listing claim and premium upsell','SEO structure blueprint — rank for hundreds of keywords','Monetization stack: listings + leads + sponsorships']}},{id:'rvpark',num:'07',icon:'🏕️',title:'RV park / mobile home park',badge:'Real estate',sub:'Buy undervalued parks, add amenities, refinance and repeat',desc:"Chris has personally bought and sold 25+ MH/RV parks and currently co-manages a PE fund acquiring ~2 parks per month.",badges:['Real estate','20–40% IRR','Cash flowing','Operator-friendly'],stats:[['9–11%','Target cap rate'],['20–40%','Target IRR'],['$750K+','Target revenue']],insights:[{icon:'🏕️',text:'<strong>Chris has bought and sold 25+ parks</strong> and currently runs a PE fund acquiring ~2 per month. His ideal: 9–11% cap rate, Southeast, $750K+ revenue potential.'},{icon:'💡',text:'<strong>The value-add play is adding pad sites and STRs.</strong> Buy at market rate, add glamping cabins or pad sites, refinance at a higher valuation 18–24 months later.'},{icon:'👴',text:'<strong>Mom-and-pop parks are the opportunity.</strong> Thousands of aging owners have no succession plan and will seller-finance.'}],steps:[{title:'Learn cap rates and NOI math',desc:'Net Operating Income ÷ purchase price = cap rate. This is the foundation of every deal evaluation.',tip:'BiggerPockets has free guides on park investing math'},{title:'Search MHVillage, LoopNet, and CoStar',desc:'Filter for parks under $2M in the Southeast. Set up email alerts.'},{title:'Call owners directly',desc:'Most smaller parks never get listed. Drive through your target areas and cold-call owners from county records.'},{title:'Negotiate seller financing',desc:'Many retiring owners prefer structured monthly payments over a lump sum. No bank, no appraisal, better terms.'},{title:'Add value in year one',desc:'Fill vacancies, improve curb appeal, add card-operated laundry. Each improvement increases NOI and park value.'}],avoids:[{title:'Buying without understanding infrastructure costs',desc:'Water, sewer, and electrical repairs at older parks can run $50–200K+. Get an engineer\'s inspection.'},{title:'Overpaying for a stabilized asset',desc:'The deal is made at purchase. A 6% cap rate on a fully stabilized park leaves no margin for value creation.'}],scale:[{phase:'Deal 1',pct:25,income:'$30–80K NOI',desc:'Small park, seller financed, value-add in year one'},{phase:'Deal 2–3',pct:55,income:'$80–200K NOI',desc:'Refinancing first park provides capital for next'},{phase:'Portfolio',pct:85,income:'$200K+ NOI',desc:'3–5 parks, professional management, PE track record'}],guide:{title:'RV park investing guide',price:'$14',preview:'Cap rate calculator · Deal evaluation checklist · Seller financing script · Value-add ranking by ROI...',items:['Cap rate and NOI calculator — the math before any deal','Deal evaluation checklist — 47 things to check','Seller financing negotiation script','Value-add improvement ranking by ROI','Park management software comparison','How Chris found his first park: the cold outreach strategy']}},{id:'storage',num:'08',icon:'📦',title:'Storage unit arbitrage',badge:'Side hustle',sub:'Buy abandoned units at auction, resell contents online',desc:'Storage unit auctions generate consistent income when approached systematically. Discipline beats luck.',badges:['Side hustle','Low startup','Flexible','eBay resell'],stats:[['$50–300','Auction price'],['$500–5K','Content value'],['FB Mkt','Resale channel']],insights:[{icon:'📊',text:'<strong>Consistency beats luck.</strong> Buying 10 units/month at disciplined prices generates reliable margins every time.'},{icon:'🖥️',text:'<strong>Electronics and tools sell fastest.</strong> Furniture is slower but higher ticket. Sort every load for scrap metal to offset dump fees.'}],steps:[{title:'Register on StorageTreasures.com',desc:'The largest auction platform in the US. Set your location radius and browse upcoming auctions.'},{title:'Attend 3–5 auctions without bidding',desc:'Watch experienced bidders. Learn to estimate content value from a doorway glance.',tip:"The best bidders have pattern recognition built from thousands of units"},{title:'Set a hard max bid before you walk in',desc:'Decide your maximum based on what you can see — then stick to it no matter what.'},{title:'Build resale channels before you need them',desc:'Set up your eBay account and Facebook Marketplace profile before your first unit.'},{title:'Know your metal recycler and dump station',desc:'Know your per-pound metal prices and dump fees before your first unit — these determine your floor bid.'}],avoids:[{title:'Overbidding on emotion',desc:'Every beginner\'s first expensive mistake. Discipline is the entire business.'},{title:'No resale plan',desc:"If you can't answer 'where does this sell?' for every item type, you'll end up with a garage full of unsellable stuff."}],scale:[{phase:'Month 1–2',pct:20,income:'$0–500/mo',desc:'Learning to read units, making mistakes'},{phase:'Month 3–6',pct:50,income:'$1–3K/mo',desc:'Buying 5–10 units/month, resale channels established'},{phase:'Year 2+',pct:75,income:'$3–8K/mo',desc:'Team buying multiple units per week, wholesaling lots'}],guide:{title:'Storage arbitrage starter guide',price:'$9',preview:'Unit evaluation checklist · eBay listing guide · StorageTreasures strategy · Resale channel guide by category...',items:['Unit evaluation checklist — what to look for in 30 seconds','eBay listing optimization — photos, titles, pricing','StorageTreasures bidding strategy — winning at the right price','Resale channel guide by item category','From side hustle to $5K/month: the 12-month plan','Metal recycling rate tracker — live prices by metal type']}},{id:'pool',num:'09',icon:'🏊',title:'Pool cleaning service',badge:'Recurring revenue',sub:'Weekly maintenance contracts — predictable monthly income',desc:'Pool cleaning is one of the most reliable recurring-revenue service businesses. Once you have a customer, they rarely leave.',badges:['Recurring revenue','High retention','Scalable','Route-based'],stats:[['$150/mo','Per pool avg'],['50 pools','Solo capacity'],['$7.5K/mo','Solo potential']],insights:[{icon:'☀️',text:'<strong>Arizona, Florida, Texas, California</strong> — year-round swimming means year-round income with zero seasonality. These 4 states have 70%+ of all US residential pools.'},{icon:'🚐',text:'<strong>Buy an existing route rather than building from scratch.</strong> Retiring operators often seller-finance — you can acquire 30–50 customers overnight.'}],steps:[{title:'Get your state pool service license',desc:'Required in most states. Typically a 1-day course, a test, and a small fee.',tip:'The license takes 1–4 weeks to process after passing — apply early'},{title:'Search for pool routes for sale',desc:'Facebook groups like "Pool Routes for Sale [State]" are the best source.'},{title:'Set up route management software',desc:'PoolBrain and Skimmer handle scheduling, invoicing, chemical tracking. Set up before your first customer.'},{title:'Market to new construction neighborhoods',desc:'New pools need a service provider immediately. Introduce yourself to pool builders in your area.'},{title:'Raise prices annually by 5–10%',desc:'Most pool customers never leave even with annual price increases.'}],avoids:[{title:'Starting in a cold-weather state',desc:'Pool service in Minnesota is a 5-month seasonal business. The recurring income model only works in warm states.'},{title:'Underpricing to win customers',desc:'Starting at $80/month trains customers to expect cheap. Start at $130–160 to attract quality-focused customers.'}],scale:[{phase:'Month 1–3',pct:20,income:'$1–2K/mo',desc:'First 10–15 pools, learning chemicals and equipment'},{phase:'Month 3–12',pct:50,income:'$4–6K/mo',desc:'30–40 pools, full weekly route'},{phase:'Year 2+',pct:80,income:'$8–15K/mo',desc:'50+ pools, part-time tech, acquiring second route'}],guide:{title:'Pool service starter guide',price:'$9',preview:'State license requirements · Route valuation guide · Software comparison · Chemical cheat sheet...',items:['State license requirements list — all 50 states','Pool route valuation guide — what to pay for an existing route','PoolBrain vs Skimmer comparison','Chemical dosing cheat sheet — chlorine, pH, alkalinity','First customer script — how to land your first 10','Scale plan: from 10 pools to 100 in 18 months']}},{id:'atm',num:'10',icon:'🏧',title:'ATM machine business',badge:'Cash flow',sub:'Place ATMs in bars and events — earn $2–3 per transaction, 24/7',desc:'ATM placement is a genuinely passive business once machines are placed. You earn a transaction fee every time someone withdraws cash.',badges:['Passive income','24/7 income','Low maintenance','Revenue share'],stats:[['$3K','Machine cost'],['$2–3','Per transaction'],['50/50','Location split']],insights:[{icon:'🍺',text:'<strong>Best locations are cash-heavy businesses:</strong> bars, nightclubs, festivals, cash-only restaurants. A busy bar ATM can do 50–200 transactions per week.'},{icon:'🤝',text:'<strong>The pitch is nearly frictionless.</strong> "Free machine, 50% of every transaction fee" — zero downside for the location, immediate revenue share.'}],steps:[{title:'Buy a certified ATM from Hyosung or Genmega',desc:'Only buy from authorized dealers — off-brand machines can\'t connect to banking networks.',tip:'Refurbished Hyosung ATMs run $2,000–$3,500 and are as reliable as new'},{title:'Register with an ISO to process transactions',desc:'National Processing Company and Cardtronics are popular options.'},{title:'Cold-pitch cash-heavy local businesses',desc:'Walk into bars and cash-only restaurants with a one-page explainer.',tip:'Wednesday afternoon is the best time to pitch bars — owners are in and not busy'},{title:'Load cash and set your surcharge',desc:'Start with $2,000–$3,000. Set surcharge at $2.50–$3.00 per transaction.'},{title:'Monitor remotely and restock as needed',desc:'Most ATM management software tracks cash levels in real time.'}],avoids:[{title:'Buying uncertified machines',desc:'Non-certified ATMs cannot connect to banking networks. Only buy from authorized dealers.'},{title:'Underloading cash',desc:'An ATM that runs out mid-weekend loses you transactions and irritates the location owner.'}],scale:[{phase:'Machine 1–2',pct:25,income:'$200–500/mo',desc:'Learning operations, finding best locations'},{phase:'Machines 3–10',pct:55,income:'$1–3K/mo',desc:'Route established, mostly passive'},{phase:'Machines 10+',pct:80,income:'$3–8K/mo',desc:'Hire a part-time cash runner, focus on placing new machines'}],guide:{title:'ATM business starter guide',price:'$9',preview:'Machine brand comparison · ISO guide · Location pitch script · Surcharge calculator...',items:['Machine comparison — Hyosung vs Genmega vs Nautilus','ISO comparison — who processes at the best rates','Location pitch script — word for word for bar owners','Surcharge optimization calculator','Cash loading schedule by location volume','From 1 ATM to 20: the route-building playbook']}},{id:'parking',num:'11',icon:'🅿️',title:'Parking lot arbitrage',badge:'Asset-light',sub:'Lease underused lots from churches and offices, sublease by the hour',desc:'Parking lot arbitrage requires no property ownership, no employees, and minimal capital.',badges:['Asset-light','No ownership','Event upside','App-driven'],stats:[['$300/mo','Typical lease'],['$15–25','Per car/day'],['SpotHero','Platform']],insights:[{icon:'⛪',text:'<strong>Churches and office buildings have empty lots on nights and weekends.</strong> Idle inventory you can lease cheaply and arbitrage at event pricing.'},{icon:'🏟️',text:'<strong>Stadium and event venue proximity is the gold mine.</strong> A $300/month lease near a stadium can generate $3,000+ on a single game day.'}],steps:[{title:'Identify underused lots near event venues',desc:'Walk or drive looking for empty lots near stadiums, arenas, or concert venues.'},{title:'Approach property owners',desc:'"I\'d like to lease your lot on evenings and weekends for $X/month — I handle everything, you get a check."',tip:'Lead with a specific monthly number — it removes ambiguity'},{title:'List on SpotHero, Parkade, and Google Maps',desc:'SpotHero is the dominant platform. List 30–60 days before major events.'},{title:'Optimize pricing dynamically',desc:'Raise prices 2–3x on game days and major events.'},{title:'Add lots near new venues',desc:'Watch for new concert venues or employer headquarters being built — they create parking demand before competitors notice.'}],avoids:[{title:'Signing long leases before validating demand',desc:'Start with month-to-month agreements. Only sign longer once demand is proven.'},{title:'Ignoring permit requirements',desc:'Some cities require a parking operator permit. Check local requirements first.'}],scale:[{phase:'Lot 1–2',pct:25,income:'$500–2K/mo',desc:'Validating event demand, building SpotHero reviews'},{phase:'Lots 3–6',pct:55,income:'$2–5K/mo',desc:'Multiple venues covered, event calendar optimized'},{phase:'Lots 7+',pct:80,income:'$5–15K/mo',desc:'City-wide operation, possibly a manager for on-ground oversight'}],guide:{title:'Parking arbitrage guide',price:'$9',preview:'Location scoring template · Property owner pitch · SpotHero optimization · Dynamic pricing guide...',items:['Location scoring template — is this lot worth leasing?','Property owner pitch script','SpotHero listing optimization — photos, descriptions that rank','Dynamic pricing guide — how to 3x revenue on event days','Event calendar planning tool','From 1 lot to a city-wide parking business']}},{id:'junk',num:'12',icon:'🚛',title:'Junk removal service',badge:'High demand',sub:'People pay $200–$800 to haul junk — start with just a pickup truck',desc:'Junk removal is one of the fastest businesses to launch. Just a truck, a phone, and the willingness to do physical work.',badges:['High demand','Low startup','Immediate income','Estate cleanouts'],stats:[['$400–800','Full truckload'],['$0.20/lb','Metal scrap offset'],['$2K','Estate cleanout']],insights:[{icon:'⚖️',text:'<strong>Metal recycling offsets dump fees.</strong> Sort every load — steel, aluminum, copper pay $0.10–$0.30/lb, turning your cost center into a revenue stream.'},{icon:'🏠',text:'<strong>Estate cleanouts are the highest margin jobs.</strong> One house can pay $800–$2,000 for a single day and the family is almost never price-sensitive.'}],steps:[{title:'List on Craigslist and Facebook Marketplace',desc:'"$50 minimum, free estimates." You can have your first paying job within 48 hours.',tip:'A $50 Craigslist ad generates 3–5 inquiries per week'},{title:'Find your nearest metal recycler and dump station',desc:'Know your costs per load before you price a job.'},{title:'Price confidently from day one',desc:'$150 minimum for a small load, $400–600 for a full truckload.'},{title:'Build relationships with estate sale companies',desc:'Estate sale companies constantly get asked "who can haul the leftovers?" A referral here generates consistent, high-margin work.'},{title:'Add a 1-800 number and simple website',desc:'A $20/month Google Voice number dramatically increases call volume and customer trust.'}],avoids:[{title:'No dump plan before pickup',desc:'Arriving at the dump with hazardous materials without prior approval gets you turned away.'},{title:'Underestimating load weight',desc:'Dump fees are by weight or volume. Estimate conservatively — overages are your cost.'}],scale:[{phase:'Month 1–2',pct:20,income:'$1–2K/mo',desc:'Learning pricing, finding best dump relationships'},{phase:'Month 3–6',pct:50,income:'$3–6K/mo',desc:'Regular customers, estate sale referrals, Google reviews'},{phase:'Year 2+',pct:80,income:'$8–20K/mo',desc:'Second truck, branded shirts and signs drive word of mouth'}],guide:{title:'Junk removal starter guide',price:'$9',preview:'Pricing guide by load type · Metal recycler finder · Estate sale pitch script · Craigslist ad templates...',items:['Pricing guide by load type — small, medium, full truckload, estate','Metal recycler finder by state','Estate sale company pitch script','Dump station cost tracker — know your margins','Craigslist and Facebook ad templates that generate calls','From solo operator to $20K/month: hiring your first employee']}},{id:'wedding',num:'13',icon:'💍',title:'Outdoor wedding coordination',badge:'Event biz',sub:'Coordinate weddings at beaches, parks, and scenic spots — no venue needed',desc:'Gulf Beach Weddings in Fort Myers started with $20,000 and now does $3 million/year — without owning a single square foot of property.',badges:['Event biz','High ticket','Referral-driven','Asset-light'],stats:[['$3K','Per wedding'],['$3M/yr','Top operator'],['66%','Weddings outdoors']],insights:[{icon:'🏖️',text:'<strong>Gulf Beach Weddings proves the model.</strong> Started with $20K, does $3M/year, owns zero property. The owner simply knows every beach permit and logistics detail better than anyone.'},{icon:'📈',text:'<strong>66% of all weddings are now outdoors</strong> — up from 40% a decade ago. Supply of coordinators specializing in outdoor venues hasn\'t kept up with demand.'},{icon:'📸',text:'<strong>Instagram is your marketing engine.</strong> Stunning outdoor wedding photos are some of the most shared content on the platform.'}],steps:[{title:'Call your state parks department',desc:'Learn which locations allow weddings, what permits cost, how far in advance to book, and what restrictions apply.'},{title:'Build your vendor network',desc:'Find photographers, florists, officiants, rental companies, and caterers willing to work at any location.'},{title:'Set your package pricing',desc:'Start at $1,500–$2,500 for a simple ceremony. Full service should run $3,000–8,000.',tip:'A 30% coordinator fee on all vendor bookings adds meaningful revenue to every event'},{title:'Build your Instagram portfolio first',desc:'Offer 2–3 discounted weddings to build stunning before/after photos.'},{title:'List on The Knot, WeddingWire, and Zola',desc:'A complete profile with real photos and reviews drives consistent inquiry volume.'}],avoids:[{title:'Not understanding permit requirements',desc:'A wedding shut down by rangers due to an invalid permit is a catastrophic reputational event.'},{title:'Over-promising on locations you don\'t control',desc:'Always have backup locations and communicate contingency plans upfront.'}],scale:[{phase:'Month 1–3',pct:15,income:'$0–2K/mo',desc:'Building portfolio, getting permit knowledge, discounted weddings'},{phase:'Month 3–12',pct:45,income:'$3–8K/mo',desc:'Full-price bookings, reviews on The Knot, referrals'},{phase:'Year 2+',pct:80,income:'$10–30K/mo',desc:'Peak season fully booked, second coordinator hired'}],guide:{title:'Outdoor wedding business guide',price:'$12',preview:'State park permit guide · Vendor rate templates · Package pricing · The Knot optimization...',items:['State park permit guide — requirements for all 50 states','Vendor rate negotiation templates','Package pricing framework — ceremony only, full service, destination','The Knot profile optimization — how to rank above established coordinators','Instagram content strategy — the 9-post grid that drives bookings','Gulf Beach Weddings breakdown: how they get to $3M/year']}},{id:'petcremation',num:'14',icon:'🐾',title:'Pet cremation lead generation',badge:'Niche biz',sub:'Connect grieving pet owners with cremation facilities — earn per referral',desc:"Chris avoided a $450K incinerator by building lead generation instead — connecting pet owners with existing facilities.",badges:['Niche biz','Asset-light','High conversion','Immediate need'],stats:[['$0','Equipment needed'],['$50–150','Per lead value'],['High','Urgency']],insights:[{icon:'💡',text:"<strong>Chris avoided the $450K incinerator entirely.</strong> The insight: the value isn't cremation, it's connecting grieving pet owners to the right facility at the right moment."},{icon:'⚡',text:'<strong>Grieving pet owners convert immediately</strong> and are almost never price-sensitive. Speed matters more than price — first provider reached almost always wins.'}],steps:[{title:'Scrape Google Maps for all pet cremation facilities',desc:'Tools like Outscraper can pull every facility with address and phone.'},{title:'Call each facility with a pay-per-lead pitch',desc:'"I\'ll send you pre-qualified pet owners who are actively looking. You pay $50–$100 per referral only when they book."',tip:'Ask what their current close rate is on walk-in inquiries'},{title:'Build a landing page targeting "pet cremation near [city]"',desc:'A basic 5-page site with a contact form or phone number.'},{title:'Run Google Ads targeting high-intent searches',desc:'"Pet cremation near me" — immediate-need searches where people are ready to call.'},{title:'Set up call tracking to prove ROI',desc:'Use a tracked phone number (CallRail) that forwards to the facility.'}],avoids:[{title:'Not being sensitive in your marketing',desc:'Pet owners in grief are in an emotional state. Pushy or salesy content destroys trust immediately.'},{title:'Partners who don\'t follow up promptly',desc:'A facility that takes 24 hours to return calls loses your leads. Vet your partners carefully.'}],scale:[{phase:'Month 1–2',pct:20,income:'$500–1.5K/mo',desc:'Testing ads, building partner network'},{phase:'Month 3–6',pct:50,income:'$2–5K/mo',desc:'SEO traffic building, 5–10 partner facilities'},{phase:'Year 2+',pct:80,income:'$5–15K/mo',desc:'Multiple cities, potentially adding human cremation niche'}],guide:{title:'Pet cremation lead gen guide',price:'$9',preview:'Google Maps scraping walkthrough · Partner pitch script · Landing page template · Google Ads setup...',items:['Google Maps scraping walkthrough — find every facility in any city','Partner pitch script — the pay-per-lead conversation','Landing page template — empathetic, converting, SEO-optimized','Google Ads campaign setup — keywords, bids, budgets','Call tracking setup with CallRail','Expanding to multiple cities: the geo-replication playbook']}},{id:'landclearing',num:'15',icon:'🪓',title:'Land clearing business',badge:'Outdoor service',sub:'Clear brush, trees, and debris — high demand, low local competition',desc:"Alex Boyd had zero experience and built a thriving land clearing business in 13 months after buying 5 acres and discovering nobody could clear his brush.",badges:['Outdoor service','Low competition','High ticket','Referral-driven'],stats:[['$2K+','Per job'],['13 months','Alex\'s timeline'],['Low','Local competition']],insights:[{icon:'🌳',text:'<strong>Alex Boyd had zero experience</strong> and built a thriving land clearing business near Cincinnati in 13 months after discovering nobody in his area could clear brush reliably.'},{icon:'🚜',text:'<strong>Equipment rental makes starting easy.</strong> Rent from United Rentals or Sunbelt for your first 10–15 jobs, then buy equipment with cash flow.'},{icon:'🤝',text:'<strong>Referral networks compound fast.</strong> Fence companies, landscapers, and developers all need clearing before they can start work.'}],steps:[{title:'Post in local Facebook groups immediately',desc:'"Land clearing available in [county] — brush, trees, debris removal." Your first inquiry can come within hours.',tip:'Rural county Facebook groups get more traction than city groups'},{title:'Rent equipment for your first jobs',desc:'United Rentals and Sunbelt Rentals have skid steers and excavators by the day or week.'},{title:'Build a before-and-after photo portfolio',desc:'Rural customers are highly visual. A gallery of overgrown land transformed into clean property is your most powerful sales tool.'},{title:'Partner with fence companies, landscapers, and septic installers',desc:'They constantly get calls for clearing they don\'t do themselves.',tip:'One fence company partnership can send you 2–4 jobs per month indefinitely'},{title:'Buy your first piece of equipment once cash flow supports it',desc:'A used skid steer runs $20–40K. Buy once you\'re doing $8–10K/month in revenue.'}],avoids:[{title:'Underquoting on difficult terrain',desc:'Rocky ground, steep slopes, and large trees take dramatically longer. Build in a 20% buffer.'},{title:'Not checking for utilities before clearing',desc:'Call 811 before any job involving digging or heavy equipment near the ground.'}],scale:[{phase:'Month 1–3',pct:20,income:'$2–5K/mo',desc:'Renting equipment, building portfolio, first trade referral partners'},{phase:'Month 3–12',pct:50,income:'$6–12K/mo',desc:'Word of mouth, buying first piece of equipment, booked weeks out'},{phase:'Year 2+',pct:80,income:'$15–30K/mo',desc:'Multiple crews, owned equipment fleet, commercial contracts'}],guide:{title:'Land clearing starter guide',price:'$9',preview:'Equipment rental guide · Job quoting template · Trade partner pitch · Facebook strategy...',items:['Equipment rental guide by job type — what to rent for every scenario','Job quoting template — pricing any clearing job profitably','Trade partner pitch script — getting fence companies to send you jobs','Facebook group posting strategy — the post format that generates calls','Equipment buying guide — used skid steers, excavators, stump grinders','From rented equipment to owned fleet: the 18-month purchase plan']}}];
+
+/* ══════════════════════════════════════
+   NAVIGATION ENGINE
+══════════════════════════════════════ */
 function go(id){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0,0);
+  const el=document.getElementById(id);
+  if(el){el.classList.add('active');window.scrollTo(0,0);}
+  // Build content lazily
+  if(id==='ck') buildCK();
+  else if(id==='pf') buildCreator('pf');
+  else if(id==='ttc') buildCreator('ttc');
+  else if(id==='gr') buildCreator('gr');
+  else if(id==='bwb') buildCreator('bwb');
+  else if(id==='ltt') buildCreator('ltt');
+  else if(id==='mkbhd') buildCreator('mkbhd');
+  else if(id==='pt') buildCreator('pt');
 }
-function toggleIdea(card){
-  const was=card.classList.contains('active');
-  document.querySelectorAll('.idea-card').forEach(c=>c.classList.remove('active'));
-  if(!was) card.classList.add('active');
+
+/* ──── CK ──── */
+function buildCK(){
+  const el=document.getElementById('ck-content');
+  if(el.dataset.built) return;
+  el.dataset.built=1;
+  el.innerHTML=`
+  ${nav("go('home')")}
+  ${backBar('home','Back to home')}
+  <div class="cr-hdr">
+    <div class="cr-hdr-top">
+      <div class="cr-av" style="background:#1C1C1E;color:#C8F135;border:1.5px solid rgba(200,241,53,0.3);">CK</div>
+      <div><div class="cr-name">Chris Koerner</div><div class="cr-desc">Serial entrepreneur who has started 75+ businesses. Finds overlooked, boring businesses that quietly make serious money.</div><div class="cr-tag">💼 Business &amp; entrepreneurship</div></div>
+    </div>
+    <div class="stat-pills">
+      <div class="pill"><div class="pill-val">180K</div><div class="pill-lbl">Subscribers</div></div>
+      <div class="pill"><div class="pill-val">75+</div><div class="pill-lbl">Businesses started</div></div>
+      <div class="pill"><div class="pill-val">15</div><div class="pill-lbl">Ideas tracked</div></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-hdr"><span class="sec-title">Business ideas</span><span class="sec-note">Click any idea for full breakdown</span></div>
+    ${ideas.map((idea,i)=>`
+      <div class="ilc ${i===0?'feat':''}" onclick="openIdea('${idea.id}')">
+        ${i===0?'<div class="ilc-bar"></div>':''}
+        <div class="ilc-row">
+          <div class="ilc-num">${idea.num}</div>
+          <div class="ilc-icon">${idea.icon}</div>
+          <div class="ilc-info"><div class="ilc-title">${idea.title}</div><div class="ilc-sub">${idea.sub}</div></div>
+          <div class="ilc-right"><span class="ilc-badge">${idea.badge}</span><span class="ilc-arr">›</span></div>
+        </div>
+      </div>`).join('')}
+  </div>
+  ${footer()}`;
 }
+
+function openIdea(id){
+  const idea=ideas.find(i=>i.id===id);
+  if(!idea) return;
+  document.getElementById('idea-detail-content').innerHTML=`
+  ${nav("go('ck')")}
+  ${backBar('ck','Back to Chris Koerner')}
+  <div class="idea-hero">
+    <div class="idea-eyebrow">Business idea #${idea.num}</div>
+    <div class="idea-big-title">${idea.icon} ${idea.title}</div>
+    <div class="idea-big-desc">${idea.desc}</div>
+    <div class="badge-row">${idea.badges.map(b=>`<span class="badge">${b}</span>`).join('')}</div>
+  </div>
+  <div class="stat-grid">${idea.stats.map(([v,l])=>`<div class="stat-box"><div class="stat-val">${v}</div><div class="stat-lbl">${l}</div></div>`).join('')}</div>
+  <div class="sec">
+    <div class="d-label">Key insights from the episode</div>
+    ${idea.insights.map(ins=>`<div class="insight-card"><div class="ins-row"><div class="ins-icon">${ins.icon}</div><div class="ins-text">${ins.text}</div></div></div>`).join('')}
+    <div class="d-label">How to get started</div>
+    <div class="step-list">${idea.steps.map((s,i)=>`
+      <div class="step-item">
+        <div class="step-left"><div class="step-num">${i+1}</div><div class="step-line"></div></div>
+        <div class="step-right">
+          <div class="step-title">${s.title}</div>
+          <div class="step-desc">${s.desc}</div>
+          ${s.tip?`<div class="step-tip">💡 ${s.tip}</div>`:''}
+        </div>
+      </div>`).join('')}</div>
+    <div class="d-label">Common mistakes to avoid</div>
+    <div class="avoid-wrap">${idea.avoids.map(a=>`<div class="avoid-item"><div class="avoid-dot"></div><div class="avoid-text"><strong>${a.title}.</strong> ${a.desc}</div></div>`).join('')}</div>
+    <div class="d-label">How to scale</div>
+    ${idea.scale.map(s=>`<div class="scale-card"><div class="scale-row"><div class="scale-phase">${s.phase}</div><div class="scale-track"><div class="scale-fill" style="width:${s.pct}%;"></div></div><div class="scale-income">${s.income}</div></div><div class="scale-desc">${s.desc}</div></div>`).join('')}
+    <div class="d-label">Pro guide</div>
+    <div class="guide-lock">
+      <div class="lock-hdr"><span class="lock-icon">🔒</span><span class="lock-title">${idea.guide.title}</span><span class="lock-price">${idea.guide.price}</span></div>
+      <div class="lock-preview"><div class="lock-preview-text">${idea.guide.preview}</div></div>
+      <div class="lock-items">${idea.guide.items.map(item=>`<div class="lock-item">${item}</div>`).join('')}</div>
+      <button class="lock-btn">Unlock guide — ${idea.guide.price}</button>
+    </div>
+  </div>
+  ${footer()}`;
+  go('idea-detail');
+}
+
+/* ──── GENERIC CREATOR BUILDER ──── */
+function buildCreator(key){
+  const c=creators[key];
+  if(!c) return;
+  const contentEl=document.getElementById(`${key}-content`);
+  if(contentEl.dataset.built) return;
+  contentEl.dataset.built=1;
+
+  // Determine item list type
+  const items=c.reviews||c.categories||c.recipes||c.recreations||c.techniques||[];
+  const itemKey=c.reviews?'reviews':c.categories?'categories':c.recipes?'recipes':c.recreations?'recreations':c.techniques?'techniques':'items';
+
+  // Build guide section if creator has guide
+  const hasGuide=key==='ltt'||key==='gr'||key==='bwb'||key==='pt';
+  const guideSection=hasGuide&&items.length>0?`
+  <div class="sec" style="padding-top:0;">
+    <div class="guide-lock">
+      <div class="lock-hdr"><span class="lock-icon">🔒</span><span class="lock-title">${items[0].guide.title}</span><span class="lock-price">${items[0].guide.price}</span></div>
+      <div class="lock-preview"><div class="lock-preview-text">${items[0].guide.preview}</div></div>
+      <div class="lock-items">${items[0].guide.items.map(i=>`<div class="lock-item">${i}</div>`).join('')}</div>
+      <button class="lock-btn">Unlock guide — ${items[0].guide.price}</button>
+    </div>
+  </div>`:'';
+
+  // Affiliate section if MKBHD
+  const hasAffOnly=key==='mkbhd';
+
+  contentEl.innerHTML=`
+  ${nav("go('home')")}
+  ${backBar('home','Back to home')}
+  <div class="cr-hdr">
+    <div class="cr-hdr-top">
+      <div class="cr-av" style="background:${c.bg};color:${c.color};border:1.5px solid ${c.border};">${c.initials}</div>
+      <div><div class="cr-name">${c.name}</div><div class="cr-desc">${c.desc}</div><div class="cr-tag">${c.tag}</div></div>
+    </div>
+    <div class="stat-pills">
+      <div class="pill"><div class="pill-val">${c.subs}</div><div class="pill-lbl">Subscribers</div></div>
+      <div class="pill"><div class="pill-val">${c.videos}</div><div class="pill-lbl">Videos</div></div>
+      <div class="pill"><div class="pill-val">${c.extra||'—'}</div><div class="pill-lbl">${key==='pf'?'Patron-funded':key==='ttc'?'Tools ranked':key==='gr'?'Michelin stars':key==='bwb'?'NYT Bestseller':key==='ltt'?'Weekly uploads':key==='mkbhd'?'Since':key==='pt'?'Total views':''}</div></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-hdr"><span class="sec-title">${itemKey==='reviews'?'Product reviews':itemKey==='categories'?'Tool categories':itemKey==='recipes'?'Recipes & techniques':itemKey==='recreations'?'Film & TV recreations':itemKey==='techniques'?'Primitive techniques':'Content'}</span><span class="sec-note">Click for full breakdown</span></div>
+    ${items.map((item,i)=>`
+      <div class="ilc ${i===0?'feat':''}" onclick="openDetail('${key}','${item.id}')">
+        ${i===0?'<div class="ilc-bar"></div>':''}
+        <div class="ilc-row">
+          <div class="ilc-num">${item.num}</div>
+          <div class="ilc-icon">${item.icon}</div>
+          <div class="ilc-info"><div class="ilc-title">${item.title}</div><div class="ilc-sub">${item.sub}</div></div>
+          <div class="ilc-right"><span class="ilc-badge">${item.badge}</span><span class="ilc-arr">›</span></div>
+        </div>
+      </div>`).join('')}
+  </div>
+  ${guideSection}
+  ${footer()}`;
+}
+
+/* ──── DETAIL PAGE RENDERER ──── */
+function openDetail(creatorKey, itemId){
+  const c=creators[creatorKey];
+  const items=c.reviews||c.categories||c.recipes||c.recreations||c.techniques||[];
+  const item=items.find(i=>i.id===itemId);
+  if(!item) return;
+
+  // Build rankings section if exists
+  const rankingSection=item.rankings?`
+    <div class="sec">
+      <div class="d-label">Rankings</div>
+      <div class="rev-card">
+        <div class="rank-wrap">
+          ${item.rankings.map(([name,val],i)=>`
+            <div class="rank-row">
+              <div class="rank-pos">${i+1}</div>
+              <div class="rank-name">${name}</div>
+              <div class="rank-track"><div class="rank-fill" style="width:${Math.max(30,100-(i*15))}%;background:${i===0?'var(--lime)':i===1?'rgba(200,241,53,0.55)':i===2?'rgba(200,241,53,0.3)':'rgba(200,241,53,0.15)'};"></div></div>
+              <div class="rank-val">${val}</div>
+            </div>`).join('')}
+        </div>
+      </div>
+      ${item.winner?`<div style="font-size:12px;color:rgba(255,255,255,0.4);padding:8px 4px;line-height:1.55;">🏆 <strong style="color:var(--lime);">${item.winner}</strong> — ${item.winnerNote}</div>`:''}
+    </div>`:'';
+
+  // Build method section if exists
+  const methodSection=item.method?`
+    <div class="sec" style="padding-top:0;">
+      <div class="d-label">Testing methodology</div>
+      <div class="insight-card"><div class="ins-row"><div class="ins-icon">🧪</div><div class="ins-text">${item.method}</div></div></div>
+    </div>`:'';
+
+  // Build steps/technique section
+  const stepsArr=item.steps||item.technique||[];
+  const stepsSection=stepsArr.length?`
+    <div class="sec" style="padding-top:0;">
+      <div class="d-label">${item.steps?'How to get started':'Technique breakdown'}</div>
+      <div class="step-list">${stepsArr.map((s,i)=>`
+        <div class="step-item">
+          <div class="step-left"><div class="step-num">${i+1}</div><div class="step-line"></div></div>
+          <div class="step-right">
+            <div class="step-title">${typeof s==='string'?'Step '+(i+1):s.title||''}</div>
+            <div class="step-desc">${typeof s==='string'?s:s.desc||''}</div>
+            ${typeof s==='object'&&s.tip?`<div class="step-tip">💡 ${s.tip}</div>`:''}
+          </div>
+        </div>`).join('')}</div>
+    </div>`:'';
+
+  // Affiliate section
+  const affArr=item.aff||item.gear||[];
+  const affSection=affArr.length?`
+    <div class="sec" style="padding-top:0;">
+      <div class="d-label">${item.aff?'Top affiliate picks':'Recommended gear'}</div>
+      ${affArr.map((a,i)=>`
+        <div class="aff-card ${i===0?'feat':''}">
+          ${i===0?'<div style="height:2px;background:var(--lime);margin:-14px -16px 12px;"></div>':''}
+          <div class="aff-row">
+            <div class="aff-icon">${a.icon}</div>
+            <div class="aff-info"><div class="aff-name">${a.name}</div><div class="aff-meta">${a.meta}</div></div>
+            <div class="aff-right"><button class="aff-btn">Buy →</button><div class="aff-comm">${a.comm}</div></div>
+          </div>
+        </div>`).join('')}
+    </div>`:'';
+
+  // Verdict
+  const verdictSection=item.verdict?`
+    <div class="sec" style="padding-top:0;">
+      <div class="d-label">Todd's verdict</div>
+      <div class="insight-card"><div class="ins-row"><div class="ins-icon">✅</div><div class="ins-text">${item.verdict}</div></div></div>
+    </div>`:'';
+
+  // Description section for recipe/technique pages
+  const descSection=item.desc?`
+    <div class="sec" style="padding-top:0;">
+      <div class="d-label">Overview</div>
+      <div class="insight-card"><div class="ins-row"><div class="ins-icon">📖</div><div class="ins-text">${item.desc}</div></div></div>
+    </div>`:'';
+
+  // Guide
+  const guideSection=item.guide?`
+    <div class="sec" style="padding-top:0;">
+      <div class="guide-lock">
+        <div class="lock-hdr"><span class="lock-icon">🔒</span><span class="lock-title">${item.guide.title}</span><span class="lock-price">${item.guide.price}</span></div>
+        <div class="lock-preview"><div class="lock-preview-text">${item.guide.preview}</div></div>
+        <div class="lock-items">${item.guide.items.map(gi=>`<div class="lock-item">${gi}</div>`).join('')}</div>
+        <button class="lock-btn">Unlock guide — ${item.guide.price}</button>
+      </div>
+    </div>`:'';
+
+  const detailEl=document.getElementById(`${creatorKey}-detail-content`);
+  detailEl.innerHTML=`
+  ${nav(`go('${creatorKey}')`)}
+  ${backBar(creatorKey,`Back to ${c.name}`)}
+  <div class="idea-hero">
+    <div class="idea-eyebrow">${c.tag} · item ${item.num}</div>
+    <div class="idea-big-title">${item.icon} ${item.title}</div>
+    <div class="idea-big-desc">${item.sub}</div>
+    <div class="badge-row"><span class="badge">${item.badge}</span></div>
+  </div>
+  ${descSection}
+  ${methodSection}
+  ${rankingSection}
+  ${stepsSection}
+  ${affSection}
+  ${verdictSection}
+  ${guideSection}
+  ${footer()}`;
+
+  go(`${creatorKey}-detail`);
+}
+
+// Fix SVG_LOGO being literal in nav innerHTML
+document.querySelectorAll('.nav-logo').forEach(el=>{
+  if(el.innerHTML.includes('${SVG_LOGO}')) el.innerHTML=el.innerHTML.replace('${SVG_LOGO}',SVG_LOGO);
+});
 </script>
 </body>
 </html>
