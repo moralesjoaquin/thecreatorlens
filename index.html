@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CreatorLens</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --charcoal:#1C1C1E;--ch2:#252527;--ch3:#2E2E30;
+  --lime:#C8F135;--white:#F7F7F5;
+  --border:rgba(255,255,255,0.07);--bg:#111112;
+}
+body{background:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;color:var(--white);min-height:100vh;}
+
+.nav{height:54px;background:var(--charcoal);display:flex;align-items:center;padding:0 20px;gap:20px;border-bottom:0.5px solid var(--border);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:9px;cursor:pointer;}
+.nav-wm{font-size:17px;font-weight:800;letter-spacing:-0.03em;color:var(--white);}
+.nav-wm span{color:var(--lime);}
+.nav-links{display:flex;gap:18px;}
+.nav-link{font-size:12px;color:rgba(255,255,255,0.4);cursor:pointer;transition:color .15s;}
+.nav-link:hover{color:var(--white);}
+.nav-cta{margin-left:auto;background:var(--lime);color:var(--charcoal);font-size:11px;font-weight:700;padding:7px 15px;border-radius:7px;cursor:pointer;border:none;font-family:'Plus Jakarta Sans',sans-serif;}
+
+.view{display:none;}.view.active{display:block;}
+
+.hero{background:var(--charcoal);padding:44px 20px 36px;text-align:center;border-bottom:0.5px solid var(--border);}
+.hero-tag{display:inline-flex;align-items:center;background:rgba(200,241,53,0.1);border:0.5px solid rgba(200,241,53,0.25);color:var(--lime);font-size:11px;font-weight:600;padding:4px 12px;border-radius:99px;margin-bottom:16px;letter-spacing:.04em;text-transform:uppercase;}
+.hero-title{font-size:28px;font-weight:800;color:var(--white);line-height:1.2;letter-spacing:-0.03em;margin-bottom:10px;}
+.hero-title span{color:var(--lime);}
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.42);max-width:360px;margin:0 auto 24px;line-height:1.65;}
+.search-wrap{display:flex;align-items:center;background:var(--ch3);border:0.5px solid rgba(255,255,255,0.1);border-radius:10px;padding:0 14px;max-width:340px;margin:0 auto;transition:border-color .15s;}
+.search-wrap:focus-within{border-color:var(--lime);}
+.search-icon{color:var(--lime);font-size:13px;margin-right:8px;}
+.search-wrap input{background:transparent;border:none;outline:none;color:var(--white);font-size:13px;padding:11px 0;flex:1;font-family:'Plus Jakarta Sans',sans-serif;}
+.search-wrap input::placeholder{color:rgba(255,255,255,0.22);}
+
+.section{padding:24px 20px;}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.sec-title{font-size:13px;font-weight:700;color:var(--white);letter-spacing:-0.01em;}
+.sec-note{font-size:10px;color:rgba(255,255,255,0.22);font-family:'DM Mono',monospace;}
+.divider{height:0.5px;background:var(--border);margin:0 20px;}
+
+/* TILE GRID — 4 col, wraps to 2 rows of 4 */
+.tile-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.tile{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;}
+.tile-av{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;font-family:'DM Mono',monospace;border:1.5px solid transparent;transition:border-color .15s,transform .15s;}
+.tile:hover .tile-av{border-color:var(--lime);transform:scale(1.06);}
+.tile-name{font-size:10px;color:rgba(255,255,255,0.5);text-align:center;line-height:1.3;font-weight:500;}
+.tile-tag{font-size:9px;color:var(--lime);font-weight:600;text-align:center;}
+
+/* MONO TYPE BADGE on tile */
+
+
+/* CARDS */
+.card{background:var(--ch2);border:0.5px solid var(--border);border-radius:12px;padding:14px 16px;cursor:pointer;transition:border-color .15s;margin-bottom:8px;}
+.card:last-child{margin-bottom:0;}
+.card:hover{border-color:rgba(200,241,53,0.35);}
+.card-feat{border-color:rgba(200,241,53,0.2);}
+.card-bar{height:2px;background:var(--lime);border-radius:0;margin:-14px -16px 12px;}
+.card-row{display:flex;align-items:center;gap:10px;}
+.card-num{font-size:11px;font-weight:600;color:var(--lime);min-width:20px;font-family:'DM Mono',monospace;}
+.card-title{font-size:13px;font-weight:600;color:var(--white);flex:1;letter-spacing:-0.01em;}
+.card-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;background:rgba(200,241,53,0.1);color:var(--lime);border:0.5px solid rgba(200,241,53,0.2);white-space:nowrap;}
+.card-arr{font-size:14px;color:rgba(255,255,255,0.2);}
+.card-sub{font-size:11px;color:rgba(255,255,255,0.28);margin-top:5px;padding-left:30px;line-height:1.4;}
+
+/* AFFILIATE ROW */
+.aff-card{background:var(--ch2);border:0.5px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:8px;transition:border-color .15s;}
+.aff-card:hover{border-color:rgba(200,241,53,0.3);}
+.aff-card.feat{border-color:rgba(200,241,53,0.2);}
+.aff-card.feat .card-bar{display:block;}
+.aff-row{display:flex;align-items:center;gap:10px;}
+.aff-icon{width:38px;height:38px;border-radius:9px;background:rgba(200,241,53,0.07);border:0.5px solid rgba(200,241,53,0.14);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.aff-info{flex:1;}
+.aff-name{font-size:13px;font-weight:600;color:var(--white);letter-spacing:-0.01em;}
+.aff-meta{font-size:11px;color:rgba(255,255,255,0.3);margin-top:1px;}
+.aff-right{text-align:right;flex-shrink:0;}
+.aff-btn{background:var(--lime);color:var(--charcoal);font-size:10px;font-weight:700;padding:5px 11px;border-radius:6px;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap;}
+.aff-comm{font-size:9px;color:rgba(255,255,255,0.22);margin-top:3px;text-align:right;}
+
+/* RANK BAR */
+.rank-wrap{margin-top:10px;padding-left:48px;}
+.rank-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.rank-pos{font-size:10px;font-weight:600;color:rgba(255,255,255,0.2);width:14px;font-family:'DM Mono',monospace;}
+.rank-name{font-size:11px;color:rgba(255,255,255,0.5);flex:1;}
+.rank-track{width:80px;height:4px;background:rgba(255,255,255,0.05);border-radius:99px;overflow:hidden;flex-shrink:0;}
+.rank-fill{height:100%;border-radius:99px;}
+.rank-val{font-size:10px;color:rgba(255,255,255,0.35);width:52px;text-align:right;font-family:'DM Mono',monospace;flex-shrink:0;}
+
+/* CREATOR HEADER */
+.cr-hdr{background:var(--charcoal);padding:22px 20px;border-bottom:0.5px solid var(--border);}
+.cr-hdr-top{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.cr-av{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;font-family:'DM Mono',monospace;flex-shrink:0;}
+.cr-name{font-size:18px;font-weight:800;color:var(--white);letter-spacing:-0.02em;margin-bottom:3px;}
+.cr-desc{font-size:12px;color:rgba(255,255,255,0.38);line-height:1.5;}
+.cr-tag{margin-top:6px;display:inline-flex;align-items:center;gap:5px;background:rgba(200,241,53,0.08);border:0.5px solid rgba(200,241,53,0.18);color:var(--lime);font-size:10px;font-weight:600;padding:3px 9px;border-radius:99px;}
+.stat-pills{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.pill{background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:8px;padding:10px 12px;text-align:center;}
+.pill-val{font-size:16px;font-weight:700;color:var(--lime);font-family:'DM Mono',monospace;}
+.pill-lbl{font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px;}
+
+.back-bar{display:flex;align-items:center;gap:10px;padding:13px 20px;background:var(--charcoal);border-bottom:0.5px solid var(--border);cursor:pointer;}
+.back-arr{font-size:14px;color:var(--lime);}
+.back-lbl{font-size:12px;color:rgba(255,255,255,0.4);}
+
+/* GUIDE LOCK */
+.guide-lock{background:var(--ch2);border:0.5px solid rgba(200,241,53,0.2);border-radius:12px;padding:15px;margin-bottom:8px;}
+.lock-hdr{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.lock-icon{font-size:16px;flex-shrink:0;}
+.lock-title{font-size:13px;font-weight:700;color:var(--white);flex:1;}
+.lock-price{font-size:14px;font-weight:700;color:var(--lime);font-family:'DM Mono',monospace;}
+.lock-preview{background:rgba(200,241,53,0.04);border:0.5px dashed rgba(200,241,53,0.15);border-radius:8px;padding:10px 12px;margin-bottom:12px;}
+.lock-preview-text{font-size:11px;color:rgba(255,255,255,0.18);line-height:1.6;filter:blur(3px);user-select:none;}
+.lock-items{margin-bottom:12px;}
+.lock-item{font-size:11px;color:rgba(255,255,255,0.38);margin-bottom:5px;padding-left:16px;position:relative;line-height:1.5;}
+.lock-item::before{content:"✓";position:absolute;left:0;color:var(--lime);font-weight:700;}
+.lock-btn{width:100%;background:var(--lime);color:var(--charcoal);font-size:12px;font-weight:700;padding:11px;border-radius:8px;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;}
+.lock-btn:hover{background:#d4f545;}
+
+/* IDEA EXPAND */
+.idea-card{background:var(--ch2);border:0.5px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:8px;cursor:pointer;transition:border-color .15s;}
+.idea-card:hover{border-color:rgba(200,241,53,0.35);}
+.idea-card.active{border-color:var(--lime);background:#1a2208;}
+.idea-card.feat{border-color:rgba(200,241,53,0.2);}
+.idea-top-bar{height:2px;background:var(--lime);border-radius:0;margin:-14px -16px 12px;}
+.idea-detail{padding:10px 0 0 30px;display:none;}
+.idea-card.active .idea-detail{display:block;}
+.idea-arr{font-size:13px;color:rgba(255,255,255,0.2);transition:transform .15s;}
+.idea-card.active .idea-arr{transform:rotate(90deg);color:var(--lime);}
+.detail-label{font-size:10px;font-weight:600;color:rgba(255,255,255,0.22);letter-spacing:.1em;text-transform:uppercase;margin:10px 0 7px;}
+.detail-label:first-child{margin-top:0;}
+.ins-row{display:flex;gap:8px;margin-bottom:5px;}
+.ins-dot{width:5px;height:5px;border-radius:50%;background:var(--lime);flex-shrink:0;margin-top:5px;}
+.ins-text{font-size:12px;color:rgba(255,255,255,0.45);line-height:1.5;}
+.step-row{display:flex;gap:9px;margin-bottom:7px;}
+.step-n{font-size:10px;font-weight:700;color:var(--charcoal);background:var(--lime);width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'DM Mono',monospace;margin-top:2px;}
+.step-t{font-size:12px;color:rgba(255,255,255,0.45);line-height:1.5;}
+
+/* TOOL BARS */
+.tool-card{background:var(--ch2);border:0.5px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:8px;cursor:pointer;transition:border-color .15s;}
+.tool-card:hover{border-color:rgba(200,241,53,0.35);}
+.tool-row{display:flex;align-items:center;gap:10px;}
+.tool-icon{width:38px;height:38px;border-radius:9px;background:rgba(200,241,53,0.07);border:0.5px solid rgba(200,241,53,0.14);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.tool-info{flex:1;}
+.tool-title{font-size:13px;font-weight:600;color:var(--white);}
+.tool-meta{font-size:11px;color:rgba(255,255,255,0.28);margin-top:2px;}
+.tool-winner{text-align:right;flex-shrink:0;}
+.tool-win-name{font-size:11px;font-weight:700;color:var(--lime);font-family:'DM Mono',monospace;}
+.tool-win-lbl{font-size:9px;color:rgba(255,255,255,0.22);margin-top:1px;}
+
+/* PRO BANNER */
+.pro-banner{background:var(--charcoal);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);padding:18px 20px;display:flex;align-items:center;gap:14px;}
+.pro-icon{width:36px;height:36px;border-radius:8px;background:rgba(200,241,53,0.1);border:0.5px solid rgba(200,241,53,0.2);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.pro-text{flex:1;}
+.pro-title{font-size:13px;font-weight:700;color:var(--white);margin-bottom:2px;}
+.pro-sub{font-size:11px;color:rgba(255,255,255,0.3);line-height:1.4;}
+.pro-btn{background:var(--lime);color:var(--charcoal);font-size:11px;font-weight:700;padding:8px 14px;border-radius:7px;cursor:pointer;white-space:nowrap;border:none;font-family:'Plus Jakarta Sans',sans-serif;flex-shrink:0;}
+
+.footer{background:var(--charcoal);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;border-top:0.5px solid var(--border);}
+.footer-logo{font-size:13px;font-weight:800;color:var(--lime);}
+.footer-links{display:flex;gap:14px;}
+.footer-link{font-size:11px;color:rgba(255,255,255,0.2);}
+</style>
+</head>
+<body>
+
+<!-- ═══ HOME ═══ -->
+<div id="home" class="view active">
+<nav class="nav">
+  <div class="nav-logo" onclick="go('home')">
+    <svg width="26" height="26" viewBox="0 0 58 58" fill="none"><path d="M29 5 L36 21 L29 29 L13 23 Z" fill="#C8F135"/><path d="M53 29 L37 22 L29 29 L35 45 Z" fill="#C8F135" opacity="0.72"/><path d="M29 53 L22 37 L29 29 L45 35 Z" fill="#C8F135" opacity="0.46"/><path d="M5 29 L21 36 L29 29 L23 13 Z" fill="#C8F135" opacity="0.22"/><circle cx="29" cy="29" r="5" fill="#C8F135"/><circle cx="29" cy="29" r="2.5" fill="#1C1C1E"/></svg>
+    <span class="nav-wm">Creator<span>Lens</span></span>
+  </div>
+  <div class="nav-links"><span class="nav-link">Creators</span><span class="nav-link">Guides</span><span class="nav-link">Reviews</span></div>
+  <button class="nav-cta">Pro Access</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">Content intelligence</div>
+  <div class="hero-title">The best of every creator,<br><span>organized for you.</span></div>
+  <div class="hero-sub">Business ideas, product reviews, tool data, recipes and tech — distilled from the world's top YouTube creators.</div>
+  <div class="search-wrap"><span class="search-icon">&#9906;</span><input type="text" placeholder="Search creators, products, ideas..."></div>
+</div>
+
+<div class="section">
+  <div class="sec-hdr"><span class="sec-title">All creators</span><span class="sec-note">8 channels</span></div>
+  <div class="tile-grid">
+
+    <div class="tile" onclick="go('ck')">
+      <div class="tile-av" style="background:#1C1C1E;color:#C8F135;">CK</div>
+      <div class="tile-name">Chris Koerner</div>
+      <div class="tile-tag">Business</div>
+
+    </div>
+
+    <div class="tile" onclick="go('pf')">
+      <div class="tile-av" style="background:#252527;color:#C8F135;">PF</div>
+      <div class="tile-name">Project Farm</div>
+      <div class="tile-tag">Reviews</div>
+
+    </div>
+
+    <div class="tile" onclick="go('ttc')">
+      <div class="tile-av" style="background:#1e2a1e;color:#C8F135;">TTC</div>
+      <div class="tile-name">Torque Test</div>
+      <div class="tile-tag">Tools</div>
+
+    </div>
+
+    <div class="tile" onclick="go('ltt')">
+      <div class="tile-av" style="background:#0f1a2a;color:#85B7EB;">LTT</div>
+      <div class="tile-name">Linus Tech Tips</div>
+      <div class="tile-tag">Tech</div>
+
+    </div>
+
+    <div class="tile" onclick="go('mkbhd')">
+      <div class="tile-av" style="background:#0a1520;color:#85B7EB;">MK</div>
+      <div class="tile-name">MKBHD</div>
+      <div class="tile-tag">Tech</div>
+
+    </div>
+
+    <div class="tile" onclick="go('gr')">
+      <div class="tile-av" style="background:#2a1010;color:#F09595;">GR</div>
+      <div class="tile-name">Gordon Ramsay</div>
+      <div class="tile-tag">Cooking</div>
+
+    </div>
+
+    <div class="tile" onclick="go('bwb')">
+      <div class="tile-av" style="background:#2a1010;color:#F09595;">BwB</div>
+      <div class="tile-name">Binging w/ Babish</div>
+      <div class="tile-tag">Cooking</div>
+
+    </div>
+
+    <div class="tile" onclick="go('pt')">
+      <div class="tile-av" style="background:#1a2010;color:#97C459;">PT</div>
+      <div class="tile-name">Primitive Technology</div>
+      <div class="tile-tag">Survival</div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+  <div class="sec-hdr"><span class="sec-title">Trending content</span></div>
+  <div class="card card-feat" onclick="go('ltt')"><div class="card-bar"></div><div class="card-row"><span class="card-num">01</span><span class="card-title">Best GPU under $400 — ranked</span><span class="card-badge">Tech</span><span class="card-arr">›</span></div><div class="card-sub">RTX 4060 Ti vs RX 7600 XT vs Arc B580 — real benchmark data</div></div>
+  <div class="card" onclick="go('gr')"><div class="card-row"><span class="card-num">02</span><span class="card-title">Gordon's essential knife guide</span><span class="card-badge">Cooking</span><span class="card-arr">›</span></div><div class="card-sub">Chef's knife, bread knife, paring knife — what to buy and why</div></div>
+  <div class="card" onclick="go('mkbhd')"><div class="card-row"><span class="card-num">03</span><span class="card-title">Best phones of 2025 — ranked</span><span class="card-badge">Tech</span><span class="card-arr">›</span></div><div class="card-sub">iPhone 16 Pro vs Galaxy S25 Ultra vs Pixel 9 Pro</div></div>
+  <div class="card" onclick="go('pt')"><div class="card-row"><span class="card-num">04</span><span class="card-title">Best bushcraft starter kit</span><span class="card-badge">Survival</span><span class="card-arr">›</span></div><div class="card-sub">Axe, ferro rod, tarp, water filter — curated from PT videos</div></div>
+</div>
+
+<div class="pro-banner">
+  <div class="pro-icon">&#11088;</div>
+  <div class="pro-text"><div class="pro-title">Unlock full guides — from $9</div><div class="pro-sub">Deep dives, gear lists, and starter frameworks for select creators.</div></div>
+  <button class="pro-btn">View guides</button>
+</div>
+<div class="footer"><span class="footer-logo">CreatorLens</span><div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Guides</span><span class="footer-link">Affiliate disclosure</span></div></div>
+</div>
+
+
+<!-- ═══ CHRIS KOERNER ═══ -->
+<div id="ck" class="view">
+<nav class="nav"><div class="nav-logo" onclick="go('home')"><svg width="26" height="26" viewBox="0 0 58 58" fill="none"><path d="M29 5 L36 21 L29 29 L13 23 Z" fill="#C8F135"/><path d="M53 29 L37 22 L29 29 L35 45 Z" fill="#C8F135" opacity="0.72"/><path d="M29 53 L22 37 L29 29 L45 35 Z" fill="#C8F135" opacity="0.46"/><path d="M5 29 L21 36 L29 29 L23 13 Z" fill="#C8F135" opacity="0.22"/><circle cx="29" cy="29" r="5" fill="#C8F135"/><circle cx="29" cy="29" r="2.5" fill="#1C1C1E"/></svg><span class="nav-wm">Creator<span>Lens</span></span></div><button class="nav-cta">Pro Access</button></nav>
+<div class="back-bar" onclick="go('home')"><span class="back-arr">&#8592;</span><span class="back-lbl">Back to home</span></div>
+<div class="cr-hdr">
+  <div class="cr-hdr-top"><div class="cr-av" style="background:#1C1C1E;color:#C8F135;border:1.5px solid rgba(200,241,53,0.3);">CK</div><div><div class="cr-name">Chris Koerner</div><div class="cr-desc">Finds unique, overlooked business ideas and interviews the owners running them.</div><div class="cr-tag">&#128187; Business &amp; entrepreneurship</div></div></div>
+  <div class="stat-pills"><div class="pill"><div class="pill-val">180K</div><div class="pill-lbl">Subscribers</div></div><div class="pill"><div class="pill-val">400+</div><div class="pill-lbl">Videos</div></div><div class="pill"><div class="pill-val">8</div><div class="pill-lbl">Ideas tracked</div></div></div>
+</div>
+<div class="section">
+  <div class="sec-hdr"><span class="sec-title">Business ideas</span><span class="sec-note">Tap to expand</span></div>
+
+  <div class="idea-card feat active" onclick="toggleIdea(this)"><div class="idea-top-bar"></div><div class="card-row"><span class="card-num">01</span><span class="card-title">Laundromat business</span><span class="card-badge">Passive income</span><span class="idea-arr">&#8250;</span></div><div class="card-sub">Self-service coin laundry — low staff, recurring revenue, recession-resistant</div><div class="idea-detail"><div class="detail-label">Key insights</div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Dense rental areas near apartments are the ideal location — renters can't install their own machines</div></div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Absentee ownership is realistic after 6 months — averages 1–2 hours of maintenance per week</div></div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Card-only laundromats earn 20–30% more than coin-only — add readers from day one</div></div><div class="detail-label">How to get started</div><div class="step-row"><div class="step-n">1</div><div class="step-t">Research high-renter-density areas with limited competition within 1 mile</div></div><div class="step-row"><div class="step-n">2</div><div class="step-t">Contact existing laundromat owners directly — many want to sell but aren't publicly listed</div></div><div class="step-row"><div class="step-n">3</div><div class="step-t">Finance via SBA 7(a) loan — laundromats qualify easily with a good location</div></div></div></div>
+
+  <div class="idea-card" onclick="toggleIdea(this)"><div class="card-row"><span class="card-num">02</span><span class="card-title">Vending machine routes</span><span class="card-badge">Low overhead</span><span class="idea-arr">&#8250;</span></div><div class="card-sub">Buy machines, place in offices and gyms, collect cash weekly</div><div class="idea-detail"><div class="detail-label">Key insights</div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Best locations: car dealerships, factories, hospitals — high foot traffic, captive audience</div></div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Healthy snack machines outperform junk food in offices — higher margins, easier placement</div></div><div class="detail-label">How to get started</div><div class="step-row"><div class="step-n">1</div><div class="step-t">Buy 1–2 used machines on Facebook Marketplace ($500–$1,500 each)</div></div><div class="step-row"><div class="step-n">2</div><div class="step-t">Cold-call local businesses — offer commission split or free placement to start</div></div><div class="step-row"><div class="step-n">3</div><div class="step-t">Stock from Costco or Sam's Club — 60–70% gross margin per item</div></div></div></div>
+
+  <div class="idea-card" onclick="toggleIdea(this)"><div class="card-row"><span class="card-num">03</span><span class="card-title">Mobile car detailing</span><span class="card-badge">Service biz</span><span class="idea-arr">&#8250;</span></div><div class="card-sub">You go to the customer — no shop rent, premium pricing, high repeat rate</div><div class="idea-detail"><div class="detail-label">Key insights</div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Startup cost under $1,500 — pressure washer, foam cannon, vacuum, chemicals</div></div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Corporate fleet contracts are the real money — one fleet = 10–50 cars monthly on retainer</div></div><div class="detail-label">How to get started</div><div class="step-row"><div class="step-n">1</div><div class="step-t">Practice on family and friends' cars — build a photo portfolio before charging</div></div><div class="step-row"><div class="step-n">2</div><div class="step-t">List on Yelp, Google Business, and NextDoor — local SEO drives early customers</div></div></div></div>
+
+  <div class="idea-card" onclick="toggleIdea(this)"><div class="card-row"><span class="card-num">04</span><span class="card-title">Storage unit arbitrage</span><span class="card-badge">Side hustle</span><span class="idea-arr">&#8250;</span></div><div class="card-sub">Buy abandoned units at auction, resell the contents online</div><div class="idea-detail"><div class="detail-label">Key insights</div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Units sell for $50–$300 at auction — contents can be worth $500–$5,000+</div></div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Consistency beats luck — buy 10 units a month and margins beat random big scores</div></div><div class="detail-label">How to get started</div><div class="step-row"><div class="step-n">1</div><div class="step-t">Register on StorageTreasures.com — the largest auction platform in the US</div></div><div class="step-row"><div class="step-n">2</div><div class="step-t">Attend in person first — watch without bidding to understand real unit values</div></div></div></div>
+
+  <div class="idea-card" onclick="toggleIdea(this)"><div class="card-row"><span class="card-num">05</span><span class="card-title">Pool cleaning service</span><span class="card-badge">Recurring revenue</span><span class="idea-arr">&#8250;</span></div><div class="card-sub">Weekly maintenance contracts — predictable income, very high retention</div><div class="idea-detail"><div class="detail-label">Key insights</div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">$100–$200/month per pool — 50 pools = $5k–$10k/month as a solo operator</div></div><div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Arizona, Florida, California, Texas — year-round demand makes these the best markets</div></div><div class="detail-label">How to get started</div><div class="step-row"><div class="step-n">1</div><div class="step-t">Get your state pool service license — typically a 1-day course and small fee</div></div><div class="step-row"><div class="step-n">2</div><div class="step-t">Search Facebook groups for pool routes for sale — many owners list informally</div></div></div></div>
+
+</div>
+<div class="section" style="padding-top:0;">
+  <div class="sec-hdr"><span class="sec-title">Starter guide</span></div>
+  <div class="guide-lock">
+    <div class="lock-hdr"><span class="lock-icon">&#128274;</span><span class="lock-title">Business starter guide — any idea above</span><span class="lock-price">$9</span></div>
+    <div class="lock-preview"><div class="lock-preview-text">Equipment checklist with exact links · Pricing calculator · Cold call script · Top 3 mistakes to avoid · 90-day launch timeline · How to hire your first employee...</div></div>
+    <div class="lock-items">
+      <div class="lock-item">Starter equipment list with exact models and prices</div>
+      <div class="lock-item">Pricing framework — how to charge without underselling</div>
+      <div class="lock-item">Cold outreach script for landing your first 5 customers</div>
+      <div class="lock-item">Top 3 mistakes beginners make and how to avoid them</div>
+      <div class="lock-item">90-day launch timeline — week by week action plan</div>
+      <div class="lock-item">How to scale from solo operator to first hire</div>
+    </div>
+    <button class="lock-btn">Unlock guide — $9</button>
+  </div>
+</div>
+<div class="footer"><span class="footer-logo">CreatorLens</span><div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Affiliate disclosure</span></div></div>
+</div>
+
+
+<!-- ═══ MKBHD — AFFILIATE ONLY ═══ -->
+<div id="mkbhd" class="view">
+<nav class="nav"><div class="nav-logo" onclick="go('home')"><svg width="26" height="26" viewBox="0 0 58 58" fill="none"><path d="M29 5 L36 21 L29 29 L13 23 Z" fill="#C8F135"/><path d="M53 29 L37 22 L29 29 L35 45 Z" fill="#C8F135" opacity="0.72"/><path d="M29 53 L22 37 L29 29 L45 35 Z" fill="#C8F135" opacity="0.46"/><path d="M5 29 L21 36 L29 29 L23 13 Z" fill="#C8F135" opacity="0.22"/><circle cx="29" cy="29" r="5" fill="#C8F135"/><circle cx="29" cy="29" r="2.5" fill="#1C1C1E"/></svg><span class="nav-wm">Creator<span>Lens</span></span></div><button class="nav-cta">Pro Access</button></nav>
+<div class="back-bar" onclick="go('home')"><span class="back-arr">&#8592;</span><span class="back-lbl">Back to home</span></div>
+<div class="cr-hdr">
+  <div class="cr-hdr-top"><div class="cr-av" style="background:#0a1520;color:#85B7EB;border:1.5px solid rgba(133,183,235,0.3);">MK</div><div><div class="cr-name">Marques Brownlee</div><div class="cr-desc">The gold standard in tech reviews. Phones, EVs, headphones and everything in between.</div><div class="cr-tag">&#128247; Tech reviews (MKBHD)</div></div></div>
+  <div class="stat-pills"><div class="pill"><div class="pill-val">19M</div><div class="pill-lbl">Subscribers</div></div><div class="pill"><div class="pill-val">1,500+</div><div class="pill-lbl">Videos</div></div><div class="pill"><div class="pill-val">3</div><div class="pill-lbl">Categories</div></div></div>
+</div>
+<div class="section">
+  <div class="sec-hdr"><span class="sec-title">Smartphones ranked</span></div>
+  <div class="aff-card feat"><div class="card-bar"></div>
+    <div class="card-row" style="margin-bottom:10px;"><span class="card-num">&#9776;</span><span class="card-title">Best phones of 2025</span><span class="card-badge">14 tested</span></div>
+    <div class="rank-wrap">
+      <div class="rank-row"><div class="rank-pos">1</div><div class="rank-name">iPhone 16 Pro</div><div class="rank-track"><div class="rank-fill" style="width:95%;background:var(--lime);"></div></div><div class="rank-val">95 / 100</div></div>
+      <div class="rank-row"><div class="rank-pos">2</div><div class="rank-name">Galaxy S25 Ultra</div><div class="rank-track"><div class="rank-fill" style="width:88%;background:rgba(200,241,53,0.5);"></div></div><div class="rank-val">88 / 100</div></div>
+      <div class="rank-row"><div class="rank-pos">3</div><div class="rank-name">Pixel 9 Pro</div><div class="rank-track"><div class="rank-fill" style="width:79%;background:rgba(200,241,53,0.28);"></div></div><div class="rank-val">79 / 100</div></div>
+    </div>
+  </div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128247;</div><div class="aff-info"><div class="aff-name">iPhone 16 Pro — #1 pick</div><div class="aff-meta">MKBHD's top-rated phone of 2025</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~2% commission</div></div></div></div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128247;</div><div class="aff-info"><div class="aff-name">Galaxy S25 Ultra — runner-up</div><div class="aff-meta">Best Android option per MKBHD</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~2% commission</div></div></div></div>
+</div>
+<div class="divider"></div>
+<div class="section">
+  <div class="sec-hdr"><span class="sec-title">Headphones ranked</span></div>
+  <div class="aff-card feat"><div class="card-bar"></div>
+    <div class="card-row" style="margin-bottom:10px;"><span class="card-num">&#9776;</span><span class="card-title">Best wireless headphones</span><span class="card-badge">10 tested</span></div>
+    <div class="rank-wrap">
+      <div class="rank-row"><div class="rank-pos">1</div><div class="rank-name">Sony XM6</div><div class="rank-track"><div class="rank-fill" style="width:92%;background:var(--lime);"></div></div><div class="rank-val">92 / 100</div></div>
+      <div class="rank-row"><div class="rank-pos">2</div><div class="rank-name">AirPods Max</div><div class="rank-track"><div class="rank-fill" style="width:85%;background:rgba(200,241,53,0.5);"></div></div><div class="rank-val">85 / 100</div></div>
+      <div class="rank-row"><div class="rank-pos">3</div><div class="rank-name">Bose QC45</div><div class="rank-track"><div class="rank-fill" style="width:76%;background:rgba(200,241,53,0.28);"></div></div><div class="rank-val">76 / 100</div></div>
+    </div>
+  </div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#127911;</div><div class="aff-info"><div class="aff-name">Sony WH-1000XM6</div><div class="aff-meta">Best noise cancelling per MKBHD</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~4% commission</div></div></div></div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#127911;</div><div class="aff-info"><div class="aff-name">AirPods Max</div><div class="aff-meta">Best for Apple ecosystem users</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~2% commission</div></div></div></div>
+</div>
+<div class="divider"></div>
+<div class="section">
+  <div class="sec-hdr"><span class="sec-title">Creator gear</span></div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128248;</div><div class="aff-info"><div class="aff-name">Sigma FP camera</div><div class="aff-meta">MKBHD's b-roll camera of choice</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~3% commission</div></div></div></div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128247;</div><div class="aff-info"><div class="aff-name">Peak Design phone case</div><div class="aff-meta">MKBHD-endorsed — MagSafe ecosystem</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~6% commission</div></div></div></div>
+</div>
+<div class="footer"><span class="footer-logo">CreatorLens</span><div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Affiliate disclosure</span></div></div>
+</div>
+
+
+<!-- ═══ LTT ═══ -->
+<div id="ltt" class="view">
+<nav class="nav"><div class="nav-logo" onclick="go('home')"><svg width="26" height="26" viewBox="0 0 58 58" fill="none"><path d="M29 5 L36 21 L29 29 L13 23 Z" fill="#C8F135"/><path d="M53 29 L37 22 L29 29 L35 45 Z" fill="#C8F135" opacity="0.72"/><path d="M29 53 L22 37 L29 29 L45 35 Z" fill="#C8F135" opacity="0.46"/><path d="M5 29 L21 36 L29 29 L23 13 Z" fill="#C8F135" opacity="0.22"/><circle cx="29" cy="29" r="5" fill="#C8F135"/><circle cx="29" cy="29" r="2.5" fill="#1C1C1E"/></svg><span class="nav-wm">Creator<span>Lens</span></span></div><button class="nav-cta">Pro Access</button></nav>
+<div class="back-bar" onclick="go('home')"><span class="back-arr">&#8592;</span><span class="back-lbl">Back to home</span></div>
+<div class="cr-hdr">
+  <div class="cr-hdr-top"><div class="cr-av" style="background:#0f1a2a;color:#85B7EB;border:1.5px solid rgba(133,183,235,0.3);">LTT</div><div><div class="cr-name">Linus Tech Tips</div><div class="cr-desc">The definitive PC and tech review channel. Benchmarks, builds, and buyer's guides.</div><div class="cr-tag">&#128187; PC / Tech reviews</div></div></div>
+  <div class="stat-pills"><div class="pill"><div class="pill-val">16M</div><div class="pill-lbl">Subscribers</div></div><div class="pill"><div class="pill-val">6,000+</div><div class="pill-lbl">Videos</div></div><div class="pill"><div class="pill-val">3</div><div class="pill-lbl">Categories</div></div></div>
+</div>
+<div class="section">
+  <div class="sec-hdr"><span class="sec-title">GPU rankings</span></div>
+  <div class="aff-card feat"><div class="card-bar"></div>
+    <div class="card-row" style="margin-bottom:10px;"><span class="card-num">&#9776;</span><span class="card-title">GPUs under $400 ranked</span><span class="card-badge">10 tested</span></div>
+    <div class="rank-wrap">
+      <div class="rank-row"><div class="rank-pos">1</div><div class="rank-name">RTX 4060 Ti</div><div class="rank-track"><div class="rank-fill" style="width:94%;background:var(--lime);"></div></div><div class="rank-val">94 / 100</div></div>
+      <div class="rank-row"><div class="rank-pos">2</div><div class="rank-name">RX 7600 XT</div><div class="rank-track"><div class="rank-fill" style="width:81%;background:rgba(200,241,53,0.5);"></div></div><div class="rank-val">81 / 100</div></div>
+      <div class="rank-row"><div class="rank-pos">3</div><div class="rank-name">Arc B580</div><div class="rank-track"><div class="rank-fill" style="width:74%;background:rgba(200,241,53,0.28);"></div></div><div class="rank-val">74 / 100</div></div>
+    </div>
+  </div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#127918;</div><div class="aff-info"><div class="aff-name">RTX 4060 Ti — editor's pick</div><div class="aff-meta">Best value GPU under $400</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~2.5% commission</div></div></div></div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128187;</div><div class="aff-info"><div class="aff-name">LTT screwdriver</div><div class="aff-meta">Their own precision screwdriver — hugely popular</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">Direct affiliate</div></div></div></div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128225;</div><div class="aff-info"><div class="aff-name">NAS drives (Seagate / WD)</div><div class="aff-meta">Home server picks from their NAS videos</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~3% commission</div></div></div></div>
+</div>
+<div class="section" style="padding-top:0;">
+  <div class="sec-hdr"><span class="sec-title">Starter guide</span></div>
+  <div class="guide-lock">
+    <div class="lock-hdr"><span class="lock-icon">&#128274;</span><span class="lock-title">Build your first PC — complete guide</span><span class="lock-price">$14</span></div>
+    <div class="lock-preview"><div class="lock-preview-text">Part picker checklist · Budget tier builds · Cable management tips · Benchmark guide · Upgrade path planning for 3 years...</div></div>
+    <div class="lock-items">
+      <div class="lock-item">Part picker checklist — what to buy and in what order</div>
+      <div class="lock-item">Budget builds: $500 / $800 / $1,200 tiers with exact parts</div>
+      <div class="lock-item">Cable management and airflow tips from LTT</div>
+      <div class="lock-item">How to benchmark your build after assembly</div>
+      <div class="lock-item">Upgrade path planning for the next 3 years</div>
+    </div>
+    <button class="lock-btn">Unlock guide — $14</button>
+  </div>
+</div>
+<div class="footer"><span class="footer-logo">CreatorLens</span><div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Affiliate disclosure</span></div></div>
+</div>
+
+
+<!-- ═══ GORDON RAMSAY ═══ -->
+<div id="gr" class="view">
+<nav class="nav"><div class="nav-logo" onclick="go('home')"><svg width="26" height="26" viewBox="0 0 58 58" fill="none"><path d="M29 5 L36 21 L29 29 L13 23 Z" fill="#C8F135"/><path d="M53 29 L37 22 L29 29 L35 45 Z" fill="#C8F135" opacity="0.72"/><path d="M29 53 L22 37 L29 29 L45 35 Z" fill="#C8F135" opacity="0.46"/><path d="M5 29 L21 36 L29 29 L23 13 Z" fill="#C8F135" opacity="0.22"/><circle cx="29" cy="29" r="5" fill="#C8F135"/><circle cx="29" cy="29" r="2.5" fill="#1C1C1E"/></svg><span class="nav-wm">Creator<span>Lens</span></span></div><button class="nav-cta">Pro Access</button></nav>
+<div class="back-bar" onclick="go('home')"><span class="back-arr">&#8592;</span><span class="back-lbl">Back to home</span></div>
+<div class="cr-hdr">
+  <div class="cr-hdr-top"><div class="cr-av" style="background:#2a1010;color:#F09595;border:1.5px solid rgba(240,149,149,0.3);">GR</div><div><div class="cr-name">Gordon Ramsay</div><div class="cr-desc">Michelin-starred chef turned YouTube phenomenon. Techniques, recipes, and kitchen wisdom.</div><div class="cr-tag">&#127859; Cooking / Food</div></div></div>
+  <div class="stat-pills"><div class="pill"><div class="pill-val">24M</div><div class="pill-lbl">Subscribers</div></div><div class="pill"><div class="pill-val">1,200+</div><div class="pill-lbl">Videos</div></div><div class="pill"><div class="pill-val">4</div><div class="pill-lbl">Affiliates</div></div></div>
+</div>
+<div class="section">
+  <div class="sec-hdr"><span class="sec-title">Essential kitchen gear</span></div>
+  <div class="aff-card feat"><div class="card-bar"></div><div class="aff-row"><div class="aff-icon">&#128298;</div><div class="aff-info"><div class="aff-name">Wüsthof Classic chef's knife</div><div class="aff-meta">Gordon's most-recommended knife — 8" blade</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~6% commission</div></div></div></div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#127859;</div><div class="aff-info"><div class="aff-name">HexClad hybrid pan set</div><div class="aff-meta">Gordon's personally endorsed cookware brand</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~8% commission</div></div></div></div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#129380;</div><div class="aff-info"><div class="aff-name">MasterClass subscription</div><div class="aff-meta">Gordon's cooking MasterClass — highest commission</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~25% commission</div></div></div></div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128218;</div><div class="aff-info"><div class="aff-name">Gordon Ramsay cookbooks</div><div class="aff-meta">Ultimate Cookery Course, Home Cooking, and more</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~4% commission</div></div></div></div>
+</div>
+<div class="section" style="padding-top:0;">
+  <div class="guide-lock">
+    <div class="lock-hdr"><span class="lock-icon">&#128274;</span><span class="lock-title">Essential home chef toolkit</span><span class="lock-price">$12</span></div>
+    <div class="lock-preview"><div class="lock-preview-text">The 10 tools Gordon uses every time · Budget vs premium cookware · Knife sharpening guide · Pantry staples list · Restaurant-quality techniques at home...</div></div>
+    <div class="lock-items">
+      <div class="lock-item">The 10 tools Gordon uses in every kitchen</div>
+      <div class="lock-item">Budget vs. premium cookware — when it actually matters</div>
+      <div class="lock-item">Knife sharpening and maintenance guide</div>
+      <div class="lock-item">Pantry staples every home cook should have</div>
+      <div class="lock-item">How to cook restaurant-quality food at home</div>
+    </div>
+    <button class="lock-btn">Unlock guide — $12</button>
+  </div>
+</div>
+<div class="footer"><span class="footer-logo">CreatorLens</span><div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Affiliate disclosure</span></div></div>
+</div>
+
+
+<!-- ═══ PROJECT FARM ═══ -->
+<div id="pf" class="view">
+<nav class="nav"><div class="nav-logo" onclick="go('home')"><svg width="26" height="26" viewBox="0 0 58 58" fill="none"><path d="M29 5 L36 21 L29 29 L13 23 Z" fill="#C8F135"/><path d="M53 29 L37 22 L29 29 L35 45 Z" fill="#C8F135" opacity="0.72"/><path d="M29 53 L22 37 L29 29 L45 35 Z" fill="#C8F135" opacity="0.46"/><path d="M5 29 L21 36 L29 29 L23 13 Z" fill="#C8F135" opacity="0.22"/><circle cx="29" cy="29" r="5" fill="#C8F135"/><circle cx="29" cy="29" r="2.5" fill="#1C1C1E"/></svg><span class="nav-wm">Creator<span>Lens</span></span></div><button class="nav-cta">Pro Access</button></nav>
+<div class="back-bar" onclick="go('home')"><span class="back-arr">&#8592;</span><span class="back-lbl">Back to home</span></div>
+<div class="cr-hdr">
+  <div class="cr-hdr-top"><div class="cr-av" style="background:#252527;color:#C8F135;border:1.5px solid rgba(200,241,53,0.3);">PF</div><div><div class="cr-name">Project Farm</div><div class="cr-desc">Head-to-head product tests. Real data, no brand bias, no sponsorships.</div><div class="cr-tag">&#128269; Consumer product reviews</div></div></div>
+  <div class="stat-pills"><div class="pill"><div class="pill-val">4.5M</div><div class="pill-lbl">Subscribers</div></div><div class="pill"><div class="pill-val">300+</div><div class="pill-lbl">Videos</div></div><div class="pill"><div class="pill-val">5</div><div class="pill-lbl">Reviews tracked</div></div></div>
+</div>
+<div class="section">
+  <div class="sec-hdr"><span class="sec-title">Product rankings</span></div>
+  <div class="aff-card feat"><div class="card-bar"></div>
+    <div class="card-row" style="margin-bottom:10px;"><span class="card-num">&#9776;</span><span class="card-title">Penetrating oils ranked</span><span class="card-badge">12 tested</span></div>
+    <div class="rank-wrap">
+      <div class="rank-row"><div class="rank-pos">1</div><div class="rank-name">Kroil</div><div class="rank-track"><div class="rank-fill" style="width:96%;background:var(--lime);"></div></div><div class="rank-val">96 / 100</div></div>
+      <div class="rank-row"><div class="rank-pos">2</div><div class="rank-name">PB Blaster</div><div class="rank-track"><div class="rank-fill" style="width:80%;background:rgba(200,241,53,0.5);"></div></div><div class="rank-val">80 / 100</div></div>
+      <div class="rank-row"><div class="rank-pos">3</div><div class="rank-name">WD-40</div><div class="rank-track"><div class="rank-fill" style="width:61%;background:rgba(200,241,53,0.28);"></div></div><div class="rank-val">61 / 100</div></div>
+    </div>
+  </div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128167;</div><div class="aff-info"><div class="aff-name">Kroil — #1 penetrating oil</div><div class="aff-meta">Top-ranked across multiple Project Farm tests</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~4% commission</div></div></div></div>
+  <div class="card"><div class="card-row"><span class="card-num">02</span><span class="card-title">Super glues compared</span><span class="card-badge">8 products</span><span class="card-arr">›</span></div><div class="card-sub">Gorilla, Loctite, Starbond — real break-strength data</div></div>
+  <div class="card"><div class="card-row"><span class="card-num">03</span><span class="card-title">Motor oils tested</span><span class="card-badge">10 products</span><span class="card-arr">›</span></div><div class="card-sub">Cold start, high temp, and film strength compared</div></div>
+  <div class="card"><div class="card-row"><span class="card-num">04</span><span class="card-title">Duct tape strength</span><span class="card-badge">9 products</span><span class="card-arr">›</span></div><div class="card-sub">Pull strength, heat resistance, water exposure ranked</div></div>
+</div>
+<div class="footer"><span class="footer-logo">CreatorLens</span><div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Affiliate disclosure</span></div></div>
+</div>
+
+
+<!-- ═══ TTC ═══ -->
+<div id="ttc" class="view">
+<nav class="nav"><div class="nav-logo" onclick="go('home')"><svg width="26" height="26" viewBox="0 0 58 58" fill="none"><path d="M29 5 L36 21 L29 29 L13 23 Z" fill="#C8F135"/><path d="M53 29 L37 22 L29 29 L35 45 Z" fill="#C8F135" opacity="0.72"/><path d="M29 53 L22 37 L29 29 L45 35 Z" fill="#C8F135" opacity="0.46"/><path d="M5 29 L21 36 L29 29 L23 13 Z" fill="#C8F135" opacity="0.22"/><circle cx="29" cy="29" r="5" fill="#C8F135"/><circle cx="29" cy="29" r="2.5" fill="#1C1C1E"/></svg><span class="nav-wm">Creator<span>Lens</span></span></div><button class="nav-cta">Pro Access</button></nav>
+<div class="back-bar" onclick="go('home')"><span class="back-arr">&#8592;</span><span class="back-lbl">Back to home</span></div>
+<div class="cr-hdr">
+  <div class="cr-hdr-top"><div class="cr-av" style="background:#1e2a1e;color:#C8F135;border:1.5px solid rgba(200,241,53,0.3);">TTC</div><div><div class="cr-name">Torque Test Channel</div><div class="cr-desc">Scientific, data-driven tool testing. Real numbers, not manufacturer specs.</div><div class="cr-tag">&#9881; Power tools &amp; hand tools</div></div></div>
+  <div class="stat-pills"><div class="pill"><div class="pill-val">1.2M</div><div class="pill-lbl">Subscribers</div></div><div class="pill"><div class="pill-val">500+</div><div class="pill-lbl">Videos</div></div><div class="pill"><div class="pill-val">6</div><div class="pill-lbl">Categories</div></div></div>
+</div>
+<div class="section">
+  <div class="sec-hdr"><span class="sec-title">Tool rankings</span></div>
+  <div class="tool-card"><div class="tool-row"><div class="tool-icon">&#128295;</div><div class="tool-info"><div class="tool-title">Impact drivers — 18 brands</div><div class="tool-meta">Torque, speed, fastening &amp; breakaway</div></div><div class="tool-winner"><div class="tool-win-name">Milwaukee</div><div class="tool-win-lbl">top pick</div></div></div>
+    <div class="rank-wrap">
+      <div class="rank-row"><div class="rank-pos">1</div><div class="rank-name">Milwaukee</div><div class="rank-track"><div class="rank-fill" style="width:94%;background:var(--lime);"></div></div><div class="rank-val">1,847 in-lb</div></div>
+      <div class="rank-row"><div class="rank-pos">2</div><div class="rank-name">DeWalt</div><div class="rank-track"><div class="rank-fill" style="width:80%;background:rgba(200,241,53,0.5);"></div></div><div class="rank-val">1,601 in-lb</div></div>
+      <div class="rank-row"><div class="rank-pos">3</div><div class="rank-name">Makita</div><div class="rank-track"><div class="rank-fill" style="width:72%;background:rgba(200,241,53,0.28);"></div></div><div class="rank-val">1,438 in-lb</div></div>
+    </div>
+  </div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128295;</div><div class="aff-info"><div class="aff-name">Milwaukee M18 Fuel impact driver</div><div class="aff-meta">TTC's #1 ranked impact driver</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~3% commission</div></div></div></div>
+  <div class="tool-card"><div class="tool-row"><div class="tool-icon">&#128296;</div><div class="tool-info"><div class="tool-title">Impact wrenches — 12 brands</div><div class="tool-meta">Nut-busting torque &amp; sustained output</div></div><div class="tool-winner"><div class="tool-win-name">Ingersoll Rand</div><div class="tool-win-lbl">top pick</div></div></div></div>
+  <div class="tool-card"><div class="tool-row"><div class="tool-icon">&#9874;</div><div class="tool-info"><div class="tool-title">Wrenches &amp; sockets — 22 brands</div><div class="tool-meta">Break strength, 6 vs 12 point</div></div><div class="tool-winner"><div class="tool-win-name">Gearwrench</div><div class="tool-win-lbl">top pick</div></div></div></div>
+</div>
+<div class="footer"><span class="footer-logo">CreatorLens</span><div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Affiliate disclosure</span></div></div>
+</div>
+
+
+<!-- ═══ BINGING WITH BABISH ═══ -->
+<div id="bwb" class="view">
+<nav class="nav"><div class="nav-logo" onclick="go('home')"><svg width="26" height="26" viewBox="0 0 58 58" fill="none"><path d="M29 5 L36 21 L29 29 L13 23 Z" fill="#C8F135"/><path d="M53 29 L37 22 L29 29 L35 45 Z" fill="#C8F135" opacity="0.72"/><path d="M29 53 L22 37 L29 29 L45 35 Z" fill="#C8F135" opacity="0.46"/><path d="M5 29 L21 36 L29 29 L23 13 Z" fill="#C8F135" opacity="0.22"/><circle cx="29" cy="29" r="5" fill="#C8F135"/><circle cx="29" cy="29" r="2.5" fill="#1C1C1E"/></svg><span class="nav-wm">Creator<span>Lens</span></span></div><button class="nav-cta">Pro Access</button></nav>
+<div class="back-bar" onclick="go('home')"><span class="back-arr">&#8592;</span><span class="back-lbl">Back to home</span></div>
+<div class="cr-hdr">
+  <div class="cr-hdr-top"><div class="cr-av" style="background:#2a1010;color:#F09595;border:1.5px solid rgba(240,149,149,0.3);">BwB</div><div><div class="cr-name">Binging with Babish</div><div class="cr-desc">Recreating iconic food from film and TV. Elevated techniques and premium cookware.</div><div class="cr-tag">&#127869; Cooking / Food</div></div></div>
+  <div class="stat-pills"><div class="pill"><div class="pill-val">10M</div><div class="pill-lbl">Subscribers</div></div><div class="pill"><div class="pill-val">500+</div><div class="pill-lbl">Videos</div></div><div class="pill"><div class="pill-val">4</div><div class="pill-lbl">Affiliates</div></div></div>
+</div>
+<div class="section">
+  <div class="sec-hdr"><span class="sec-title">Top cookware picks</span></div>
+  <div class="aff-card feat"><div class="card-bar"></div><div class="aff-row"><div class="aff-icon">&#127859;</div><div class="aff-info"><div class="aff-name">Matfer Bourgeat carbon steel pan</div><div class="aff-meta">Babish's most-recommended pan for searing</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~6% commission</div></div></div></div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#129380;</div><div class="aff-info"><div class="aff-name">Lodge cast iron dutch oven</div><div class="aff-meta">Used in his braising and bread episodes</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~5% commission</div></div></div></div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128298;</div><div class="aff-info"><div class="aff-name">Global G-2 chef's knife</div><div class="aff-meta">Babish's daily driver — Japanese steel, lightweight</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~5% commission</div></div></div></div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128218;</div><div class="aff-info"><div class="aff-name">Basics with Babish cookbook</div><div class="aff-meta">His official cookbook — great recurring affiliate item</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~4% commission</div></div></div></div>
+</div>
+<div class="section" style="padding-top:0;">
+  <div class="guide-lock">
+    <div class="lock-hdr"><span class="lock-icon">&#128274;</span><span class="lock-title">Recreate restaurant dishes at home</span><span class="lock-price">$9</span></div>
+    <div class="lock-preview"><div class="lock-preview-text">The 5 pans every home cook needs · Carbon steel seasoning guide · Knife skills foundations · Stock, sauce, and fat basics · How to recreate any dish from a photo...</div></div>
+    <div class="lock-items">
+      <div class="lock-item">The 5 pans every serious home cook needs</div>
+      <div class="lock-item">How to season and maintain carbon steel cookware</div>
+      <div class="lock-item">Knife skills: the foundations Babish teaches</div>
+      <div class="lock-item">Stock, sauce, and fat — the building blocks of flavor</div>
+      <div class="lock-item">How to recreate any dish from a recipe or a screenshot</div>
+    </div>
+    <button class="lock-btn">Unlock guide — $9</button>
+  </div>
+</div>
+<div class="footer"><span class="footer-logo">CreatorLens</span><div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Affiliate disclosure</span></div></div>
+</div>
+
+
+<!-- ═══ PRIMITIVE TECHNOLOGY ═══ -->
+<div id="pt" class="view">
+<nav class="nav"><div class="nav-logo" onclick="go('home')"><svg width="26" height="26" viewBox="0 0 58 58" fill="none"><path d="M29 5 L36 21 L29 29 L13 23 Z" fill="#C8F135"/><path d="M53 29 L37 22 L29 29 L35 45 Z" fill="#C8F135" opacity="0.72"/><path d="M29 53 L22 37 L29 29 L45 35 Z" fill="#C8F135" opacity="0.46"/><path d="M5 29 L21 36 L29 29 L23 13 Z" fill="#C8F135" opacity="0.22"/><circle cx="29" cy="29" r="5" fill="#C8F135"/><circle cx="29" cy="29" r="2.5" fill="#1C1C1E"/></svg><span class="nav-wm">Creator<span>Lens</span></span></div><button class="nav-cta">Pro Access</button></nav>
+<div class="back-bar" onclick="go('home')"><span class="back-arr">&#8592;</span><span class="back-lbl">Back to home</span></div>
+<div class="cr-hdr">
+  <div class="cr-hdr-top"><div class="cr-av" style="background:#1a2010;color:#97C459;border:1.5px solid rgba(151,196,89,0.3);">PT</div><div><div class="cr-name">Primitive Technology</div><div class="cr-desc">Building shelters, tools, and fire from nothing. Pure bushcraft — no narration, no gimmicks.</div><div class="cr-tag">&#129683; Survival / Bushcraft</div></div></div>
+  <div class="stat-pills"><div class="pill"><div class="pill-val">11M</div><div class="pill-lbl">Subscribers</div></div><div class="pill"><div class="pill-val">80+</div><div class="pill-lbl">Videos</div></div><div class="pill"><div class="pill-val">4</div><div class="pill-lbl">Affiliates</div></div></div>
+</div>
+<div class="section">
+  <div class="sec-hdr"><span class="sec-title">Survival gear — affiliate picks</span></div>
+  <div class="aff-card feat"><div class="card-bar"></div><div class="aff-row"><div class="aff-icon">&#129683;</div><div class="aff-info"><div class="aff-name">Gransfors Bruks small forest axe</div><div class="aff-meta">The gold standard bushcraft axe — Swedish steel</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~5% commission</div></div></div></div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128293;</div><div class="aff-info"><div class="aff-name">Light My Fire ferro rod</div><div class="aff-meta">Reliable fire-starting in all conditions</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~6% commission</div></div></div></div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#127956;</div><div class="aff-info"><div class="aff-name">DD Hammocks tarp 3x3</div><div class="aff-meta">Versatile shelter tarp used by bushcrafters worldwide</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~7% commission</div></div></div></div>
+  <div class="aff-card"><div class="aff-row"><div class="aff-icon">&#128167;</div><div class="aff-info"><div class="aff-name">Sawyer Squeeze water filter</div><div class="aff-meta">Lightweight, reliable filtration for wilderness water</div></div><div class="aff-right"><button class="aff-btn">Buy &#8594;</button><div class="aff-comm">~5% commission</div></div></div></div>
+</div>
+<div class="section" style="padding-top:0;">
+  <div class="guide-lock">
+    <div class="lock-hdr"><span class="lock-icon">&#128274;</span><span class="lock-title">Get started with bushcraft</span><span class="lock-price">$9</span></div>
+    <div class="lock-preview"><div class="lock-preview-text">7 core skills every beginner needs · Essential kit list · Reading the land · Primitive fire-starting step by step · Weekend bushcraft starter plan...</div></div>
+    <div class="lock-items">
+      <div class="lock-item">The 7 core bushcraft skills every beginner needs</div>
+      <div class="lock-item">Essential kit list — axe, knife, tarp, fire kit, filter</div>
+      <div class="lock-item">Finding and reading land for shelter and resources</div>
+      <div class="lock-item">Primitive fire-starting from scratch — step by step</div>
+      <div class="lock-item">Weekend bushcraft plan — what to do your first time out</div>
+    </div>
+    <button class="lock-btn">Unlock guide — $9</button>
+  </div>
+</div>
+<div class="footer"><span class="footer-logo">CreatorLens</span><div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Affiliate disclosure</span></div></div>
+</div>
+
+<script>
+function go(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function toggleIdea(card){
+  const was=card.classList.contains('active');
+  document.querySelectorAll('.idea-card').forEach(c=>c.classList.remove('active'));
+  if(!was) card.classList.add('active');
+}
+</script>
+</body>
+</html>
