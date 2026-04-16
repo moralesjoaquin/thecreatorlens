@@ -316,6 +316,37 @@ body{background:var(--wh);font-family:var(--font-body);color:var(--txt);min-heig
 .aff-btn{background:var(--amber);color:var(--ink);font-size:11px;font-weight:700;padding:7px 14px;border-radius:7px;border:none;cursor:pointer;white-space:nowrap;font-family:var(--font-head);}
 .rank-wrap{display:flex;flex-direction:column;gap:8px;}
 .rank-row{display:flex;align-items:center;gap:10px;}
+/* ── REDESIGNED RANKING CARDS ── */
+.rk-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+.rk-card{background:var(--ink2);border:0.5px solid var(--border-dk);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:12px;}
+.rk-card.rk-top{border-color:rgba(245,158,11,0.28);background:rgba(245,158,11,0.05);}
+.rk-medal{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:1px;}
+.rk-medal.m1{background:rgba(245,158,11,0.18);color:var(--amber);}
+.rk-medal.m2{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5);}
+.rk-medal.m3{background:rgba(180,100,20,0.15);color:rgba(205,140,60,0.7);}
+.rk-medal.mn{background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.22);font-size:11px;}
+.rk-body{flex:1;min-width:0;}
+.rk-title{font-size:13px;font-weight:700;color:var(--wh);line-height:1.3;margin-bottom:5px;}
+.rk-pills{display:flex;flex-wrap:wrap;gap:4px;}
+.rk-pill{font-size:10px;color:rgba(255,255,255,0.38);background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.08);border-radius:4px;padding:2px 7px;white-space:nowrap;}
+.rk-pill.hi{color:var(--amber-lt);background:rgba(245,158,11,0.08);border-color:rgba(245,158,11,0.16);}
+.rk-pill.warn{color:rgba(255,120,80,0.8);background:rgba(255,100,60,0.07);border-color:rgba(255,100,60,0.16);}
+.rk-winner-card{background:rgba(245,158,11,0.07);border:0.5px solid rgba(245,158,11,0.22);border-radius:10px;padding:12px 14px;margin-bottom:8px;}
+.rk-winner-lbl{font-size:10px;font-weight:700;color:var(--amber-lt);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;}
+.rk-winner-name{font-size:13px;font-weight:700;color:var(--wh);margin-bottom:5px;}
+.rk-winner-quote{font-size:11px;color:rgba(255,255,255,0.32);line-height:1.55;font-style:italic;}
+.rk-group{margin-bottom:24px;}
+.rk-group:last-child{margin-bottom:0;}
+.rk-group-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:0.5px solid rgba(255,255,255,0.06);}
+.rk-group-icon{width:28px;height:28px;border-radius:7px;background:rgba(245,158,11,0.10);border:0.5px solid rgba(245,158,11,0.18);display:flex;align-items:center;justify-content:center;font-size:13px;}
+.rk-group-label{font-size:13px;font-weight:700;color:var(--wh);}
+/* ── REDESIGNED METHODOLOGY ── */
+.method-grid{display:flex;flex-direction:column;gap:6px;}
+.method-test{background:var(--ink2);border:0.5px solid var(--border-dk);border-radius:8px;padding:10px 12px;display:flex;align-items:flex-start;gap:10px;}
+.method-test-icon{width:26px;height:26px;border-radius:6px;background:rgba(245,158,11,0.08);border:0.5px solid rgba(245,158,11,0.14);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+.method-test-body{flex:1;}
+.method-test-name{font-size:11px;font-weight:700;color:rgba(255,255,255,0.65);margin-bottom:2px;}
+.method-test-desc{font-size:11px;color:rgba(255,255,255,0.32);line-height:1.5;}
 .aff-card{background:var(--ink2);border:0.5px solid var(--border-dk);border-radius:10px;padding:14px;margin-bottom:8px;}
 .aff-card.feat{border-color:rgba(245,158,11,0.22);}
 .aff-row{display:flex;align-items:center;gap:12px;}
@@ -2094,26 +2125,101 @@ const creators = {
         ],
         verdict:"17 sets tested including the famous LTT screwdriver. The iFixit won overall for manual — great bits, best ergonomics, best storage. The LTT body design is the best but its smaller bits (T6H, PH00) underperformed badly. The $5 SETI beat several expensive manual sets on T10H bit strength. For electric, Soloware dominated — better bits than every manual set tested and the screwdriver is excellent at $35. The SK Tools at $30 was the weakest overall, failing to retain the screw at only 14.9 in-lbs.",
       },
+      {id:'torque-wrench', num:'35', icon:'🔧', title:'Torque wrench — $78 vs $790 (Snap-On vs Sewer Cup)', badge:'Snap-On #1 initial · Craftsman #1 after 1K cycles',
+        sub:'Accuracy at 50/150/250 ft-lbs (new), accuracy after 1,000 cycles, sensor speed, consistency — 11 wrenches + 1 adapter tested',
+        method:'Accuracy: $1,800 calibrated load cell tester, 5 attempts each at 50, 150, and 250 ft-lbs — average error in ft-lbs recorded. Sensor speed: short burst torque applied, tester vs wrench readout compared (large gap = slow sensor). Break-in test: each wrench cycled 1,000 times at ~150 ft-lbs, then re-tested at 50 and 250 ft-lbs to measure drift or improvement. Consistency: standard deviation of 5 attempts calculated.',
+        rankingGroups:[
+          {
+            label:'When new — accuracy at 50 ft-lbs',
+            icon:'🎯',
+            winner:'Snap-On electronic',
+            winnerNote:"Todd: 'I've definitely been proven wrong about the Sewer Cup — quite an amazing torque wrench for only $78. I would definitely consider purchasing any of these torque wrenches as budget allows.' Snap-On, Sewer Cup, and Icon never produced a single error >2% before or after 1,000 cycles.",
+            rankings:[
+              ['Snap-On electronic — most accurate','0.06 ft-lbs avg error · std dev 0.04 · made in USA · $790'],
+              ['Vaver — #2','0.24 ft-lbs avg error · $84'],
+              ['Craftsman & Koobes Beast — tied #3','0.36 ft-lbs avg error · Craftsman $141 · Koobes $90'],
+              ['Icon (Harbor Freight) — #5','0.47 ft-lbs avg error · flex head · $370'],
+              ['Sewer Cup — best budget','0.46 ft-lbs avg · never exceeded 2% error · $78'],
+              ['Suzum & GearWrench — avoid','Suzum avg 1.57 ft-lbs · GearWrench avg 1.1 ft-lbs · both failed after 1K cycles'],
+            ]
+          },
+          {
+            label:'After 1,000 cycles — who held up',
+            icon:'🔄',
+            winner:'Craftsman',
+            winnerNote:"Five wrenches actually improved after 1,000 cycles — Craftsman, Koobes Beast, and DeWalt benefited from a break-in period. The Suzum drifted to 3+ ft-lb errors (was 1.57). GearWrench became nearly unusable at 2.4–4.1 ft-lb errors.",
+            rankings:[
+              ['Craftsman — best after break-in','0.11 ft-lbs avg · improved most · $141'],
+              ['Koobes Beast — #2 after break-in','0.16 ft-lbs avg · biggest improvement of any wrench · $90'],
+              ['Snap-On — stayed consistent','0.17 ft-lbs avg · no drift at all · $790'],
+              ['SK Tools — #4 post-cycle','0.25 ft-lbs avg · held up well · $225'],
+              ['Suzum — failed after cycling','Avg 3+ ft-lbs error · totally out of calibration · $80'],
+              ['GearWrench — failed after cycling','2.4–4.1 ft-lb errors · nearly unusable · $140'],
+            ]
+          }
+        ],
+        aff:[
+          {icon:'🔧', name:'Sewer Cup digital torque wrench 3/8" drive', meta:'Best budget · never >2% error · fast sensor · $78', comm:'Amazon affiliate link', url:'https://www.amazon.com/s?k=Sewer+Cup+digital+torque+wrench&tag=thecreatorlen-20'},
+          {icon:'🔧', name:'Koobes Beast digital torque wrench 3/8"', meta:'Tied #3 new · #2 after 1K cycles · improved with use · $90', comm:'Amazon affiliate link', url:'https://www.amazon.com/s?k=Koobes+Beast+digital+torque+wrench&tag=thecreatorlen-20'},
+          {icon:'🔧', name:'Craftsman digital torque wrench 3/8" drive', meta:'#1 after 1K cycles · 0.11 ft-lb avg · $141', comm:'Amazon affiliate link', url:'https://www.amazon.com/s?k=Craftsman+digital+torque+wrench&tag=thecreatorlen-20'},
+          {icon:'🔧', name:'DeWalt digital torque wrench 3/8" drive', meta:'Fast sensor · consistent · improved after break-in · $227', comm:'Amazon affiliate link', url:'https://www.amazon.com/s?k=DeWalt+digital+torque+wrench&tag=thecreatorlen-20'},
+        ],
+        verdict:"Todd paid $790 for the Snap-On and it's genuinely the most accurate wrench out of the box — but the $78 Sewer Cup and $90 Koobes Beast both never produced a single error over 2% in the entire test. GearWrench and Suzum both degraded badly after 1,000 cycles — avoid. The AC Delco torque adapter ($64) was also out of calibration post-cycling. Sewer Cup is the budget shock — Todd admitted he was proven wrong about it.",
+      },
       {id:'usb-charger', num:'10', icon:'🔌', title:'USB-C wall charger test 2025', badge:'Anker wins every category',
         sub:'Standby power, watt-hours after 30 min, temperature, efficiency, and wall retention — 17 brands tested',
-        method:'Chargers tested for standby power draw, max watt-hours delivered to a power bank after 30 minutes, surface temperature (°F), charger efficiency (%), and pull-out force from wall outlet (oz). Results divided into three wattage categories: under 65W, 65–99W, and 100W+.',
-        rankings:[
-          ['Anker 20W — under 65W winner','Avg finish: 1.4 · $14'],
-          ['Anker Nano 47W — under 65W #2','99.2% of rated output · $25'],
-          ['UGREEN 65W — 65–99W winner','Avg finish: 2.4 · $35'],
-          ['Anker Prime 67W — 65–99W #2','Best efficiency 92.6% · $60'],
-          ['TOPADRE 140W — 100W+ winner','Avg finish: 2.5 · $28 corded'],
-          ['Anker 150W — 100W+ #2','Best compact 100W+ option · $60'],
+        method:'Standby draw: energy meter at idle, zero watts = best. Output power: watt-hours delivered to a power bank in 30 minutes. Temperature: surface temp (°F) after sustained charging — cooler is better for longevity. Efficiency: energy delivered to bank vs energy drawn from wall (%). Wall retention: pull-off force measured in ounces — low means it falls out. Max output: multiple devices connected simultaneously, wattage and temp recorded.',
+        rankingGroups:[
+          {
+            label:'Under 65W',
+            icon:'🔌',
+            winner:'Anker 20W',
+            winnerNote:"Todd: 'If you're looking for a 20W charger, the Anker 20W would definitely be my choice at only $14 — it performed well in every category.' The Anker Nano is the pick if you need more headroom at 47W.",
+            rankings:[
+              ['Anker 20W 2-port — winner','Avg finish 1.4 · 91.7% efficiency · 121.8°F (coolest) · zero standby · $14'],
+              ['Anker Nano 47W — #2','99.2% of rated output · 149°F · compact foldable · $25'],
+              ['Samsung 50W — #3','51.28W actual output · 150°F · 0.63W standby (high) · $38'],
+              ['Alonus 40W — #4','8.91 Wh in 30 min · 151°F · ran hot under multi-device load · $9'],
+              ['Feel Too Nice 20W — avoid','Only delivered 9W despite 20W rating · 171°F (very hot) · $10'],
+            ]
+          },
+          {
+            label:'65W – 99W',
+            icon:'⚡',
+            winner:'UGREEN 65W',
+            winnerNote:"Todd: 'For the 65–99W category, the UGREEN at $35 would definitely be my choice — it performed well in every category and is a great value.' Anker Prime is the runner-up if you want the most compact option.",
+            rankings:[
+              ['UGREEN 65W 4-port — winner','Avg finish 2.4 · 92% efficiency · 144°F (coolest) · zero standby · $35'],
+              ['Anker Prime 67W — #2','Best efficiency 92.6% · 139.9°F (coolest in category) · compact · $60'],
+              ['Belkin 67W — #3','71W peak · 174°F (hot) · 96.3% output rating · $30'],
+              ['Anker 65W 3-port — #4','66.9W at 30 min · 151°F · very popular (10K/mo sales) · $26'],
+              ['TechNet 65W — #5','67.6W output · 167.8°F · 0.2W standby · $26'],
+              ['Elecshion 65W — avoid','Only 62W actual · 167°F · fell out of outlet (near-zero retention) · $30'],
+            ]
+          },
+          {
+            label:'100W+',
+            icon:'🚀',
+            winner:'TOPADRE 140W',
+            winnerNote:"Todd: 'For the 100W+ category, the TOPADRE is going to be very hard to beat at only $28 — it is a corded charger and it is pretty large, but the performance is outstanding.' Anker 150W is the pick if you need something compact.",
+            rankings:[
+              ['TOPADRE 140W — winner','Avg finish 2.5 · 93.1% efficiency · 104.3W actual · 157.8°F · corded · $28'],
+              ['Anker 150W compact — #2','85.7% efficiency · 149.8°F · 36oz wall retention (best) · compact · $60'],
+              ['MINIX 165W — #3','148.5W actual (best output) · 93.3% efficient · but 175°F running hot · $60'],
+              ['Anker 200W desktop — #4','161.6W peak · 108.5°F (coolest of all chargers tested) · 6 ports · $70'],
+              ['UGreen 160W — avoid','Only 123.5W actual · 194°F (hottest of all — danger) · $120'],
+              ['Bovikus 100W — avoid','Claimed 100W · only delivered 51W max · 180°F at half rated output · $20'],
+            ]
+          }
         ],
-        winner:'Anker 20W (under 65W) · UGREEN 65W (65–99W) · TOPADRE 140W (100W+)',
-        winnerNote:"Todd: 'If you're looking for a 20W charger, the Anker 20W would definitely be my choice at only $14. For 65W, the UGREEN at $35. For 100W+, the TOPADRE is going to be very hard to beat at only $28.'",
         aff:[
           {icon:'🔌', name:'Anker 20W 2-port USB-C charger', meta:'Under 65W winner · avg finish 1.4 · made in Vietnam · $14', comm:'Amazon affiliate link', url:'https://www.amazon.com/dp/B08LH2Q96K?tag=thecreatorlen-20'},
           {icon:'🔌', name:'Anker Nano 47W USB-C charger', meta:'Under 65W #2 · 99.2% rated output · compact · $25', comm:'Amazon affiliate link', url:'https://www.amazon.com/dp/B09C4KKVZS?tag=thecreatorlen-20'},
           {icon:'🔌', name:'UGREEN 65W 4-port USB-C charger', meta:'65–99W winner · coolest at 144°F · zero standby · $35', comm:'Amazon affiliate link', url:'https://www.amazon.com/dp/B09N5JPN3T?tag=thecreatorlen-20'},
-          {icon:'🔌', name:'Anker 150W compact USB-C charger', meta:'100W+ compact pick · best wall retention at 36oz · $60', comm:'Amazon affiliate link', url:'https://www.amazon.com/dp/B0B2TP8QTB?tag=thecreatorlen-20'},
+          {icon:'🔌', name:'TOPADRE 140W USB-C charging hub', meta:'100W+ winner · 104W actual · 93.1% efficient · $28', comm:'Amazon affiliate link', url:'https://www.amazon.com/s?k=TOPADRE+140W+USB+C+charging+hub&tag=thecreatorlen-20'},
+          {icon:'🔌', name:'Anker 150W compact USB-C charger', meta:'100W+ compact pick · best wall retention 36oz · $60', comm:'Amazon affiliate link', url:'https://www.amazon.com/dp/B0B2TP8QTB?tag=thecreatorlen-20'},
         ],
-        verdict:"Todd tested 17 brands across three wattage categories. Anker won the under-65W and 65–99W temperature categories. UGREEN won the 65–99W overall. TOPADRE won the 100W+ category at just $28. The MINIX 165W ran hot enough to boil water at 224°F. The Elecshion practically fell out of the wall outlet. For most people, the Anker 20W at $14 or the UGREEN 65W at $35 are the clear choices.",
+        verdict:"Todd tested 17 brands across three wattage tiers. The MINIX 165W reached 224°F — hot enough to boil water. The UGreen 160W at $120 ran at 194°F despite being the most expensive. The Elecshion practically fell out of the wall with near-zero retention. The Bovikus claimed 100W but maxed at 51W. For most people: Anker 20W ($14) or UGREEN 65W ($35) are the clear everyday picks. The TOPADRE 140W ($28) is the budget surprise of the 100W+ category.",
       },
       {id:'air-fryer', num:'30', icon:'🍟', title:'Air fryer — $53 vs $400', badge:'#1 Casori at $120',
         sub:'Heat-up speed, French fries, cookies, bacon, chicken — 10 air fryers tested',
@@ -2198,6 +2304,27 @@ const creators = {
           {icon:'💨', name:'Levoit LV-PUR131S air purifier (mid-size)', meta:'Best medium pick · 155 CFM · cleared smoke in 32 sec · $100', comm:'Amazon affiliate link', url:'https://www.amazon.com/dp/B07DJ4LB6R?tag=thecreatorlen-20'},
         ],
         verdict:"Winix won overall — best smoke and dust removal for the price. The Coway moved the most air (293 CFM) and tied Dyson for 2nd place overall, but the $1,200 Dyson's only real advantage was noise (48.7 dB). The $32 Fulman Air was the worst performer — it actually made air quality worse. Todd's clear hierarchy: Winix for large rooms, Lavoy 300 for medium, Lavoy Mini for small.",
+      },
+      {id:'space-heater', num:'11', icon:'🔥', title:'Space heater — $23 vs $440 (11 brands tested)', badge:'#1 Dreo Tower · Lasco best value',
+        sub:'Heat output (watts), spot heating, safety shutoff temp, tipover protection, noise — 11 heaters tested',
+        method:'Noise: sound meter at 24" on low and high heat, and thermostat click. Spot heating: 3 thermometers placed 20" apart, heater aimed at center for 5 minutes, total °F increase measured. Tipover safety: tipped onto plastic bag, time to shutoff and plastic damage assessed. Overheat safety: heater covered with pillowcase, time to shutoff and peak fabric temp measured. Power draw: watts at low heat, peak watts on high, sustained watts after 30 sec warmup.',
+        rankings:[
+          ['Dreo Tower — overall #1','Avg finish 1.9 · safest shutoff 190°F · most heat 1,536W · quiet 37.7 dB · $90'],
+          ['Dyson HP09 — overall #2','Avg finish 3.7 · no thermostat click · 1,518W · but 5 min to shutoff covered · $440'],
+          ['Lasco — Todd\'s value pick','Fastest shutoff 24 sec at 291°F · quiet 52.6 dB · good all-round · $47'],
+          ['Real Smart 1500W — #4','Best spot heating 20.9°F total · shutoff at 212°F · 1,516W · $100'],
+          ['Dreo small — #5','Quietest fan heater 37.8 dB low · 43.7 dB high · alarm on tipover · $45'],
+          ['A Coper — dangerous','Smoke appeared · fabric hit 437°F before shutoff (2 min 12 sec) · $26'],
+        ],
+        winner:'Dreo Tower $90 (overall) · Lasco $47 (value)',
+        winnerNote:"Todd: '$90 is sort of expensive, but the Dreo Tower would definitely be my choice if it fits within the budget — it performed extremely well with both safety tests. If you're looking for a space heater that delivers on safety, has pretty good performance, and a decent price, I really like the Lasco for under $50.' Warning: A Coper produced smoke and took 2 min 12 sec to shut off. Mr. Heater propane ignited fabric and melted plastic on tipover.",
+        aff:[
+          {icon:'🔥', name:'Dreo Space Heater Tower 1500W', meta:'Overall #1 · avg finish 1.9 · safest shutoff 190°F · quiet · $90', comm:'Amazon affiliate link', url:'https://www.amazon.com/s?k=Dreo+space+heater+tower+1500W&tag=thecreatorlen-20'},
+          {icon:'🔥', name:'Lasko Ceramic Tower Space Heater', meta:"Todd's value pick · fastest safety shutoff · quiet · $47", comm:'Amazon affiliate link', url:'https://www.amazon.com/s?k=Lasko+ceramic+tower+space+heater&tag=thecreatorlen-20'},
+          {icon:'🔥', name:'Real Smart Electric Fireplace Space Heater', meta:'Best spot heating · shutoff at 212°F · 1,516W · $100', comm:'Amazon affiliate link', url:'https://www.amazon.com/s?k=Real+Smart+electric+fireplace+space+heater&tag=thecreatorlen-20'},
+          {icon:'🔥', name:'Dreo Space Heater compact 1500W', meta:'Quietest fan heater 37.8 dB · alarm + auto-shutoff · $45', comm:'Amazon affiliate link', url:'https://www.amazon.com/s?k=Dreo+space+heater+compact+1500W&tag=thecreatorlen-20'},
+        ],
+        verdict:"11 heaters tested. Safety was the headline: A Coper produced visible smoke and fabric hit 437°F — the most dangerous in the test. Mr. Heater propane actually caught the fabric on fire and melted plastic on tipover. The Dreo Tower had the best combination of safety (190°F shutoff, alarm, fan cooldown after tipover) and performance. The $440 Dyson took 5 full minutes to shut off when covered — a serious concern. Amazon Basics ($24) spiked to 2,100W on startup — enough to trip a breaker.",
       },
       {id:'backpack', num:'32', icon:'🎒', title:'Backpack — $18 vs $350 (LTT vs Nomatic)', badge:'#1 Nomatic · LTT #2',
         sub:'Laptop drop protection, durability (25lb shock loads), back padding, comfort, water resistance — 12 backpacks tested',
@@ -2590,29 +2717,85 @@ function openDetail(creatorKey, itemId){
   const item=items.find(i=>i.id===itemId);
   if(!item) return;
 
-  // Build rankings section if exists
-  const rankingSection=item.rankings?`
+  // Build rankings section — handles both flat rankings[] and grouped rankingGroups[]
+  const MEDALS=['m1','m2','m3'];
+  const MEDAL_ICONS=['1','2','3'];
+
+  function buildRankList(rankings){
+    return `<div class="rk-list">
+      ${rankings.map(([name,val],i)=>{
+        const medalCls=i<3?MEDALS[i]:'mn';
+        const medalTxt=i<3?MEDAL_ICONS[i]:`${i+1}`;
+        const isTop=i===0;
+        const parts=val.split('·').map(p=>p.trim()).filter(Boolean);
+        const pills=parts.map(p=>{
+          const isWarn=/avoid|burn|overcharg|dangerous|worst|failed|weak|slow/i.test(p);
+          const isHi=/winner|#1|best|fastest|top|todd/i.test(p);
+          const cls=isWarn?'warn':isHi?'hi':'';
+          return `<span class="rk-pill ${cls}">${p}</span>`;
+        }).join('');
+        return `<div class="rk-card ${isTop?'rk-top':''}">
+          <div class="rk-medal ${medalCls}">${medalTxt}</div>
+          <div class="rk-body">
+            <div class="rk-title">${name}</div>
+            <div class="rk-pills">${pills}</div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
+  }
+
+  const rankingSection=item.rankingGroups?`
+    <div class="sec">
+      <div class="d-label">Rankings by wattage category</div>
+      ${item.rankingGroups.map(group=>`
+        <div class="rk-group">
+          <div class="rk-group-hdr">
+            <span class="rk-group-icon">${group.icon}</span>
+            <span class="rk-group-label">${group.label}</span>
+          </div>
+          <div class="rk-winner-card" style="margin-bottom:8px;">
+            <div class="rk-winner-lbl">🏆 Category winner</div>
+            <div class="rk-winner-name">${group.winner}</div>
+            <div class="rk-winner-quote">${group.winnerNote}</div>
+          </div>
+          ${buildRankList(group.rankings)}
+        </div>`).join('')}
+    </div>`:item.rankings?`
     <div class="sec">
       <div class="d-label">Rankings</div>
-      <div class="rev-card">
-        <div class="rank-wrap">
-          ${item.rankings.map(([name,val],i)=>`
-            <div class="rank-row">
-              <div class="rank-pos">${i+1}</div>
-              <div class="rank-name">${name}</div>
-              <div class="rank-track"><div class="rank-fill" style="width:${Math.max(30,100-(i*15))}%;background:${i===0?'var(--amber)':i===1?'rgba(245,158,11,0.55)':i===2?'rgba(245,158,11,0.30)':'rgba(245,158,11,0.15)'};"></div></div>
-              <div class="rank-score">${val}</div>
-            </div>`).join('')}
-        </div>
-      </div>
-      ${item.winner?`<div style="font-size:12px;color:rgba(255,255,255,0.4);padding:8px 4px;line-height:1.55;">🏆 <strong style="color:var(--amber-lt);">${item.winner}</strong> — ${item.winnerNote}</div>`:''}
+      ${item.winner?`
+      <div class="rk-winner-card">
+        <div class="rk-winner-lbl">🏆 Todd's pick</div>
+        <div class="rk-winner-name">${item.winner}</div>
+        <div class="rk-winner-quote">${item.winnerNote}</div>
+      </div>`:''}
+      ${buildRankList(item.rankings)}
     </div>`:'';
 
-  // Build method section if exists
+  // Build methodology section — parse into individual test bullets
+  const METHOD_ICONS=['⚖️','⏱️','🌡️','🔊','📏','💧','🔩','⚡','🧊','🧲','💥','🔬','📊','🏋️'];
   const methodSection=item.method?`
     <div class="sec" style="padding-top:0;">
-      <div class="d-label">Testing methodology</div>
-      <div class="insight-card"><div class="ins-row"><div class="ins-icon">🧪</div><div class="ins-text">${item.method}</div></div></div>
+      <div class="d-label">How it was tested</div>
+      <div class="method-grid">
+        ${item.method.split(/\.\s+|\n/).filter(s=>s.trim().length>8).map((test,i)=>{
+          const trimmed=test.trim().replace(/\.$/,'');
+          // Extract test name: everything before the first colon or first dash
+          const colonIdx=trimmed.indexOf(':');
+          const hasColon=colonIdx>0&&colonIdx<40;
+          const testName=hasColon?trimmed.slice(0,colonIdx):trimmed.slice(0,Math.min(35,trimmed.length));
+          const testDesc=hasColon?trimmed.slice(colonIdx+1).trim():trimmed;
+          const icon=METHOD_ICONS[i%METHOD_ICONS.length];
+          return `<div class="method-test">
+            <div class="method-test-icon">${icon}</div>
+            <div class="method-test-body">
+              <div class="method-test-name">${testName}</div>
+              ${hasColon&&testDesc?`<div class="method-test-desc">${testDesc}</div>`:''}
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
     </div>`:'';
 
   // Build steps/technique section
@@ -2683,9 +2866,9 @@ function openDetail(creatorKey, itemId){
     <div class="badge-row"><span class="badge">${item.badge}</span></div>
   </div>
   ${descSection}
-  ${verdictSection}
-  ${methodSection}
   ${rankingSection}
+  ${methodSection}
+  ${verdictSection}
   ${stepsSection}
   ${affSection}
   ${guideSection}
